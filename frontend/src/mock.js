@@ -1,7 +1,7 @@
 // Mock data for All4Vets nonprofit website
 
 export const siteConfig = {
-  siteName: "All4Vets",
+  siteName: "All Veterans",
   tagline: "Supporting Veterans with Independence and Dignity",
   nonprofit: "501(c)(3) Nonprofit Organization",
   contact: {
