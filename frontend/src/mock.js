@@ -5,7 +5,7 @@ export const siteConfig = {
   tagline: "Supporting Veterans with Independence and Dignity",
   nonprofit: "501(c)(3) Nonprofit Organization",
   contact: {
-    email: "info@all4vets.org",
+    email: "info@allveterans.org",
     phone: "(555) 123-4567"
   },
   social: [
