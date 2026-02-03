@@ -3,6 +3,7 @@ import { Facebook, Twitter, Linkedin, Instagram, Lock } from 'lucide-react';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { siteConfig, footerLinks } from '../mock';
+import logo from "./logo.png"
 
 const Footer = () => {
   const [email, setEmail] = useState('');
@@ -29,11 +30,11 @@ const Footer = () => {
           {/* Brand Column */}
           <div className="lg:col-span-1">
             <div className="mb-4">
-              <img 
-                src="/logo.png" 
+              {/* <img 
+                src={logo}
                 alt="All4Vets Logo" 
                 className="h-16 w-auto brightness-0 invert"
-              />
+              /> */}
             </div>
             <p className="text-sm text-gray-300 mb-4">
               We empower veterans with resources, one‑on‑one support, and a trusted network to navigate benefits and life transitions.

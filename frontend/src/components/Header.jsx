@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Menu, X } from 'lucide-react';
 import { Button } from './ui/button';
 import { navLinks, siteConfig } from '../mock';
+import logo from './logo.png'
 
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -28,7 +29,7 @@ const Header = () => {
             {/* Logo */}
             <div className="flex items-center space-x-3">
               <img 
-                src="/logo.png" 
+                src={logo} 
                 alt="All4Vets Logo" 
                 className="h-12 w-auto"
               />

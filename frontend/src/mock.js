@@ -101,12 +101,12 @@ export const quickLinks = [
 ];
 
 export const navLinks = [
-  { title: "Home", url: "/" },
-  { title: "About Us", url: "/about" },
-  { title: "Services", url: "/services" },
-  { title: "Blog", url: "/blog" },
-  { title: "Reviews", url: "/reviews" },
-  { title: "FAQ", url: "/faq" }
+  { title: "Home", url: "/All4Vets" },
+  // { title: "About Us", url: "/about" },
+  // { title: "Services", url: "/services" },
+  { title: "Blog", url: "/All4Vets/blog" },
+  { title: "Reviews", url: "/All4Vets/reviews" },
+  // { title: "FAQ", url: "/faq" }
 ];
 
 export const footerLinks = {
