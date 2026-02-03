@@ -1,70 +1,110 @@
-# Getting Started with Create React App
+# All4Vets - Empowering Veterans Through Medical Advocacy
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A professional nonprofit website dedicated to helping veterans navigate benefits, healthcare, and life transitions.
 
-## Available Scripts
+## 🌟 Live Site
 
-In the project directory, you can run:
+Visit: [https://julsbasco.github.io/All4Vets/](https://julsbasco.github.io/All4Vets/)
 
-### `npm start`
+## 📋 Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **Responsive Design** - Works perfectly on desktop, tablet, and mobile
+- **Blog Section** - Resources and insights for veterans
+- **Reviews Page** - Success stories and testimonials
+- **Donation Module** - Ready for Stripe integration
+- **Mission & Impact** - Clear communication of organizational goals
+- **3-Step Process** - Simple guide for veterans seeking help
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 🎨 Design
 
-### `npm test`
+- **Colors**: Patriotic theme with Red, White, Blue, and Gold accents
+- **Accessibility**: WCAG AA compliant
+- **Modern UI**: Built with React and Shadcn UI components
+- **Professional**: Agency-quality design
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 🚀 Technology Stack
 
-### `npm run build`
+- **Frontend**: React 19
+- **Styling**: Tailwind CSS
+- **UI Components**: Shadcn UI, Radix UI
+- **Icons**: Lucide React
+- **Routing**: React Router v7
+- **Deployment**: GitHub Pages
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 💻 Local Development
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```bash
+# Install dependencies
+cd frontend
+yarn install
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+# Start development server
+yarn start
 
-### `npm run eject`
+# Build for production
+yarn build
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## 🌐 Deployment
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Deploy to GitHub Pages:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+```bash
+yarn deploy
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+See [GITHUB_PAGES_DEPLOYMENT.md](../GITHUB_PAGES_DEPLOYMENT.md) for detailed instructions.
 
-## Learn More
+## 📦 Project Structure
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```
+frontend/
+├── public/
+│   ├── logo.png          # All4Vets logo
+│   ├── index.html        # HTML template
+│   └── .nojekyll         # GitHub Pages config
+├── src/
+│   ├── components/       # Reusable components
+│   │   ├── ui/          # Shadcn UI components
+│   │   ├── Header.jsx   # Navigation header
+│   │   └── Footer.jsx   # Site footer
+│   ├── pages/           # Page components
+│   │   ├── Home.jsx     # Landing page
+│   │   ├── Blog.jsx     # Blog listing
+│   │   └── Reviews.jsx  # Testimonials
+│   ├── mock.js          # Mock data
+│   ├── App.js           # Main app component
+│   └── index.css        # Global styles
+└── package.json         # Dependencies
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## 🔧 Configuration
 
-### Code Splitting
+- **Homepage**: Set in `package.json`
+- **Routing**: Configured in `App.js` with basename `/All4Vets`
+- **Build**: Uses Craco for custom React config
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## 📝 Future Enhancements
 
-### Analyzing the Bundle Size
+- [ ] Stripe payment integration for real donations
+- [ ] SendGrid for thank-you emails
+- [ ] Database for blog and reviews management
+- [ ] Admin panel for content management
+- [ ] Contact form with email integration
+- [ ] Newsletter subscription backend
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## 🤝 Contributing
 
-### Making a Progressive Web App
+This is a nonprofit website. Contributions are welcome!
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## 📄 License
 
-### Advanced Configuration
+© 2026 All4Vets. All rights reserved.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## 🙏 Support
 
-### Deployment
+All4Vets is a 501(c)(3) nonprofit organization dedicated to empowering veterans through medical advocacy.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+---
 
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+**Note**: Current version uses mock data for demonstration. Backend integration pending.
