@@ -1,11 +1,11 @@
 // Mock data for All4Vets nonprofit website
 
 export const siteConfig = {
-  siteName: "All Veterans",
-  tagline: "Supporting Veterans with Independence and Dignity",
+  siteName: "All4Vets",
+  tagline: "Empowering Veterans Through Medical Advocacy",
   nonprofit: "501(c)(3) Nonprofit Organization",
   contact: {
-    email: "info@allveterans.org",
+    email: "info@all4vets.org",
     phone: "(555) 123-4567"
   },
   social: [
