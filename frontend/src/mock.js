@@ -105,6 +105,7 @@ export const navLinks = [
   { title: "About Us", url: "/about" },
   { title: "Services", url: "/services" },
   { title: "Blog", url: "/blog" },
+  { title: "Reviews", url: "/reviews" },
   { title: "FAQ", url: "/faq" }
 ];
 
