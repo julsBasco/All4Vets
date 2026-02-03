@@ -18,7 +18,7 @@ export const siteConfig = {
 
 export const hero = {
   headline: "Because No Veteran Should Fight Alone",
-  subtext: "We provide independent guidance, direct aid, and expert connections—so every veteran can access the support they deserve.",
+  subtext: "We provide independent guidance, direct aid, and expert connections—empowering veterans through medical advocacy.",
   primaryCTA: "Donate Now",
   secondaryCTA: "Apply for Aid"
 };
