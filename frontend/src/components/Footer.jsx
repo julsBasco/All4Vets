@@ -28,14 +28,12 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
           {/* Brand Column */}
           <div className="lg:col-span-1">
-            <div className="flex items-center space-x-3 mb-4">
-              <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center">
-                <div className="w-6 h-6 border-2 border-[#E64A38] rounded-sm"></div>
-              </div>
-              <div>
-                <h2 className="text-lg font-bold">{siteConfig.siteName}</h2>
-                <p className="text-xs text-gray-300">{siteConfig.nonprofit}</p>
-              </div>
+            <div className="mb-4">
+              <img 
+                src="/logo.png" 
+                alt="All4Vets Logo" 
+                className="h-16 w-auto brightness-0 invert"
+              />
             </div>
             <p className="text-sm text-gray-300 mb-4">
               We empower veterans with resources, one‑on‑one support, and a trusted network to navigate benefits and life transitions.
