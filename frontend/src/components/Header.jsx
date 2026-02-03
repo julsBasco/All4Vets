@@ -27,13 +27,11 @@ const Header = () => {
           <div className="flex justify-between items-center h-16">
             {/* Logo */}
             <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-[#0B1D39] rounded-full flex items-center justify-center">
-                <div className="w-6 h-6 border-2 border-[#E64A38] rounded-sm"></div>
-              </div>
-              <div>
-                <h1 className="text-xl font-bold text-[#0B1D39] tracking-tight">{siteConfig.siteName}</h1>
-                <p className="text-[10px] text-[#3C4A5B] leading-none">{siteConfig.nonprofit}</p>
-              </div>
+              <img 
+                src="/logo.png" 
+                alt="All4Vets Logo" 
+                className="h-12 w-auto"
+              />
             </div>
 
             {/* Desktop Navigation */}
