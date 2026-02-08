@@ -62,9 +62,11 @@ const Home = () => {
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28 flex flex-col items-center">
           <div className="max-w-3xl text-center">
             {/* Trust Badge */}
-            <div className="inline-flex items-center bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full mb-6 border border-[#BF9B30]">
-              <CheckCircle size={16} className="mr-2 text-[#BF9B30]" />
-              <span className="text-sm font-medium">501(c)(3) Nonprofit Organization</span>
+            <div className="flex justify-start mb-6">
+              <div className="inline-flex items-center bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full border border-[#BF9B30]">
+                <CheckCircle size={16} className="mr-2 text-[#BF9B30]" />
+                <span className="text-sm font-medium">501(c)(3) Nonprofit Organization</span>
+              </div>
             </div>
 
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tight mb-6 leading-tight">
