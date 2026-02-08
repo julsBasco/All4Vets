@@ -164,7 +164,7 @@ const Home = () => {
             <Card className="shadow-lg">
               <CardContent className="p-8">
                 <h3 className="text-2xl font-bold text-[#0B1D39] mb-6 uppercase tracking-tight">
-                  Support Our Cause
+                  Testimonials
                 </h3>
                 <p className="text-[#3C4A5B] mb-8 leading-relaxed">
                   Be part of the change. Your voice—and your gift—matters. Every contribution helps us provide life-changing support to veterans in need.
