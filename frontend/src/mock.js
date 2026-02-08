@@ -5,8 +5,8 @@ export const siteConfig = {
   tagline: "Empowering Veterans Through Medical Advocacy",
   nonprofit: "501(c)(3) Nonprofit Organization",
   contact: {
-    email: "info@all4vets.org",
-    phone: "(555) 123-4567"
+    email: "joe@all4vets.us",
+    phone: "(386) 837-8131"
   },
   social: [
     { name: "Facebook", url: "https://facebook.com" },
@@ -101,11 +101,11 @@ export const quickLinks = [
 ];
 
 export const navLinks = [
-  { title: "Home", url: "/All4Vets" },
+  { title: "Home", url: "/" },
   // { title: "About Us", url: "/about" },
   // { title: "Services", url: "/services" },
-  { title: "Blog", url: "/All4Vets/blog" },
-  { title: "Reviews", url: "/All4Vets/reviews" },
+  { title: "Blog", url: "/blog" },
+  { title: "Reviews", url: "/reviews" },
   // { title: "FAQ", url: "/faq" }
 ];
 
