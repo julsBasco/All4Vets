@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Menu, X } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { Button } from './ui/button';
 import { navLinks, siteConfig } from '../mock';
 import logo from './logo.png'
@@ -38,14 +39,14 @@ const Header = () => {
             {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center space-x-8">
               {navLinks.map((link) => (
-                <a
+                <Link
                   key={link.title}
-                  href={link.url}
+                  to={link.url}
                   className="text-sm font-medium text-[#3C4A5B] hover:text-[#0B1D39] transition-colors relative pb-1 group"
                 >
                   {link.title}
                   <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#E64A38] group-hover:w-full transition-all duration-300"></span>
-                </a>
+                </Link>
               ))}
             </nav>
 
@@ -74,13 +75,13 @@ const Header = () => {
           <div className="md:hidden bg-white border-t border-gray-200">
             <nav className="px-4 py-4 space-y-3">
               {navLinks.map((link) => (
-                <a
+                <Link
                   key={link.title}
-                  href={link.url}
+                  to={link.url}
                   className="block text-sm font-medium text-[#3C4A5B] hover:text-[#0B1D39] py-2"
                 >
                   {link.title}
-                </a>
+                </Link>
               ))}
               <Button
                 className="w-full bg-[#E64A38] hover:bg-[#d43e2e] text-white font-semibold py-2 rounded-full mt-4"

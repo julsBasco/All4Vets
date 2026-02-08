@@ -59,8 +59,8 @@ const Home = () => {
           }}></div>
         </div>
         
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28">
-          <div className="max-w-3xl">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28 flex flex-col items-center">
+          <div className="max-w-3xl text-center">
             {/* Trust Badge */}
             <div className="inline-flex items-center bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full mb-6 border border-[#BF9B30]">
               <CheckCircle size={16} className="mr-2 text-[#BF9B30]" />
@@ -70,10 +70,10 @@ const Home = () => {
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tight mb-6 leading-tight">
               {hero.headline}
             </h1>
-            <p className="text-lg md:text-xl text-gray-200 mb-8 leading-relaxed max-w-2xl">
+            <p className="text-lg md:text-xl text-gray-200 mb-8 leading-relaxed max-w-2xl mx-auto">
               {hero.subtext}
             </p>
-            <div className="flex flex-col sm:flex-row gap-4">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button className="bg-[#E64A38] hover:bg-[#d43e2e] text-white font-bold px-8 py-6 text-lg rounded-full transition-all duration-200 shadow-lg hover:shadow-xl hover:scale-105">
                 {hero.primaryCTA}
               </Button>
