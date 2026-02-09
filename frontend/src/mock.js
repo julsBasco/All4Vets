@@ -2,45 +2,223 @@
 
 export const siteConfig = {
   siteName: "All4Vets",
-  tagline: "Empowering Veterans Through Medical Advocacy",
+  tagline: "Honoring Service Through Support",
   nonprofit: "501(c)(3) Nonprofit Organization",
+  ein: "[Insert EIN once registered]",
   contact: {
     email: "joe@all4vets.us",
-    phone: "(386) 837-8131"
+    partnershipsEmail: "joe@all4vets.us",
+    phone: "(386) 837-8131",
+    address: "P.O. Box [Insert Address]",
+    city: "[City, State ZIP]"
   },
   social: [
-    { name: "Facebook", url: "https://facebook.com" },
-    { name: "Twitter", url: "https://twitter.com" },
-    { name: "LinkedIn", url: "https://linkedin.com" },
-    { name: "Instagram", url: "https://instagram.com" }
+    { name: "Facebook", url: "https://facebook.com/all4vets" },
+    { name: "Twitter", url: "https://twitter.com/all4vets" },
+    { name: "LinkedIn", url: "https://linkedin.com/company/all4vets" },
+    { name: "Instagram", url: "https://instagram.com/all4vets" }
   ]
 };
 
+export const images = {
+  hero: "https://images.unsplash.com/photo-1605121052115-4fc22776eb8b?w=1920&q=80",
+  programs: "https://images.unsplash.com/photo-1580893246395-52aead8960dc?w=1200&q=80",
+  community: "https://images.unsplash.com/photo-1495653797063-114787b77b23?w=1200&q=80",
+  military: "https://images.unsplash.com/photo-1620056187066-763a6889a359?w=1200&q=80",
+  flag: "https://images.unsplash.com/photo-1499200493734-6ba25a83f77c?w=1200&q=80",
+  aviation: "https://images.unsplash.com/photo-1573220785540-c19c0d57905d?w=1200&q=80"
+};
+
 export const hero = {
-  headline: "Because No Veteran Should Fight Alone",
-  subtext: "We provide independent guidance, direct aid, and expert connections—empowering veterans through medical advocacy.",
+  headline: "Standing Behind Those Who Stood for Us.",
+  subtext: "Empowering veterans through financial aid, scholarships, and grants that restore stability, opportunity, and hope.",
   primaryCTA: "Donate Now",
-  secondaryCTA: "Apply for Aid"
+  secondaryCTA: "Apply for Aid",
+  tertiaryCTA: "Partner With Us"
+};
+
+export const aboutSection = {
+  headline: "Serving Those Who've Served Our Nation.",
+  content: "All4Vets is a nonprofit organization devoted to helping U.S. veterans overcome financial hardships through donor-funded support. Whether it's assistance with VA disability claims, educational scholarships, or emergency relief, our mission is simple but profound—to ensure that no veteran is left behind due to financial struggle. Every contribution directly strengthens the lives of those who once defended ours.",
+  cta: "Learn More About Our Mission"
 };
 
 export const missionPillars = [
   {
     id: 1,
-    icon: "users",
-    title: "Empower",
-    description: "Tools and guidance to navigate benefits and opportunities."
+    icon: "fileText",
+    title: "VA Disability Claims Aid",
+    description: "Helping veterans cover living and administrative costs during the VA disability process."
   },
   {
     id: 2,
-    icon: "heart",
-    title: "Support",
-    description: "Direct assistance tailored to individual needs."
+    icon: "graduationCap",
+    title: "Scholarships & Education Grants",
+    description: "Funding continued education and career advancement opportunities."
   },
   {
     id: 3,
-    icon: "link",
-    title: "Connect",
-    description: "Access to trusted experts and peer communities."
+    icon: "heart",
+    title: "Emergency Relief Assistance",
+    description: "Providing immediate financial support during personal crises."
+  }
+];
+
+export const programs = [
+  {
+    id: 1,
+    slug: "va-disability-claims",
+    title: "Veterans Medical Evidence Assistance Fund (V-MEAF)",
+    shortTitle: "VA Disability Claims Aid",
+    icon: "fileText",
+    description: "This fund provides direct financial aid to cover the costs of professional medical documentation needed to strengthen VA disability claims.",
+    fullDescription: "Many veterans are denied the benefits they've earned simply because they cannot afford the professional medical documentation required to support their VA disability claims. The V-MEAF was created to ensure that no veteran is left without proper representation in their fight for the benefits they deserve.",
+    whatItCovers: [
+      "Independent Medical Opinions (IMOs)",
+      "Disability Benefits Questionnaires (DBQs)",
+      "Specialist evaluations and diagnostic testing",
+      "Medical nexus letters"
+    ],
+    howItWorks: "Eligible veterans apply for quick-turnaround grants. Funds are paid directly to certified medical professionals or partner providers.",
+    impactGoals: [
+      "Help veterans secure favorable VA claim outcomes",
+      "Deliver aid within 10–14 business days of approval"
+    ],
+    testimonial: {
+      quote: "All4Vets helped me keep my home while waiting on my VA claim to process. I'll never forget their kindness.",
+      author: "James",
+      branch: "US Army Veteran"
+    },
+    primaryCTA: "Apply for Assistance",
+    secondaryCTA: "Donate to V-MEAF"
+  },
+  {
+    id: 2,
+    slug: "scholarships-education",
+    title: "Scholarships & Education Grants",
+    shortTitle: "Education & Scholarships",
+    icon: "graduationCap",
+    description: "Building pathways to civilian success through educational support.",
+    fullDescription: "We provide funding for scholarships, tuition support, and training grants to help veterans earn degrees, licenses, or vocational certifications that open doors to meaningful civilian careers.",
+    whatItSupports: [
+      "College and trade school tuition",
+      "Certification and licensing programs",
+      "Continuing education or career transition programs"
+    ],
+    primaryCTA: "Apply for a Scholarship",
+    secondaryCTA: "Sponsor a Veteran's Education"
+  },
+  {
+    id: 3,
+    slug: "emergency-relief",
+    title: "Emergency Financial Relief Fund",
+    shortTitle: "Emergency Relief",
+    icon: "alertCircle",
+    description: "Immediate help when life doesn't wait for pay cycles.",
+    fullDescription: "We offer immediate, short-term financial assistance to veterans and their families facing urgent hardships. Life's emergencies don't wait for pay cycles, and neither should veterans.",
+    emergencyAidCovers: [
+      "Rent and utility payments",
+      "Medical or prescription needs",
+      "Travel and family support",
+      "Urgent living expenses"
+    ],
+    primaryCTA: "Request Emergency Aid",
+    secondaryCTA: "Give to the Relief Fund"
+  }
+];
+
+export const impactStats = [
+  { id: 1, value: "$XXX,XXX", label: "Aid Distributed", description: "Total financial support provided to veterans" },
+  { id: 2, value: "XXX", label: "Veterans Supported", description: "Lives changed through our programs" },
+  { id: 3, value: "XX", label: "Scholarships Awarded", description: "Educational opportunities funded" }
+];
+
+export const guidingPrinciples = [
+  {
+    id: 1,
+    title: "Speed Matters",
+    description: "We process applications quickly because veterans shouldn't have to wait for the help they need."
+  },
+  {
+    id: 2,
+    title: "Transparency Always",
+    description: "Every dollar is tracked and accounted for. Donors know exactly where their contributions go."
+  },
+  {
+    id: 3,
+    title: "Honor in Action",
+    description: "We treat every veteran with the dignity and respect they've earned through their service."
+  }
+];
+
+export const getInvolved = {
+  headline: "Your Support Changes Lives.",
+  subtext: "Whether you're an individual donor, a corporate partner, or a volunteer, you can make a direct difference in the lives of those who served.",
+  options: [
+    { title: "Donate Now", description: "Make a one-time or recurring gift", icon: "heart", url: "/donate" },
+    { title: "Volunteer", description: "Give your time and skills", icon: "users", url: "/get-involved" },
+    { title: "Corporate Partnerships", description: "Partner with us for greater impact", icon: "building", url: "/get-involved" }
+  ]
+};
+
+export const ctaBanner = {
+  headline: "Together, We Serve Those Who Served.",
+  subtext: "Your contribution fuels hope, dignity, and stability for veterans across America.",
+  cta: "Become a Supporter Today"
+};
+
+export const donationTiers = [
+  { 
+    value: 25, 
+    label: "$25", 
+    impact: "Covers essential expenses",
+    description: "Helps a veteran afford transportation, food, or document fees during the VA claim process."
+  },
+  { 
+    value: 50, 
+    label: "$50", 
+    impact: "Provides immediate relief",
+    description: "Supports emergency needs such as utilities, prescriptions, or short-term living costs."
+  },
+  { 
+    value: 100, 
+    label: "$100", 
+    impact: "Funds growth opportunities",
+    description: "Contributes to education grants and certification scholarships."
+  },
+  { 
+    value: 250, 
+    label: "$250", 
+    impact: "Sustains long-term stability",
+    description: "Offers assistance for rental payments, family emergencies, or extended financial hardships."
+  }
+];
+
+export const whyGive = [
+  { id: 1, title: "Direct Impact", description: "90% of all contributions go straight to veteran aid programs." },
+  { id: 2, title: "Transparency", description: "Every dollar and grant is tracked and audited for full accountability." },
+  { id: 3, title: "Human Connection", description: "Your donation supports real veterans with real needs—not general funds." },
+  { id: 4, title: "Legacy of Service", description: "Honoring those who served by helping them rebuild and thrive." }
+];
+
+export const testimonials = [
+  {
+    id: 1,
+    quote: "All4Vets helped me keep my home while waiting on my VA claim to process. I'll never forget their kindness.",
+    author: "James",
+    branch: "US Army Veteran"
+  },
+  {
+    id: 2,
+    quote: "The scholarship I received changed my life. I'm now certified and working in a career I love. Thank you All4Vets!",
+    author: "Maria S.",
+    branch: "Navy Veteran"
+  },
+  {
+    id: 3,
+    quote: "When I faced an emergency, All4Vets was there within days. Professional, compassionate, and effective.",
+    author: "Robert K.",
+    branch: "Marine Corps Veteran"
   }
 ];
 
@@ -49,87 +227,60 @@ export const processSteps = [
     id: 1,
     number: "01",
     title: "Apply for Aid",
-    description: "Submit your request through our simple application process."
+    description: "Submit your request through our simple, confidential application process."
   },
   {
     id: 2,
     number: "02",
-    title: "Connect with Experts",
-    description: "Get matched with experienced advocates who understand your needs."
+    title: "Quick Review",
+    description: "Our team reviews applications within 10-14 business days."
   },
   {
     id: 3,
     number: "03",
-    title: "Receive Decision Support",
-    description: "Access personalized guidance and direct assistance."
+    title: "Receive Support",
+    description: "Approved funds are sent directly to service providers or to you."
   }
-];
-
-export const testimonials = [
-  {
-    id: 1,
-    quote: "This organization helped me secure the independent support I needed. They truly fight for us.",
-    author: "John B.",
-    branch: "Army Veteran"
-  },
-  {
-    id: 2,
-    quote: "The guidance I received was life-changing. I finally got the benefits I deserved after years of struggling.",
-    author: "Maria S.",
-    branch: "Navy Veteran"
-  },
-  {
-    id: 3,
-    quote: "Professional, compassionate, and effective. All4Vets made a real difference in my family's life.",
-    author: "Robert K.",
-    branch: "Marine Corps Veteran"
-  }
-];
-
-export const donationAmounts = [
-  { value: 50, label: "$50" },
-  { value: 100, label: "$100" },
-  { value: 250, label: "$250" },
-  { value: 500, label: "$500" }
-];
-
-export const quickLinks = [
-  { title: "Find Resources", url: "/resources" },
-  { title: "Volunteer", url: "/volunteer" },
-  { title: "Partner With Us", url: "/partner" },
-  { title: "Events", url: "/events" }
 ];
 
 export const navLinks = [
   { title: "Home", url: "/" },
-  // { title: "About Us", url: "/about" },
-  // { title: "Services", url: "/services" },
-  { title: "Blog", url: "/blog" },
-  { title: "Reviews", url: "/reviews" },
-  // { title: "FAQ", url: "/faq" }
+  { title: "About Us", url: "/about" },
+  { title: "Programs", url: "/programs" },
+  { title: "Donate", url: "/donate" },
+  { title: "Get Involved", url: "/get-involved" },
+  { title: "Contact", url: "/contact" }
+];
+
+export const quickLinks = [
+  { title: "Apply for Aid", url: "/programs" },
+  { title: "Donate", url: "/donate" },
+  { title: "Volunteer", url: "/get-involved" },
+  { title: "Partner With Us", url: "/get-involved" }
 ];
 
 export const footerLinks = {
+  programs: [
+    { title: "VA Claims Assistance", url: "/programs" },
+    { title: "Education Grants", url: "/programs" },
+    { title: "Emergency Relief", url: "/programs" },
+    { title: "Apply for Aid", url: "/programs" }
+  ],
   about: [
-    { title: "Our Mission", url: "/mission" },
-    { title: "Leadership", url: "/leadership" },
-    { title: "Annual Reports", url: "/reports" },
-    { title: "Contact", url: "/contact" }
+    { title: "Our Mission", url: "/about" },
+    { title: "Our Impact", url: "/about" },
+    { title: "Transparency", url: "/about" },
+    { title: "Contact Us", url: "/contact" }
   ],
-  services: [
-    { title: "Benefits Navigation", url: "/benefits" },
-    { title: "Career Support", url: "/careers" },
-    { title: "Housing Assistance", url: "/housing" },
-    { title: "Mental Health", url: "/mental-health" }
-  ],
-  resources: [
-    { title: "Blog", url: "/blog" },
-    { title: "FAQ", url: "/faq" },
-    { title: "Download Forms", url: "/forms" },
-    { title: "Partner Organizations", url: "/partners" }
+  support: [
+    { title: "Donate", url: "/donate" },
+    { title: "Volunteer", url: "/get-involved" },
+    { title: "Corporate Partners", url: "/get-involved" },
+    { title: "Fundraise", url: "/get-involved" }
   ]
 };
 
+// Keep existing blog posts and reviews for those pages
 export const blogPosts = [
   {
     id: 1,
