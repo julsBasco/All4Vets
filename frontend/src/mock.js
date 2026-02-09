@@ -6,8 +6,8 @@ export const siteConfig = {
   nonprofit: "501(c)(3) Nonprofit Organization",
   ein: "[Insert EIN once registered]",
   contact: {
-    email: "info@all4vets.org",
-    partnershipsEmail: "partnerships@all4vets.org",
+    email: "joe@all4vets.us",
+    partnershipsEmail: "joe@all4vets.us",
     phone: "(386) 837-8131",
     address: "P.O. Box [Insert Address]",
     city: "[City, State ZIP]"
