@@ -97,8 +97,8 @@ const Home = () => {
             <h2 className="text-3xl md:text-4xl font-bold text-[#0B1D39] uppercase tracking-tight mb-4">
               Our Mission & Impact
             </h2>
-            <p className="text-lg text-[#3C4A5B] max-w-2xl mx-auto">
-              We empower veterans with resources, one‑on‑one support, and a trusted network.
+            <p className="text-lg text-[#3C4A5B] max-w-2xl mx-auto reading-relaxed">
+              We empower veterans with resources, one‑on‑one support, and a trusted network.All4Vets is a nonprofit organization dedicated to ensuring that no veteran is left behind when pursuing the benefits they’ve earned. We provide financial assistance for Independent Medical Opinions (IMOs) and connect veterans with trusted medical professionals and advocates who can strengthen their VA disability claims through effective medical advocacy. 
             </p>
           </div>
 
