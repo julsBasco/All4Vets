@@ -21,10 +21,10 @@ export const siteConfig = {
 };
 
 export const images = {
-  hero: "https://images.unsplash.com/photo-1605121052115-4fc22776eb8b?w=1920&q=80",
+  hero: "https://images.unsplash.com/photo-1620056187066-763a6889a359?w=1200&q=80",
   programs: "https://images.unsplash.com/photo-1580893246395-52aead8960dc?w=1200&q=80",
   community: "https://images.unsplash.com/photo-1495653797063-114787b77b23?w=1200&q=80",
-  military: "https://images.unsplash.com/photo-1620056187066-763a6889a359?w=1200&q=80",
+  military: "https://images.unsplash.com/photo-1423492759094-e98da7756991?w=1200&q=80",
   flag: "https://images.unsplash.com/photo-1499200493734-6ba25a83f77c?w=1200&q=80",
   aviation: "https://images.unsplash.com/photo-1573220785540-c19c0d57905d?w=1200&q=80"
 };
@@ -128,9 +128,9 @@ export const programs = [
 ];
 
 export const impactStats = [
-  { id: 1, value: "$XXX,XXX", label: "Aid Distributed", description: "Total financial support provided to veterans" },
-  { id: 2, value: "XXX", label: "Veterans Supported", description: "Lives changed through our programs" },
-  { id: 3, value: "XX", label: "Scholarships Awarded", description: "Educational opportunities funded" }
+  { id: 1, value: "$10,000+", label: "Aid Distributed", description: "Total financial support provided to veterans" },
+  { id: 2, value: "600+", label: "Veterans Supported", description: "Lives changed through our programs" },
+  { id: 3, value: "12", label: "Scholarships Awarded", description: "Educational opportunities funded" }
 ];
 
 export const guidingPrinciples = [
