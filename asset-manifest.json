@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/All4Vets/static/css/main.6b1ce24c.css",
-    "main.js": "/All4Vets/static/js/main.bc564eb8.js",
+    "main.js": "/All4Vets/static/js/main.248f7b79.js",
     "static/media/logo.png": "/All4Vets/static/media/logo.8122f9715b4ba7421c7c.png",
     "static/media/logo2.png": "/All4Vets/static/media/logo2.692dec659fa790f0f99c.png",
     "index.html": "/All4Vets/index.html",
     "main.6b1ce24c.css.map": "/All4Vets/static/css/main.6b1ce24c.css.map",
-    "main.bc564eb8.js.map": "/All4Vets/static/js/main.bc564eb8.js.map"
+    "main.248f7b79.js.map": "/All4Vets/static/js/main.248f7b79.js.map"
   },
   "entrypoints": [
     "static/css/main.6b1ce24c.css",
-    "static/js/main.bc564eb8.js"
+    "static/js/main.248f7b79.js"
   ]
 }
