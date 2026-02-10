@@ -8,11 +8,13 @@ import GetInvolved from "./pages/GetInvolved";
 import Contact from "./pages/Contact";
 import Blog from "./pages/Blog";
 import Reviews from "./pages/Reviews";
+import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
   return (
     <div className="App">
       <HashRouter>
+        <ScrollToTop />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
