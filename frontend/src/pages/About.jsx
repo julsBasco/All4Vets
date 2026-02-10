@@ -80,12 +80,12 @@ const About = () => {
       </section>
 
       {/* Mission, Vision, Values */}
-      <section className="py-16 md:py-20 bg-[#F3F5F7]">
+      <section className="py-16 md:py-20 bg-[#F3F5F7] ">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16 ">
             <Card className="bg-[#0B1D39] text-white border-none">
-              <CardContent className="p-8">
-                <div className="w-14 h-14 bg-[#E64A38] rounded-full flex items-center justify-center mb-6">
+              <CardContent className="p-8 text-center">
+                <div className="w-14 h-14 bg-[#E64A38] rounded-full flex items-center justify-center mb-6 mx-auto">
                   <Target size={28} />
                 </div>
                 <h3 className="text-2xl font-bold mb-4">Our Mission</h3>
@@ -96,8 +96,8 @@ const About = () => {
             </Card>
 
             <Card className="bg-[#1E4F91] text-white border-none">
-              <CardContent className="p-8">
-                <div className="w-14 h-14 bg-[#BF9B30] rounded-full flex items-center justify-center mb-6">
+              <CardContent className="p-8 text-center">
+                <div className="w-14 h-14 bg-[#BF9B30] rounded-full flex items-center justify-center mb-6 mx-auto">
                   <Eye size={28} />
                 </div>
                 <h3 className="text-2xl font-bold mb-4">Our Vision</h3>
@@ -108,8 +108,8 @@ const About = () => {
             </Card>
 
             <Card className="bg-[#E64A38] text-white border-none">
-              <CardContent className="p-8">
-                <div className="w-14 h-14 bg-white rounded-full flex items-center justify-center mb-6">
+              <CardContent className="p-8 text-center">
+                <div className="w-14 h-14 bg-white rounded-full flex items-center justify-center mb-6 mx-auto">
                   <Heart size={28} className="text-[#E64A38]" />
                 </div>
                 <h3 className="text-2xl font-bold mb-4">Our Promise</h3>
