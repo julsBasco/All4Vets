@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { siteConfig, footerLinks } from '../mock';
-import logo from './logo.png';
+import logo from './logo2.png';
 
 const Footer = () => {
   const [email, setEmail] = useState('');
