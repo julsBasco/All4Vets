@@ -51,20 +51,21 @@ const Home = () => {
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28">
           <div className="max-w-3xl">
             {/* Trust Badge */}
-            <div className="flex justify-start mb-6">
-              <div className="inline-flex items-center bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full border border-[#BF9B30]">
+            <div>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tight mb-6 leading-tight text-white text-center">
+                {hero.headline}
+              </h1>
+              <div className="flex justify-center items-center mb-6">
+                <div className="inline-flex items-center bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full border border-[#BF9B30]">
                 <CheckCircle size={16} className="mr-2 text-[#BF9B30]" />
                 <span className="text-sm font-medium text-white">501(c)(3) Nonprofit Organization</span>
+                </div>
               </div>
+              <p className="text-lg md:text-xl text-gray-200 mb-8 leading-relaxed text-center">
+                {hero.subtext}
+              </p>
             </div>
-
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tight mb-6 leading-tight text-white">
-              {hero.headline}
-            </h1>
-            <p className="text-lg md:text-xl text-gray-200 mb-8 leading-relaxed max-w-2xl">
-              {hero.subtext}
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4">
+            <div className="flex flex-col sm:flex-row gap-4 flex justify-center items-center">
               <Link to="/programs">
                 <Button className="bg-[#E64A38] hover:bg-[#d43e2e] text-white font-bold px-8 py-6 text-lg rounded-full transition-all duration-200 shadow-lg hover:shadow-xl hover:scale-105">
                   {hero.secondaryCTA}
@@ -208,10 +209,10 @@ const Home = () => {
             {processSteps.map((step) => (
               <Card
                 key={step.id}
-                className="group hover:shadow-xl transition-all duration-300 cursor-pointer border-2 hover:border-[#1E4F91]"
+                className="group hover:shadow-xl transition-all duration-300 cursor-pointer border-2 hover:border-[#1E4F91] text-center inline-flex items-center justify-center"
               >
-                <CardContent className="p-8">
-                  <div className="flex items-start mb-4">
+                <CardContent className="p-8 ">
+                  <div className="flex items-start mb-4 inline-flex items-center justify-center">
                     <div className="w-12 h-12 rounded-full bg-[#0B1D39] group-hover:bg-[#1E4F91] flex items-center justify-center text-white font-bold text-lg transition-colors duration-300">
                       {step.number}
                     </div>
@@ -230,7 +231,7 @@ const Home = () => {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8">
             <h2 className="text-3xl md:text-4xl font-bold text-[#0B1D39] uppercase tracking-tight mb-4">
-              Veterans' Stories
+              Veterans' Testimonials
             </h2>
           </div>
 
