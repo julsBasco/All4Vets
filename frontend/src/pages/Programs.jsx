@@ -1,17 +1,32 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FileText, GraduationCap, AlertCircle, CheckCircle, ArrowRight, Clock, DollarSign, Users } from 'lucide-react';
-import { Link } from 'react-router-dom';
 import { Button } from '../components/ui/button';
 import { Card, CardContent } from '../components/ui/card';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import ApplicationModal from '../components/ApplicationModal';
 import { programs, guidingPrinciples, images } from '../mock';
+import { openGivebutterWidget } from '../utils/givebutter';
 
 const Programs = () => {
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectedProgram, setSelectedProgram] = useState(null);
+
   const iconMap = {
     fileText: FileText,
     graduationCap: GraduationCap,
     alertCircle: AlertCircle
+  };
+
+  const programTypeMap = {
+    'va-disability-claims': 'vmeaf',
+    'scholarships-education': 'scholarship',
+    'emergency-relief': 'emergency'
+  };
+
+  const handleApplyClick = (programSlug) => {
+    setSelectedProgram(programTypeMap[programSlug]);
+    setModalOpen(true);
   };
 
   return (
@@ -119,14 +134,19 @@ const Programs = () => {
 
                           {/* CTAs */}
                           <div className="flex flex-col sm:flex-row gap-4">
-                            <Button className="bg-[#E64A38] hover:bg-[#d43e2e] text-white font-bold px-6 py-3 rounded-full">
+                            <Button 
+                              onClick={() => handleApplyClick(program.slug)}
+                              className="bg-[#E64A38] hover:bg-[#d43e2e] text-white font-bold px-6 py-3 rounded-full"
+                            >
                               {program.primaryCTA}
                             </Button>
-                            <Link to="/donate">
-                              <Button variant="outline" className="border-2 border-[#0B1D39] text-[#0B1D39] hover:bg-[#0B1D39] hover:text-white font-bold px-6 py-3 rounded-full">
-                                {program.secondaryCTA}
-                              </Button>
-                            </Link>
+                            <Button 
+                              onClick={openGivebutterWidget}
+                              variant="outline" 
+                              className="border-2 border-[#0B1D39] text-[#0B1D39] hover:bg-[#0B1D39] hover:text-white font-bold px-6 py-3 rounded-full"
+                            >
+                              {program.secondaryCTA}
+                            </Button>
                           </div>
                         </div>
 
@@ -185,17 +205,29 @@ const Programs = () => {
             If you're a veteran in need of assistance, we're here to help. Apply today and take the first step toward the support you deserve.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button className="bg-[#E64A38] hover:bg-[#d43e2e] text-white font-bold px-8 py-4 rounded-full text-lg">
+            <Button 
+              onClick={() => handleApplyClick('va-disability-claims')}
+              className="bg-[#E64A38] hover:bg-[#d43e2e] text-white font-bold px-8 py-4 rounded-full text-lg"
+            >
               Apply for Aid Now
             </Button>
-            <Link to="/contact">
-              <Button variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-[#0B1D39] font-bold px-8 py-4 rounded-full text-lg">
-                Contact Us
-              </Button>
-            </Link>
+            <Button 
+              onClick={openGivebutterWidget}
+              variant="outline" 
+              className="border-2 border-white text-white hover:bg-white hover:text-[#0B1D39] font-bold px-8 py-4 rounded-full text-lg"
+            >
+              Donate Now
+            </Button>
           </div>
         </div>
       </section>
+
+      {/* Application Modal */}
+      <ApplicationModal 
+        isOpen={modalOpen}
+        onClose={() => setModalOpen(false)}
+        programType={selectedProgram}
+      />
 
       <Footer />
     </div>

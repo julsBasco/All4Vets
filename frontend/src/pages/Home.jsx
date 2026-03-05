@@ -6,6 +6,7 @@ import { Card, CardContent } from '../components/ui/card';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { hero, aboutSection, missionPillars, processSteps, testimonials, impactStats, getInvolved, ctaBanner, images } from '../mock';
+import { openGivebutterWidget } from '../utils/givebutter';
 
 const Home = () => {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
@@ -70,11 +71,12 @@ const Home = () => {
                   {hero.secondaryCTA}
                 </Button>
               </Link>
-              <Link to="/donate">
-                <Button className="bg-white text-[#0B1D39] hover:bg-gray-100 font-bold px-8 py-6 text-lg rounded-full transition-all duration-200 shadow-lg hover:shadow-xl">
-                  {hero.primaryCTA}
-                </Button>
-              </Link>
+              <Button 
+                onClick={openGivebutterWidget}
+                className="bg-white text-[#0B1D39] hover:bg-gray-100 font-bold px-8 py-6 text-lg rounded-full transition-all duration-200 shadow-lg hover:shadow-xl"
+              >
+                {hero.primaryCTA}
+              </Button>
               <Link to="/get-involved">
                 <Button
                   variant="outline"
@@ -324,12 +326,13 @@ const Home = () => {
           <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
             {ctaBanner.subtext}
           </p>
-          <Link to="/donate">
-            <Button className="bg-[#E64A38] hover:bg-[#d43e2e] text-white font-bold px-10 py-6 text-lg rounded-full transition-all duration-200 shadow-lg hover:shadow-xl hover:scale-105">
-              {ctaBanner.cta}
-              <ArrowRight size={20} className="ml-2" />
-            </Button>
-          </Link>
+          <Button 
+            onClick={openGivebutterWidget}
+            className="bg-[#E64A38] hover:bg-[#d43e2e] text-white font-bold px-10 py-6 text-lg rounded-full transition-all duration-200 shadow-lg hover:shadow-xl hover:scale-105"
+          >
+            {ctaBanner.cta}
+            <ArrowRight size={20} className="ml-2" />
+          </Button>
         </div>
       </section>
 
