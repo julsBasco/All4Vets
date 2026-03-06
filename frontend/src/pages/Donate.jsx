@@ -268,7 +268,7 @@ const Donate = () => {
           </div>
           <div className="text-center">
             <p className="text-lg text-[#3C4A5B] mb-6">
-              Contact us at <a href={`mailto:${siteConfig.contact.partnershipsEmail}`} className="text-[#1E4F91] font-semibold hover:underline">{siteConfig.contact.partnershipsEmail}</a> to explore partnership opportunities.
+              Contact us at <a href={`mailto:${siteConfig.contact.email}`} className="text-[#1E4F91] font-semibold hover:underline">{siteConfig.contact.email}</a> to explore partnership opportunities.
             </p>
             <Button className="bg-[#0B1D39] hover:bg-[#1E4F91] text-white font-bold px-8 py-4 rounded-full">
               Explore Corporate Partnerships
