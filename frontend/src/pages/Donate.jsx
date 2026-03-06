@@ -207,10 +207,10 @@ const Donate = () => {
             <p className="text-lg text-[#3C4A5B] mb-6">
               Contact us at{" "}
               <a
-                href={`mailto:${siteConfig.contact.partnershipsEmail}`}
+                href={`mailto:${siteConfig.contact.email}`}
                 className="text-[#1E4F91] font-semibold hover:underline"
               >
-                {siteConfig.contact.partnershipsEmail}
+                {siteConfig.contact.email}
               </a>{" "}
               to explore partnership opportunities.
             </p>
