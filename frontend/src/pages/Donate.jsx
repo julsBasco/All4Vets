@@ -1,43 +1,26 @@
-import React, { useEffect } from 'react';
-import { Heart, CheckCircle, Building, Mail, DollarSign, Users, Shield, Award, ArrowRight } from 'lucide-react';
+import React, { useState } from 'react';
+import { Heart, CheckCircle, Building, Mail, CreditCard, DollarSign, Users, Shield, Award, ArrowRight } from 'lucide-react';
 import { Button } from '../components/ui/button';
 import { Card, CardContent } from '../components/ui/card';
+import { Input } from '../components/ui/input';
+import { RadioGroup, RadioGroupItem } from '../components/ui/radio-group';
+import { Label } from '../components/ui/label';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import { whyGive, siteConfig, images } from '../mock';
-import { openGivebutterWidget, GIVEBUTTER_CAMPAIGN_URL } from '../utils/givebutter';
+import { donationTiers, whyGive, siteConfig, images } from '../mock';
 
 const Donate = () => {
-  // Auto-open Givebutter widget when page loads (optional - uncomment if desired)
-  // useEffect(() => {
-  //   const timer = setTimeout(() => {
-  //     openGivebutterWidget();
-  //   }, 1000);
-  //   return () => clearTimeout(timer);
-  // }, []);
+  const [selectedAmount, setSelectedAmount] = useState('100');
+  const [customAmount, setCustomAmount] = useState('');
+  const [showCustomInput, setShowCustomInput] = useState(false);
+  const [donationType, setDonationType] = useState('one-time');
 
-  const impactTiers = [
-    { 
-      amount: '$25', 
-      impact: 'Covers essential expenses',
-      description: 'Helps a veteran afford transportation, food, or document fees during the VA claim process.'
-    },
-    { 
-      amount: '$50', 
-      impact: 'Provides immediate relief',
-      description: 'Supports emergency needs such as utilities, prescriptions, or short-term living costs.'
-    },
-    { 
-      amount: '$100', 
-      impact: 'Funds growth opportunities',
-      description: 'Contributes to education grants and certification scholarships.'
-    },
-    { 
-      amount: '$250', 
-      impact: 'Sustains long-term stability',
-      description: 'Offers assistance for rental payments, family emergencies, or extended financial hardships.'
-    }
-  ];
+  const handleDonation = (e) => {
+    e.preventDefault();
+    const amount = showCustomInput ? customAmount : selectedAmount;
+    console.log('Donation:', { amount, type: donationType });
+    alert(`Thank you for your ${donationType} donation of $${amount}! This will make a real difference in veterans' lives.`);
+  };
 
   return (
     <div className="min-h-screen bg-white">
@@ -52,16 +35,9 @@ const Donate = () => {
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tight mb-6">
             Donate — Help Change a Veteran's Story
           </h1>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-8">
+          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
             Your Support Restores Hope, Stability, and Dignity.
           </p>
-          <Button 
-            onClick={openGivebutterWidget}
-            className="bg-[#E64A38] hover:bg-[#d43e2e] text-white font-bold px-10 py-6 text-xl rounded-full transition-all duration-200 shadow-lg hover:shadow-xl hover:scale-105"
-          >
-            <Heart size={24} className="mr-3" />
-            Donate Now
-          </Button>
         </div>
       </section>
 
@@ -74,79 +50,158 @@ const Donate = () => {
         </div>
       </section>
 
-      {/* Impact Tiers Section */}
+      {/* Main Donation Section */}
       <section className="py-16 md:py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-[#0B1D39] mb-4">
-              Choose Your Impact
-            </h2>
-            <p className="text-lg text-[#3C4A5B]">
-              See how your gift helps veterans in need.
-            </p>
-          </div>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            {/* Donation Form */}
+            <div>
+              <Card className="shadow-xl border-2">
+                <CardContent className="p-8">
+                  <h2 className="text-2xl font-bold text-[#0B1D39] mb-2">Choose Your Impact</h2>
+                  <p className="text-[#3C4A5B] mb-6">Select an amount to see how your gift helps veterans.</p>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-            {impactTiers.map((tier, index) => (
-              <Card key={index} className="border-2 hover:border-[#E64A38] transition-all duration-300 cursor-pointer" onClick={openGivebutterWidget}>
-                <CardContent className="p-6 text-center">
-                  <p className="text-4xl font-black text-[#0B1D39] mb-2">{tier.amount}</p>
-                  <p className="text-[#E64A38] font-semibold mb-3">{tier.impact}</p>
-                  <p className="text-sm text-[#3C4A5B]">{tier.description}</p>
+                  {/* Donation Type Toggle */}
+                  <div className="flex gap-4 mb-6">
+                    <button
+                      onClick={() => setDonationType('one-time')}
+                      className={`flex-1 py-3 px-4 rounded-full font-semibold transition-all duration-200 ${
+                        donationType === 'one-time'
+                          ? 'bg-[#0B1D39] text-white'
+                          : 'bg-gray-100 text-[#3C4A5B] hover:bg-gray-200'
+                      }`}
+                    >
+                      One-Time Gift
+                    </button>
+                    <button
+                      onClick={() => setDonationType('monthly')}
+                      className={`flex-1 py-3 px-4 rounded-full font-semibold transition-all duration-200 ${
+                        donationType === 'monthly'
+                          ? 'bg-[#0B1D39] text-white'
+                          : 'bg-gray-100 text-[#3C4A5B] hover:bg-gray-200'
+                      }`}
+                    >
+                      Monthly Giving
+                    </button>
+                  </div>
+
+                  <form onSubmit={handleDonation}>
+                    <RadioGroup value={selectedAmount} onValueChange={setSelectedAmount} className="mb-6">
+                      <div className="space-y-3">
+                        {donationTiers.map((tier) => (
+                          <div key={tier.value}>
+                            <RadioGroupItem
+                              value={tier.value.toString()}
+                              id={`amount-${tier.value}`}
+                              className="peer sr-only"
+                              onClick={() => setShowCustomInput(false)}
+                            />
+                            <Label
+                              htmlFor={`amount-${tier.value}`}
+                              className="flex items-center justify-between rounded-lg border-2 border-gray-200 p-4 cursor-pointer hover:border-[#1E4F91] peer-data-[state=checked]:border-[#0B1D39] peer-data-[state=checked]:bg-[#0B1D39]/5 transition-all duration-200"
+                            >
+                              <div className="flex items-center">
+                                <span className="text-2xl font-bold text-[#0B1D39] mr-4">{tier.label}</span>
+                                <span className="text-[#E64A38] font-semibold">{tier.impact}</span>
+                              </div>
+                              <CheckCircle className={`w-6 h-6 ${selectedAmount === tier.value.toString() && !showCustomInput ? 'text-[#0B1D39]' : 'text-gray-300'}`} />
+                            </Label>
+                            {selectedAmount === tier.value.toString() && !showCustomInput && (
+                              <p className="text-sm text-[#3C4A5B] mt-2 ml-4">{tier.description}</p>
+                            )}
+                          </div>
+                        ))}
+
+                        {/* Custom Amount */}
+                        <div>
+                          <RadioGroupItem
+                            value="custom"
+                            id="amount-custom"
+                            className="peer sr-only"
+                            onClick={() => setShowCustomInput(true)}
+                          />
+                          <Label
+                            htmlFor="amount-custom"
+                            className="flex items-center justify-between rounded-lg border-2 border-gray-200 p-4 cursor-pointer hover:border-[#1E4F91] peer-data-[state=checked]:border-[#0B1D39] peer-data-[state=checked]:bg-[#0B1D39]/5 transition-all duration-200"
+                          >
+                            <div className="flex items-center">
+                              <span className="text-lg font-bold text-[#3C4A5B] mr-4">Other Amount</span>
+                              <span className="text-[#3C4A5B]">Custom support</span>
+                            </div>
+                            <CheckCircle className={`w-6 h-6 ${showCustomInput ? 'text-[#0B1D39]' : 'text-gray-300'}`} />
+                          </Label>
+                        </div>
+                      </div>
+                    </RadioGroup>
+
+                    {showCustomInput && (
+                      <div className="mb-6">
+                        <Label htmlFor="custom-amount" className="block text-sm font-semibold text-[#0B1D39] mb-2">
+                          Enter Amount
+                        </Label>
+                        <div className="relative">
+                          <span className="absolute left-4 top-1/2 -translate-y-1/2 text-[#3C4A5B] font-semibold text-lg">$</span>
+                          <Input
+                            id="custom-amount"
+                            type="number"
+                            min="1"
+                            placeholder="Enter amount"
+                            value={customAmount}
+                            onChange={(e) => setCustomAmount(e.target.value)}
+                            className="pl-10 py-4 text-lg border-2 border-gray-300 focus:border-[#1E4F91]"
+                            required={showCustomInput}
+                          />
+                        </div>
+                        <p className="text-sm text-[#3C4A5B] mt-2">Every contribution matters, no matter the size—each dollar brings relief and respect to those who served.</p>
+                      </div>
+                    )}
+
+                    <Button
+                      type="submit"
+                      className="w-full bg-[#E64A38] hover:bg-[#d43e2e] text-white font-bold py-4 text-lg rounded-full transition-all duration-200 shadow-md hover:shadow-lg"
+                    >
+                      <Heart size={20} className="mr-2" />
+                      {donationType === 'monthly' ? 'Become a Monthly Donor' : 'Donate Now'}
+                    </Button>
+
+                    <div className="mt-6 pt-6 border-t border-gray-200 flex items-center justify-center text-sm text-[#3C4A5B]">
+                      <Shield size={16} className="mr-2 text-green-600" />
+                      <span>100% Secure Payment Processing</span>
+                    </div>
+                  </form>
                 </CardContent>
               </Card>
-            ))}
-          </div>
+            </div>
 
-          <div className="text-center">
-            <Button 
-              onClick={openGivebutterWidget}
-              className="bg-[#E64A38] hover:bg-[#d43e2e] text-white font-bold px-10 py-4 text-lg rounded-full"
-            >
-              <Heart size={20} className="mr-2" />
-              Make a Donation
-            </Button>
-            <p className="mt-4 text-sm text-[#3C4A5B]">
-              Or donate directly at{' '}
-              <a href={GIVEBUTTER_CAMPAIGN_URL} target="_blank" rel="noopener noreferrer" className="text-[#1E4F91] hover:underline">
-                givebutter.com/All4Vets-Fundraising-Campaign
-              </a>
-            </p>
+            {/* Why Give Section */}
+            <div>
+              <h2 className="text-2xl font-bold text-[#0B1D39] mb-6">Why Give to All4Vets?</h2>
+              <div className="space-y-6">
+                {whyGive.map((reason) => {
+                  const icons = [DollarSign, CheckCircle, Users, Award];
+                  const Icon = icons[reason.id - 1];
+                  return (
+                    <Card key={reason.id} className="border-2 hover:border-[#1E4F91] transition-all duration-300">
+                      <CardContent className="p-6 flex items-start">
+                        <div className="w-12 h-12 bg-[#0B1D39] rounded-full flex items-center justify-center flex-shrink-0 mr-4">
+                          <Icon size={24} className="text-white" />
+                        </div>
+                        <div>
+                          <h3 className="text-lg font-bold text-[#0B1D39] mb-1">{reason.title}</h3>
+                          <p className="text-[#3C4A5B]">{reason.description}</p>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  );
+                })}
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Why Give Section */}
+      {/* Sustaining Donor Section */}
       <section className="py-16 md:py-20 bg-[#F3F5F7]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-[#0B1D39] mb-4">
-              Why Give to All4Vets?
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {whyGive.map((reason) => {
-              const icons = [DollarSign, CheckCircle, Users, Award];
-              const Icon = icons[reason.id - 1];
-              return (
-                <Card key={reason.id} className="border-2 hover:border-[#1E4F91] transition-all duration-300">
-                  <CardContent className="p-6">
-                    <div className="w-12 h-12 bg-[#0B1D39] rounded-full flex items-center justify-center mb-4">
-                      <Icon size={24} className="text-white" />
-                    </div>
-                    <h3 className="text-lg font-bold text-[#0B1D39] mb-2">{reason.title}</h3>
-                    <p className="text-sm text-[#3C4A5B]">{reason.description}</p>
-                  </CardContent>
-                </Card>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* Monthly Giving Section */}
-      <section className="py-16 md:py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
@@ -171,7 +226,7 @@ const Donate = () => {
                 </li>
               </ul>
               <Button 
-                onClick={openGivebutterWidget}
+                onClick={() => setDonationType('monthly')}
                 className="bg-[#0B1D39] hover:bg-[#1E4F91] text-white font-bold px-8 py-4 rounded-full"
               >
                 Become a Monthly Donor
@@ -200,7 +255,7 @@ const Donate = () => {
       </section>
 
       {/* Corporate & Matching Gifts */}
-      <section className="py-16 md:py-20 bg-[#F3F5F7]">
+      <section className="py-16 md:py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <Building size={48} className="mx-auto mb-4 text-[#0B1D39]" />
@@ -215,10 +270,7 @@ const Donate = () => {
             <p className="text-lg text-[#3C4A5B] mb-6">
               Contact us at <a href={`mailto:${siteConfig.contact.email}`} className="text-[#1E4F91] font-semibold hover:underline">{siteConfig.contact.email}</a> to explore partnership opportunities.
             </p>
-            <Button 
-              onClick={openGivebutterWidget}
-              className="bg-[#0B1D39] hover:bg-[#1E4F91] text-white font-bold px-8 py-4 rounded-full"
-            >
+            <Button className="bg-[#0B1D39] hover:bg-[#1E4F91] text-white font-bold px-8 py-4 rounded-full">
               Explore Corporate Partnerships
             </Button>
           </div>
@@ -253,16 +305,9 @@ const Donate = () => {
       {/* Final CTA */}
       <section className="py-12 bg-[#E64A38] text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <p className="text-xl font-semibold mb-6">
+          <p className="text-xl font-semibold">
             However you choose to give — thank you for standing behind those who stood for all of us.
           </p>
-          <Button 
-            onClick={openGivebutterWidget}
-            className="bg-white text-[#E64A38] hover:bg-gray-100 font-bold px-8 py-4 rounded-full"
-          >
-            <Heart size={20} className="mr-2" />
-            Donate Now
-          </Button>
         </div>
       </section>
 

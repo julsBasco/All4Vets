@@ -3,7 +3,6 @@ import { Menu, X, ChevronDown } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from './ui/button';
 import { navLinks, siteConfig } from '../mock';
-import { openGivebutterWidget } from '../utils/givebutter';
 import logo from './logo.png';
 
 const Header = () => {
@@ -70,12 +69,13 @@ const Header = () => {
 
             {/* Desktop CTA */}
             <div className="hidden lg:flex items-center space-x-3">
-              <Button
-                onClick={openGivebutterWidget}
-                className="bg-[#E64A38] hover:bg-[#d43e2e] text-white font-bold px-6 py-2.5 rounded-full transition-all duration-200 shadow-md hover:shadow-lg"
-              >
-                Donate Now
-              </Button>
+              <Link to="/donate">
+                <Button
+                  className="bg-[#E64A38] hover:bg-[#d43e2e] text-white font-bold px-6 py-2.5 rounded-full transition-all duration-200 shadow-md hover:shadow-lg"
+                >
+                  Donate Now
+                </Button>
+              </Link>
             </div>
 
             {/* Mobile Menu Button */}
@@ -108,15 +108,13 @@ const Header = () => {
                 </Link>
               ))}
               <div className="pt-4 border-t border-gray-200">
-                <Button
-                  onClick={() => {
-                    setMobileMenuOpen(false);
-                    openGivebutterWidget();
-                  }}
-                  className="w-full bg-[#E64A38] hover:bg-[#d43e2e] text-white font-bold py-3 rounded-full"
-                >
-                  Donate Now
-                </Button>
+                <Link to="/donate" onClick={() => setMobileMenuOpen(false)}>
+                  <Button
+                    className="w-full bg-[#E64A38] hover:bg-[#d43e2e] text-white font-bold py-3 rounded-full"
+                  >
+                    Donate Now
+                  </Button>
+                </Link>
               </div>
             </nav>
           </div>

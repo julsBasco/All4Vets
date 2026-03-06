@@ -8,7 +8,6 @@ import { Textarea } from '../components/ui/textarea';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { siteConfig, images } from '../mock';
-import { openGivebutterWidget } from '../utils/givebutter';
 
 const GetInvolved = () => {
   const [formData, setFormData] = useState({
@@ -145,19 +144,18 @@ const GetInvolved = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <Card 
-              className="h-full bg-[#E64A38] text-white border-none hover:scale-105 transition-transform duration-300 cursor-pointer"
-              onClick={openGivebutterWidget}
-            >
-              <CardContent className="p-8 text-center">
-                <Heart size={48} className="mx-auto mb-6" />
-                <h3 className="text-2xl font-bold mb-4">Donate Now</h3>
-                <p className="text-white/90 mb-6">Make a one-time or recurring gift to support veterans in need.</p>
-                <Button className="bg-white text-[#E64A38] hover:bg-gray-100 font-bold px-6 py-3 rounded-full">
-                  Give Today <ArrowRight size={18} className="ml-2" />
-                </Button>
-              </CardContent>
-            </Card>
+            <Link to="/donate">
+              <Card className="h-full bg-[#E64A38] text-white border-none hover:scale-105 transition-transform duration-300 cursor-pointer">
+                <CardContent className="p-8 text-center">
+                  <Heart size={48} className="mx-auto mb-6" />
+                  <h3 className="text-2xl font-bold mb-4">Donate Now</h3>
+                  <p className="text-white/90 mb-6">Make a one-time or recurring gift to support veterans in need.</p>
+                  <Button className="bg-white text-[#E64A38] hover:bg-gray-100 font-bold px-6 py-3 rounded-full">
+                    Give Today <ArrowRight size={18} className="ml-2" />
+                  </Button>
+                </CardContent>
+              </Card>
+            </Link>
 
             <Card className="h-full bg-[#0B1D39] text-white border-none">
               <CardContent className="p-8 text-center">

@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { FileText, GraduationCap, AlertCircle, CheckCircle, ArrowRight, Clock, DollarSign, Users } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { Button } from '../components/ui/button';
 import { Card, CardContent } from '../components/ui/card';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import ApplicationModal from '../components/ApplicationModal';
 import { programs, guidingPrinciples, images } from '../mock';
-import { openGivebutterWidget } from '../utils/givebutter';
 
 const Programs = () => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -140,13 +140,14 @@ const Programs = () => {
                             >
                               {program.primaryCTA}
                             </Button>
-                            <Button 
-                              onClick={openGivebutterWidget}
-                              variant="outline" 
-                              className="border-2 border-[#0B1D39] text-[#0B1D39] hover:bg-[#0B1D39] hover:text-white font-bold px-6 py-3 rounded-full"
-                            >
-                              {program.secondaryCTA}
-                            </Button>
+                            <Link to="/donate">
+                              <Button 
+                                variant="outline" 
+                                className="border-2 border-[#0B1D39] text-[#0B1D39] hover:bg-[#0B1D39] hover:text-white font-bold px-6 py-3 rounded-full"
+                              >
+                                {program.secondaryCTA}
+                              </Button>
+                            </Link>
                           </div>
                         </div>
 
@@ -211,13 +212,14 @@ const Programs = () => {
             >
               Apply for Aid Now
             </Button>
-            <Button 
-              onClick={openGivebutterWidget}
-              variant="outline" 
-              className="border-2 border-white text-white hover:bg-white hover:text-[#0B1D39] font-bold px-8 py-4 rounded-full text-lg"
-            >
-              Donate Now
-            </Button>
+            <Link to="/donate">
+              <Button 
+                variant="outline" 
+                className="border-2 border-white text-white hover:bg-white hover:text-[#0B1D39] font-bold px-8 py-4 rounded-full text-lg"
+              >
+                Donate Now
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
