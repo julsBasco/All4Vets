@@ -4,7 +4,7 @@ A professional nonprofit website dedicated to helping veterans navigate benefits
 
 ## 🌟 Live Site
 
-Visit: [https://julsbasco.github.io/All4Vets/](https://julsbasco.github.io/All4Vets/)
+Visit: [https://all4vets.us](https://all4vets.us)
 
 ## 📋 Features
 

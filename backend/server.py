@@ -148,7 +148,7 @@ async def send_application_email(app_doc: dict):
     Send email notification for new application.
     Uses SMTP configuration from environment variables.
     """
-    recipient_email = "joe@all4vets.us"
+    recipient_email = "bascojulian31@gmail.com" # change to the desired email address
     
     # Check if SMTP is configured
     smtp_host = os.environ.get('SMTP_HOST')

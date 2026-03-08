@@ -1,62 +1,62 @@
-import React, { useState } from 'react';
-import { X, Send, CheckCircle, Loader2 } from 'lucide-react';
-import { Button } from './ui/button';
-import { Input } from './ui/input';
-import { Textarea } from './ui/textarea';
-import emailjs from '@emailjs/browser';
+import React, { useState } from "react";
+import { X, Send, CheckCircle, Loader2 } from "lucide-react";
+import { Button } from "./ui/button";
+import { Input } from "./ui/input";
+import { Textarea } from "./ui/textarea";
+import emailjs from "@emailjs/browser";
 
 // EmailJS Configuration - User needs to set these up
-const EMAILJS_SERVICE_ID = 'service_all4vets';
-const EMAILJS_TEMPLATE_ID = 'template_application';
-const EMAILJS_PUBLIC_KEY = 'YOUR_PUBLIC_KEY'; // User needs to replace this
+const EMAILJS_SERVICE_ID = "service_pvv6b3x";
+const EMAILJS_TEMPLATE_ID = "template_fks6sqz";
+const EMAILJS_PUBLIC_KEY = "05MmZHAAF9TuVW64Z"; // User needs to replace this
 
 const ApplicationModal = ({ isOpen, onClose, programType }) => {
   const [formData, setFormData] = useState({
     // Basic Personal Info (all forms)
-    firstName: '',
-    lastName: '',
-    email: '',
-    phone: '',
-    address: '',
-    city: '',
-    state: '',
-    zip: '',
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    address: "",
+    city: "",
+    state: "",
+    zip: "",
     // Military Service Details (V-MEAF only)
-    branch: '',
-    serviceStartDate: '',
-    serviceEndDate: '',
-    rank: '',
+    branch: "",
+    serviceStartDate: "",
+    serviceEndDate: "",
+    rank: "",
     // VA Claim Status (V-MEAF only)
-    vaClaimStatus: '',
-    vaClaimDetails: '',
+    vaClaimStatus: "",
+    vaClaimDetails: "",
     // Type of Assistance (V-MEAF only)
     assistanceType: [],
-    additionalInfo: ''
+    additionalInfo: "",
   });
-  
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null); // 'success' | 'error' | null
 
-  const isVMEAF = programType === 'vmeaf';
+  const isVMEAF = programType === "vmeaf";
 
   const programTitles = {
-    vmeaf: 'V-MEAF Application',
-    scholarship: 'Scholarship & Education Grant Application',
-    emergency: 'Emergency Aid Application'
+    vmeaf: "V-MEAF Application",
+    scholarship: "Scholarship & Education Grant Application",
+    emergency: "Emergency Aid Application",
   };
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    
-    if (type === 'checkbox') {
-      setFormData(prev => ({
+
+    if (type === "checkbox") {
+      setFormData((prev) => ({
         ...prev,
-        assistanceType: checked 
+        assistanceType: checked
           ? [...prev.assistanceType, value]
-          : prev.assistanceType.filter(item => item !== value)
+          : prev.assistanceType.filter((item) => item !== value),
       }));
     } else {
-      setFormData(prev => ({ ...prev, [name]: value }));
+      setFormData((prev) => ({ ...prev, [name]: value }));
     }
   };
 
@@ -67,55 +67,63 @@ const ApplicationModal = ({ isOpen, onClose, programType }) => {
 
     // Prepare email content
     const emailContent = {
-      to_email: 'joe@all4vets.us',
+      to_email: "joe@all4vets.us",
       program_type: programTitles[programType],
       applicant_name: `${formData.firstName} ${formData.lastName}`,
       applicant_email: formData.email,
       applicant_phone: formData.phone,
       applicant_address: `${formData.address}, ${formData.city}, ${formData.state} ${formData.zip}`,
       // V-MEAF specific
-      military_branch: formData.branch || 'N/A',
-      service_dates: formData.serviceStartDate ? `${formData.serviceStartDate} to ${formData.serviceEndDate}` : 'N/A',
-      rank: formData.rank || 'N/A',
-      va_claim_status: formData.vaClaimStatus || 'N/A',
-      va_claim_details: formData.vaClaimDetails || 'N/A',
-      assistance_type: formData.assistanceType.length > 0 ? formData.assistanceType.join(', ') : 'N/A',
-      additional_info: formData.additionalInfo || 'None provided',
-      submission_date: new Date().toLocaleString()
+      military_branch: formData.branch || "N/A",
+      service_dates: formData.serviceStartDate
+        ? `${formData.serviceStartDate} to ${formData.serviceEndDate}`
+        : "N/A",
+      rank: formData.rank || "N/A",
+      va_claim_status: formData.vaClaimStatus || "N/A",
+      va_claim_details: formData.vaClaimDetails || "N/A",
+      assistance_type:
+        formData.assistanceType.length > 0
+          ? formData.assistanceType.join(", ")
+          : "N/A",
+      additional_info: formData.additionalInfo || "None provided",
+      submission_date: new Date().toLocaleString(),
     };
 
     try {
       // Try EmailJS first
-      if (EMAILJS_PUBLIC_KEY !== 'YOUR_PUBLIC_KEY') {
+      if (EMAILJS_PUBLIC_KEY !== "YOUR_PUBLIC_KEY") {
         await emailjs.send(
           EMAILJS_SERVICE_ID,
           EMAILJS_TEMPLATE_ID,
           emailContent,
-          EMAILJS_PUBLIC_KEY
+          EMAILJS_PUBLIC_KEY,
         );
-        setSubmitStatus('success');
+        setSubmitStatus("success");
       } else {
         // Fallback: Send to backend API
-        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/applications`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
+        const response = await fetch(
+          `${process.env.REACT_APP_BACKEND_URL}/api/applications`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              programType,
+              ...emailContent,
+            }),
           },
-          body: JSON.stringify({
-            programType,
-            ...emailContent
-          }),
-        });
-        
+        );
+
         if (response.ok) {
-          setSubmitStatus('success');
+          setSubmitStatus("success");
         } else {
-          throw new Error('Failed to submit application');
+          throw new Error("Failed to submit application");
         }
       }
     } catch (error) {
-      console.error('Error submitting application:', error);
-      setSubmitStatus('error');
+      console.error("Error submitting application:", error);
+      setSubmitStatus("error");
     } finally {
       setIsSubmitting(false);
     }
@@ -123,11 +131,22 @@ const ApplicationModal = ({ isOpen, onClose, programType }) => {
 
   const resetAndClose = () => {
     setFormData({
-      firstName: '', lastName: '', email: '', phone: '',
-      address: '', city: '', state: '', zip: '',
-      branch: '', serviceStartDate: '', serviceEndDate: '', rank: '',
-      vaClaimStatus: '', vaClaimDetails: '',
-      assistanceType: [], additionalInfo: ''
+      firstName: "",
+      lastName: "",
+      email: "",
+      phone: "",
+      address: "",
+      city: "",
+      state: "",
+      zip: "",
+      branch: "",
+      serviceStartDate: "",
+      serviceEndDate: "",
+      rank: "",
+      vaClaimStatus: "",
+      vaClaimDetails: "",
+      assistanceType: [],
+      additionalInfo: "",
     });
     setSubmitStatus(null);
     onClose();
@@ -141,7 +160,7 @@ const ApplicationModal = ({ isOpen, onClose, programType }) => {
         {/* Header */}
         <div className="bg-[#0B1D39] text-white p-6 flex items-center justify-between">
           <h2 className="text-2xl font-bold">{programTitles[programType]}</h2>
-          <button 
+          <button
             onClick={resetAndClose}
             className="p-2 hover:bg-white/10 rounded-full transition-colors"
           >
@@ -150,35 +169,51 @@ const ApplicationModal = ({ isOpen, onClose, programType }) => {
         </div>
 
         {/* Success/Error States */}
-        {submitStatus === 'success' && (
+        {submitStatus === "success" && (
           <div className="p-8 text-center">
             <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
               <CheckCircle size={48} className="text-green-600" />
             </div>
-            <h3 className="text-2xl font-bold text-[#0B1D39] mb-4">Application Submitted!</h3>
+            <h3 className="text-2xl font-bold text-[#0B1D39] mb-4">
+              Application Submitted!
+            </h3>
             <p className="text-[#3C4A5B] mb-6">
-              Thank you for your application. Our team will review it and contact you within 10-14 business days.
+              Thank you for your application. Our team will review it and
+              contact you within 10-14 business days.
             </p>
-            <Button onClick={resetAndClose} className="bg-[#0B1D39] hover:bg-[#1E4F91] text-white px-8 py-3 rounded-full">
+            <Button
+              onClick={resetAndClose}
+              className="bg-[#0B1D39] hover:bg-[#1E4F91] text-white px-8 py-3 rounded-full"
+            >
               Close
             </Button>
           </div>
         )}
 
-        {submitStatus === 'error' && (
+        {submitStatus === "error" && (
           <div className="p-8 text-center">
             <div className="w-20 h-20 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-6">
               <X size={48} className="text-red-600" />
             </div>
-            <h3 className="text-2xl font-bold text-[#0B1D39] mb-4">Submission Failed</h3>
+            <h3 className="text-2xl font-bold text-[#0B1D39] mb-4">
+              Submission Failed
+            </h3>
             <p className="text-[#3C4A5B] mb-6">
-              We couldn't submit your application. Please try again or contact us directly at joe@all4vets.us
+              We couldn't submit your application. Please try again or contact
+              us directly at joe@all4vets.us
             </p>
             <div className="flex gap-4 justify-center">
-              <Button onClick={() => setSubmitStatus(null)} variant="outline" className="border-2 border-[#0B1D39] text-[#0B1D39] px-6 py-3 rounded-full">
+              <Button
+                onClick={() => setSubmitStatus(null)}
+                variant="outline"
+                className="border-2 border-[#0B1D39] text-[#0B1D39] px-6 py-3 rounded-full"
+              >
                 Try Again
               </Button>
-              <Button onClick={resetAndClose} className="bg-[#0B1D39] hover:bg-[#1E4F91] text-white px-6 py-3 rounded-full">
+              <Button
+                onClick={resetAndClose}
+                className="bg-[#0B1D39] hover:bg-[#1E4F91] text-white px-6 py-3 rounded-full"
+              >
                 Close
               </Button>
             </div>
@@ -187,7 +222,10 @@ const ApplicationModal = ({ isOpen, onClose, programType }) => {
 
         {/* Form */}
         {!submitStatus && (
-          <form onSubmit={handleSubmit} className="p-6 overflow-y-auto max-h-[calc(90vh-100px)]">
+          <form
+            onSubmit={handleSubmit}
+            className="p-6 overflow-y-auto max-h-[calc(90vh-100px)]"
+          >
             {/* Basic Personal Information */}
             <div className="mb-8">
               <h3 className="text-lg font-bold text-[#0B1D39] mb-4 pb-2 border-b-2 border-[#E64A38]">
@@ -195,7 +233,9 @@ const ApplicationModal = ({ isOpen, onClose, programType }) => {
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-semibold text-[#0B1D39] mb-1">First Name *</label>
+                  <label className="block text-sm font-semibold text-[#0B1D39] mb-1">
+                    First Name *
+                  </label>
                   <Input
                     name="firstName"
                     value={formData.firstName}
@@ -205,7 +245,9 @@ const ApplicationModal = ({ isOpen, onClose, programType }) => {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-semibold text-[#0B1D39] mb-1">Last Name *</label>
+                  <label className="block text-sm font-semibold text-[#0B1D39] mb-1">
+                    Last Name *
+                  </label>
                   <Input
                     name="lastName"
                     value={formData.lastName}
@@ -215,7 +257,9 @@ const ApplicationModal = ({ isOpen, onClose, programType }) => {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-semibold text-[#0B1D39] mb-1">Email *</label>
+                  <label className="block text-sm font-semibold text-[#0B1D39] mb-1">
+                    Email *
+                  </label>
                   <Input
                     type="email"
                     name="email"
@@ -226,7 +270,9 @@ const ApplicationModal = ({ isOpen, onClose, programType }) => {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-semibold text-[#0B1D39] mb-1">Phone *</label>
+                  <label className="block text-sm font-semibold text-[#0B1D39] mb-1">
+                    Phone *
+                  </label>
                   <Input
                     type="tel"
                     name="phone"
@@ -237,7 +283,9 @@ const ApplicationModal = ({ isOpen, onClose, programType }) => {
                   />
                 </div>
                 <div className="md:col-span-2">
-                  <label className="block text-sm font-semibold text-[#0B1D39] mb-1">Street Address *</label>
+                  <label className="block text-sm font-semibold text-[#0B1D39] mb-1">
+                    Street Address *
+                  </label>
                   <Input
                     name="address"
                     value={formData.address}
@@ -247,7 +295,9 @@ const ApplicationModal = ({ isOpen, onClose, programType }) => {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-semibold text-[#0B1D39] mb-1">City *</label>
+                  <label className="block text-sm font-semibold text-[#0B1D39] mb-1">
+                    City *
+                  </label>
                   <Input
                     name="city"
                     value={formData.city}
@@ -258,7 +308,9 @@ const ApplicationModal = ({ isOpen, onClose, programType }) => {
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-semibold text-[#0B1D39] mb-1">State *</label>
+                    <label className="block text-sm font-semibold text-[#0B1D39] mb-1">
+                      State *
+                    </label>
                     <Input
                       name="state"
                       value={formData.state}
@@ -268,7 +320,9 @@ const ApplicationModal = ({ isOpen, onClose, programType }) => {
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-semibold text-[#0B1D39] mb-1">ZIP *</label>
+                    <label className="block text-sm font-semibold text-[#0B1D39] mb-1">
+                      ZIP *
+                    </label>
                     <Input
                       name="zip"
                       value={formData.zip}
@@ -291,7 +345,9 @@ const ApplicationModal = ({ isOpen, onClose, programType }) => {
                   </h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-sm font-semibold text-[#0B1D39] mb-1">Branch of Service *</label>
+                      <label className="block text-sm font-semibold text-[#0B1D39] mb-1">
+                        Branch of Service *
+                      </label>
                       <select
                         name="branch"
                         value={formData.branch}
@@ -310,7 +366,9 @@ const ApplicationModal = ({ isOpen, onClose, programType }) => {
                       </select>
                     </div>
                     <div>
-                      <label className="block text-sm font-semibold text-[#0B1D39] mb-1">Rank at Separation</label>
+                      <label className="block text-sm font-semibold text-[#0B1D39] mb-1">
+                        Rank at Separation
+                      </label>
                       <Input
                         name="rank"
                         value={formData.rank}
@@ -320,7 +378,9 @@ const ApplicationModal = ({ isOpen, onClose, programType }) => {
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-semibold text-[#0B1D39] mb-1">Service Start Date *</label>
+                      <label className="block text-sm font-semibold text-[#0B1D39] mb-1">
+                        Service Start Date *
+                      </label>
                       <Input
                         type="date"
                         name="serviceStartDate"
@@ -331,7 +391,9 @@ const ApplicationModal = ({ isOpen, onClose, programType }) => {
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-semibold text-[#0B1D39] mb-1">Service End Date *</label>
+                      <label className="block text-sm font-semibold text-[#0B1D39] mb-1">
+                        Service End Date *
+                      </label>
                       <Input
                         type="date"
                         name="serviceEndDate"
@@ -351,7 +413,9 @@ const ApplicationModal = ({ isOpen, onClose, programType }) => {
                   </h3>
                   <div className="space-y-4">
                     <div>
-                      <label className="block text-sm font-semibold text-[#0B1D39] mb-1">Current VA Claim Status *</label>
+                      <label className="block text-sm font-semibold text-[#0B1D39] mb-1">
+                        Current VA Claim Status *
+                      </label>
                       <select
                         name="vaClaimStatus"
                         value={formData.vaClaimStatus}
@@ -361,15 +425,23 @@ const ApplicationModal = ({ isOpen, onClose, programType }) => {
                       >
                         <option value="">Select Status</option>
                         <option value="Not Yet Filed">Not Yet Filed</option>
-                        <option value="Pending Initial Review">Pending Initial Review</option>
-                        <option value="Gathering Evidence">Gathering Evidence</option>
+                        <option value="Pending Initial Review">
+                          Pending Initial Review
+                        </option>
+                        <option value="Gathering Evidence">
+                          Gathering Evidence
+                        </option>
                         <option value="Under Review">Under Review</option>
-                        <option value="Decision Made - Appealing">Decision Made - Appealing</option>
+                        <option value="Decision Made - Appealing">
+                          Decision Made - Appealing
+                        </option>
                         <option value="Other">Other</option>
                       </select>
                     </div>
                     <div>
-                      <label className="block text-sm font-semibold text-[#0B1D39] mb-1">VA Claim Details</label>
+                      <label className="block text-sm font-semibold text-[#0B1D39] mb-1">
+                        VA Claim Details
+                      </label>
                       <Textarea
                         name="vaClaimDetails"
                         value={formData.vaClaimDetails}
@@ -386,25 +458,48 @@ const ApplicationModal = ({ isOpen, onClose, programType }) => {
                   <h3 className="text-lg font-bold text-[#0B1D39] mb-4 pb-2 border-b-2 border-[#E64A38]">
                     Type of Assistance Requested *
                   </h3>
-                  <p className="text-sm text-[#3C4A5B] mb-4">Select all that apply:</p>
+                  <p className="text-sm text-[#3C4A5B] mb-4">
+                    Select all that apply:
+                  </p>
                   <div className="space-y-3">
                     {[
-                      { value: 'Financial Assistance', label: 'Financial Assistance', desc: 'Help with costs during VA claim process' },
-                      { value: 'Medical Advocacy', label: 'Medical Advocacy', desc: 'Support navigating medical documentation' },
-                      { value: 'IMO Support', label: 'IMO Support', desc: 'Independent Medical Opinion assistance' }
+                      {
+                        value: "Financial Assistance",
+                        label: "Financial Assistance",
+                        desc: "Help with costs during VA claim process",
+                      },
+                      {
+                        value: "Medical Advocacy",
+                        label: "Medical Advocacy",
+                        desc: "Support navigating medical documentation",
+                      },
+                      {
+                        value: "IMO Support",
+                        label: "IMO Support",
+                        desc: "Independent Medical Opinion assistance",
+                      },
                     ].map((option) => (
-                      <label key={option.value} className="flex items-start p-4 border-2 border-gray-200 rounded-lg hover:border-[#1E4F91] cursor-pointer transition-colors">
+                      <label
+                        key={option.value}
+                        className="flex items-start p-4 border-2 border-gray-200 rounded-lg hover:border-[#1E4F91] cursor-pointer transition-colors"
+                      >
                         <input
                           type="checkbox"
                           name="assistanceType"
                           value={option.value}
-                          checked={formData.assistanceType.includes(option.value)}
+                          checked={formData.assistanceType.includes(
+                            option.value,
+                          )}
                           onChange={handleChange}
                           className="mt-1 mr-4 w-5 h-5 text-[#0B1D39] border-gray-300 rounded focus:ring-[#1E4F91]"
                         />
                         <div>
-                          <span className="font-semibold text-[#0B1D39]">{option.label}</span>
-                          <p className="text-sm text-[#3C4A5B]">{option.desc}</p>
+                          <span className="font-semibold text-[#0B1D39]">
+                            {option.label}
+                          </span>
+                          <p className="text-sm text-[#3C4A5B]">
+                            {option.desc}
+                          </p>
                         </div>
                       </label>
                     ))}
@@ -439,7 +534,10 @@ const ApplicationModal = ({ isOpen, onClose, programType }) => {
               </Button>
               <Button
                 type="submit"
-                disabled={isSubmitting || (isVMEAF && formData.assistanceType.length === 0)}
+                disabled={
+                  isSubmitting ||
+                  (isVMEAF && formData.assistanceType.length === 0)
+                }
                 className="flex-1 bg-[#E64A38] hover:bg-[#d43e2e] text-white font-bold py-4 rounded-full disabled:opacity-50"
               >
                 {isSubmitting ? (
