@@ -104,6 +104,7 @@ export const programs = [
     },
     primaryCTA: "Apply for Assistance",
     secondaryCTA: "Donate to V-MEAF",
+    disableCTA: false,
   },
   {
     id: 2,
@@ -122,6 +123,7 @@ export const programs = [
     ],
     primaryCTA: "Apply for a Scholarship",
     secondaryCTA: "Sponsor a Veteran's Education",
+    disableCTA: true,
   },
   {
     id: 3,
@@ -140,6 +142,7 @@ export const programs = [
     ],
     primaryCTA: "Request Emergency Aid",
     secondaryCTA: "Give to the Relief Fund",
+    disableCTA: true,
   },
 ];
 
