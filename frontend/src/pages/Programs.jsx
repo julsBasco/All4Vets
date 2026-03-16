@@ -183,13 +183,22 @@ const Programs = () => {
 
                           {/* CTAs */}
                           <div className="flex flex-col sm:flex-row gap-4">
-                            <Button
-                              onClick={() => handleApplyClick(program.slug)}
-                              className="bg-[#E64A38] hover:bg-[#d43e2e] text-white font-bold px-6 py-3 rounded-full"
-                              disabled
-                            >
-                              {program.primaryCTA}
-                            </Button>
+                            {program.disableCTA ? (
+                              <Button
+                                onClick={() => handleApplyClick(program.slug)}
+                                className="bg-[#E64A38] hover:bg-[#d43e2e] text-white font-bold px-6 py-3 rounded-full"
+                                disabled
+                              >
+                                {<>Coming Soon</>}
+                              </Button>
+                            ) : (
+                              <Button
+                                onClick={() => handleApplyClick(program.slug)}
+                                className="bg-[#E64A38] hover:bg-[#d43e2e] text-white font-bold px-6 py-3 rounded-full"
+                              >
+                                {program.primaryCTA}
+                              </Button>
+                            )}
                             <Link to="/donate">
                               <Button
                                 variant="outline"
