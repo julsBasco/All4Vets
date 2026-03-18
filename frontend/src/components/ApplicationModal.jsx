@@ -3,12 +3,9 @@ import { X, Send, CheckCircle, Loader2, Upload, AlertCircle } from "lucide-react
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
-import emailjs from "@emailjs/browser";
 
-// EmailJS Configuration - User needs to set these up
-const EMAILJS_SERVICE_ID = "service_pvv6b3x";
-const EMAILJS_TEMPLATE_ID = "template_fks6sqz";
-const EMAILJS_PUBLIC_KEY = "05MmZHAAF9TuVW64Z";
+// Backend API URL
+const API_URL = process.env.REACT_APP_BACKEND_URL || "";
 
 // US States list for dropdown
 const US_STATES = [
@@ -194,70 +191,86 @@ const ApplicationModal = ({ isOpen, onClose, programType }) => {
     setIsSubmitting(true);
     setSubmitStatus(null);
 
-    // Prepare email content
-    const emailContent = {
-      to_email: "joe@all4vets.us",
-      program_type: programTitles[programType],
-      // Personal Info
-      applicant_name: `${formData.firstName} ${formData.lastName}`,
-      applicant_email: formData.email,
-      applicant_phone: formData.phone,
-      applicant_address: `${formData.address}, ${formData.city}, ${formData.state} ${formData.zipCode}`,
-      // Military Service
-      military_branch: formData.branch || "N/A",
-      service_number: formData.serviceNumber || "N/A",
-      service_dates: formData.serviceStart
-        ? `${formData.serviceStart} to ${formData.serviceEnd}`
-        : "N/A",
-      discharge_type: formData.dischargeType || "N/A",
-      dd214_uploaded: formData.dd214File ? "Yes - " + fileNames.dd214 : "No",
-      str_uploaded: formData.serviceTreatmentRecords ? "Yes - " + fileNames.serviceTreatmentRecords : "No",
-      blue_button_uploaded: formData.vaBlueButtonReport ? "Yes - " + fileNames.vaBlueButtonReport : "No",
-      private_medical_uploaded: formData.privateMedicalRecords ? "Yes - " + fileNames.privateMedicalRecords : "No",
-      prior_dbq_uploaded: formData.priorDbqNexusLetter ? "Yes - " + fileNames.priorDbqNexusLetter : "No",
-      // VA Disability Info
-      va_claim_status: formData.claimStatus || "N/A",
-      va_file_number: formData.vaFileNumber || "N/A",
-      disability_rating: formData.disabilityRating || "N/A",
-      evaluation_type: formData.evaluationType || "N/A",
-      conditions_claimed: formData.conditionsClaimed || "N/A",
-      existing_diagnosis: formData.existingDiagnosis || "N/A",
-      medical_conditions: formData.medicalConditions || "N/A",
-      current_symptoms: formData.currentSymptoms || "N/A",
-      current_medications: formData.currentMedications || "N/A",
-      prior_treatment_history: formData.priorTreatmentHistory || "N/A",
-      // Financial Hardship
-      hardship_statement: formData.hardshipStatement || "N/A",
-      // Certification
-      signature: formData.signature || "N/A",
-      signature_date: formData.signatureDate || "N/A",
-      submission_date: new Date().toLocaleString(),
-    };
-
     try {
-      if (EMAILJS_PUBLIC_KEY !== "YOUR_PUBLIC_KEY") {
-        await emailjs.send(
-          EMAILJS_SERVICE_ID,
-          EMAILJS_TEMPLATE_ID,
-          emailContent,
-          EMAILJS_PUBLIC_KEY,
-        );
-        setSubmitStatus("success");
+      if (isVMEAF) {
+        // V-MEAF form - use FormData for file uploads
+        const submitData = new FormData();
+        
+        // Add all form fields
+        submitData.append("firstName", formData.firstName);
+        submitData.append("lastName", formData.lastName);
+        submitData.append("email", formData.email);
+        submitData.append("phone", formData.phone);
+        submitData.append("address", formData.address);
+        submitData.append("city", formData.city);
+        submitData.append("state", formData.state);
+        submitData.append("zipCode", formData.zipCode);
+        submitData.append("branch", formData.branch);
+        submitData.append("serviceNumber", formData.serviceNumber || "");
+        submitData.append("serviceStart", formData.serviceStart);
+        submitData.append("serviceEnd", formData.serviceEnd);
+        submitData.append("dischargeType", formData.dischargeType);
+        submitData.append("claimStatus", formData.claimStatus);
+        submitData.append("vaFileNumber", formData.vaFileNumber || "");
+        submitData.append("disabilityRating", formData.disabilityRating || "");
+        submitData.append("evaluationType", formData.evaluationType);
+        submitData.append("conditionsClaimed", formData.conditionsClaimed);
+        submitData.append("existingDiagnosis", formData.existingDiagnosis);
+        submitData.append("medicalConditions", formData.medicalConditions);
+        submitData.append("currentSymptoms", formData.currentSymptoms);
+        submitData.append("currentMedications", formData.currentMedications);
+        submitData.append("priorTreatmentHistory", formData.priorTreatmentHistory);
+        submitData.append("hardshipStatement", formData.hardshipStatement);
+        submitData.append("signature", formData.signature);
+        submitData.append("signatureDate", formData.signatureDate);
+        
+        // Add files if they exist
+        if (formData.dd214File) {
+          submitData.append("dd214File", formData.dd214File);
+        }
+        if (formData.serviceTreatmentRecords) {
+          submitData.append("serviceTreatmentRecords", formData.serviceTreatmentRecords);
+        }
+        if (formData.vaBlueButtonReport) {
+          submitData.append("vaBlueButtonReport", formData.vaBlueButtonReport);
+        }
+        if (formData.privateMedicalRecords) {
+          submitData.append("privateMedicalRecords", formData.privateMedicalRecords);
+        }
+        if (formData.priorDbqNexusLetter) {
+          submitData.append("priorDbqNexusLetter", formData.priorDbqNexusLetter);
+        }
+        
+        const response = await fetch(`${API_URL}/api/applications/vmeaf`, {
+          method: "POST",
+          body: submitData,
+        });
+        
+        if (response.ok) {
+          setSubmitStatus("success");
+        } else {
+          const errorData = await response.json().catch(() => ({}));
+          throw new Error(errorData.detail || "Failed to submit application");
+        }
       } else {
-        const response = await fetch(
-          `${process.env.REACT_APP_BACKEND_URL}/api/applications`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              programType,
-              ...emailContent,
-            }),
-          },
-        );
-
+        // Non-V-MEAF forms (scholarship, emergency)
+        const submitData = new FormData();
+        submitData.append("programType", programType);
+        submitData.append("firstName", formData.firstName);
+        submitData.append("lastName", formData.lastName);
+        submitData.append("email", formData.email);
+        submitData.append("phone", formData.phone);
+        submitData.append("address", formData.address || "");
+        submitData.append("city", formData.city || "");
+        submitData.append("state", formData.state || "");
+        submitData.append("zipCode", formData.zipCode || "");
+        submitData.append("additionalInfo", formData.hardshipStatement || "");
+        
+        const response = await fetch(`${API_URL}/api/applications`, {
+          method: "POST",
+          body: submitData,
+        });
+        
         if (response.ok) {
           setSubmitStatus("success");
         } else {
