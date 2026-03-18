@@ -66,7 +66,11 @@ const US_STATES = [
 ];
 
 const ApplicationModal = ({ isOpen, onClose, programType }) => {
-  const fileInputRef = useRef(null);
+  const dd214InputRef = useRef(null);
+  const strInputRef = useRef(null);
+  const blueButtonInputRef = useRef(null);
+  const privateMedicalInputRef = useRef(null);
+  const priorDbqInputRef = useRef(null);
   
   const [formData, setFormData] = useState({
     // Section 1: Personal Information
@@ -86,24 +90,27 @@ const ApplicationModal = ({ isOpen, onClose, programType }) => {
     serviceEnd: "",
     dischargeType: "",
     dd214File: null,
+    serviceTreatmentRecords: null,
+    vaBlueButtonReport: null,
+    privateMedicalRecords: null,
+    priorDbqNexusLetter: null,
     
     // Section 3: VA Disability Information
     claimStatus: "",
     vaFileNumber: "",
     disabilityRating: "",
+    evaluationType: "",
+    conditionsClaimed: "",
+    existingDiagnosis: "",
     medicalConditions: "",
+    currentSymptoms: "",
+    currentMedications: "",
+    priorTreatmentHistory: "",
     
     // Section 4: Financial Hardship Statement
     hardshipStatement: "",
     
-    // Section 5: Requested Assistance
-    assistanceAmount: "",
-    fundUse: [],
-    fundUseDetails: "",
-    urgency: "",
-    additionalInfo: "",
-    
-    // Section 6: Certification & Consent
+    // Section 5: Certification & Consent
     certifications: [],
     signature: "",
     signatureDate: new Date().toISOString().split('T')[0],
@@ -111,7 +118,13 @@ const ApplicationModal = ({ isOpen, onClose, programType }) => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null);
-  const [fileName, setFileName] = useState("");
+  const [fileNames, setFileNames] = useState({
+    dd214: "",
+    serviceTreatmentRecords: "",
+    vaBlueButtonReport: "",
+    privateMedicalRecords: "",
+    priorDbqNexusLetter: "",
+  });
 
   const isVMEAF = programType === "vmeaf";
 
@@ -120,17 +133,6 @@ const ApplicationModal = ({ isOpen, onClose, programType }) => {
     scholarship: "Scholarship & Education Grant Application",
     emergency: "Emergency Aid Application",
   };
-
-  // Fund use options
-  const fundUseOptions = [
-    { value: "Medical expenses", label: "Medical expenses (copays, prescriptions, treatments)" },
-    { value: "VA claim assistance", label: "VA claim filing assistance (legal fees, medical records)" },
-    { value: "Housing", label: "Housing (rent, mortgage, utilities)" },
-    { value: "Transportation", label: "Transportation (vehicle repairs, gas for medical appointments)" },
-    { value: "Food", label: "Food and basic necessities" },
-    { value: "Medical equipment", label: "Medical equipment or adaptive devices" },
-    { value: "Other", label: "Other (please specify below)" },
-  ];
 
   // Certification options
   const certificationOptions = [
@@ -146,14 +148,7 @@ const ApplicationModal = ({ isOpen, onClose, programType }) => {
     const { name, value, type, checked } = e.target;
 
     if (type === "checkbox") {
-      if (name === "fundUse") {
-        setFormData((prev) => ({
-          ...prev,
-          fundUse: checked
-            ? [...prev.fundUse, value]
-            : prev.fundUse.filter((item) => item !== value),
-        }));
-      } else if (name === "certifications") {
+      if (name === "certifications") {
         setFormData((prev) => ({
           ...prev,
           certifications: checked
@@ -168,7 +163,7 @@ const ApplicationModal = ({ isOpen, onClose, programType }) => {
     }
   };
 
-  const handleFileChange = (e) => {
+  const handleFileChange = (e, fieldName, fileNameKey) => {
     const file = e.target.files[0];
     if (file) {
       // Check file size (max 10MB)
@@ -182,19 +177,13 @@ const ApplicationModal = ({ isOpen, onClose, programType }) => {
         alert("Only PDF, JPG, JPEG, and PNG files are allowed");
         return;
       }
-      setFormData((prev) => ({ ...prev, dd214File: file }));
-      setFileName(file.name);
+      setFormData((prev) => ({ ...prev, [fieldName]: file }));
+      setFileNames((prev) => ({ ...prev, [fileNameKey]: file.name }));
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    // Validate fund use selection for V-MEAF
-    if (isVMEAF && formData.fundUse.length === 0) {
-      alert("Please select at least one option for Primary Use of Funds");
-      return;
-    }
     
     // Validate all certifications are checked for V-MEAF
     if (isVMEAF && formData.certifications.length !== 6) {
@@ -221,20 +210,24 @@ const ApplicationModal = ({ isOpen, onClose, programType }) => {
         ? `${formData.serviceStart} to ${formData.serviceEnd}`
         : "N/A",
       discharge_type: formData.dischargeType || "N/A",
-      dd214_uploaded: formData.dd214File ? "Yes - " + fileName : "No",
+      dd214_uploaded: formData.dd214File ? "Yes - " + fileNames.dd214 : "No",
+      str_uploaded: formData.serviceTreatmentRecords ? "Yes - " + fileNames.serviceTreatmentRecords : "No",
+      blue_button_uploaded: formData.vaBlueButtonReport ? "Yes - " + fileNames.vaBlueButtonReport : "No",
+      private_medical_uploaded: formData.privateMedicalRecords ? "Yes - " + fileNames.privateMedicalRecords : "No",
+      prior_dbq_uploaded: formData.priorDbqNexusLetter ? "Yes - " + fileNames.priorDbqNexusLetter : "No",
       // VA Disability Info
       va_claim_status: formData.claimStatus || "N/A",
       va_file_number: formData.vaFileNumber || "N/A",
       disability_rating: formData.disabilityRating || "N/A",
+      evaluation_type: formData.evaluationType || "N/A",
+      conditions_claimed: formData.conditionsClaimed || "N/A",
+      existing_diagnosis: formData.existingDiagnosis || "N/A",
       medical_conditions: formData.medicalConditions || "N/A",
+      current_symptoms: formData.currentSymptoms || "N/A",
+      current_medications: formData.currentMedications || "N/A",
+      prior_treatment_history: formData.priorTreatmentHistory || "N/A",
       // Financial Hardship
       hardship_statement: formData.hardshipStatement || "N/A",
-      // Requested Assistance
-      assistance_amount: formData.assistanceAmount ? `$${formData.assistanceAmount}` : "N/A",
-      fund_use: formData.fundUse.length > 0 ? formData.fundUse.join(", ") : "N/A",
-      fund_use_details: formData.fundUseDetails || "N/A",
-      urgency: formData.urgency || "N/A",
-      additional_info: formData.additionalInfo || "None provided",
       // Certification
       signature: formData.signature || "N/A",
       signature_date: formData.signatureDate || "N/A",
@@ -295,24 +288,64 @@ const ApplicationModal = ({ isOpen, onClose, programType }) => {
       serviceEnd: "",
       dischargeType: "",
       dd214File: null,
+      serviceTreatmentRecords: null,
+      vaBlueButtonReport: null,
+      privateMedicalRecords: null,
+      priorDbqNexusLetter: null,
       claimStatus: "",
       vaFileNumber: "",
       disabilityRating: "",
+      evaluationType: "",
+      conditionsClaimed: "",
+      existingDiagnosis: "",
       medicalConditions: "",
+      currentSymptoms: "",
+      currentMedications: "",
+      priorTreatmentHistory: "",
       hardshipStatement: "",
-      assistanceAmount: "",
-      fundUse: [],
-      fundUseDetails: "",
-      urgency: "",
-      additionalInfo: "",
       certifications: [],
       signature: "",
       signatureDate: new Date().toISOString().split('T')[0],
     });
-    setFileName("");
+    setFileNames({
+      dd214: "",
+      serviceTreatmentRecords: "",
+      vaBlueButtonReport: "",
+      privateMedicalRecords: "",
+      priorDbqNexusLetter: "",
+    });
     setSubmitStatus(null);
     onClose();
   };
+
+  // File upload component
+  const FileUploadField = ({ label, required, inputRef, fieldName, fileNameKey, helpText }) => (
+    <div>
+      <label className="block text-sm font-semibold text-[#0B1D39] mb-1">
+        {label} {required && "*"}
+      </label>
+      <div className="relative">
+        <input
+          ref={inputRef}
+          type="file"
+          accept=".pdf,.jpg,.jpeg,.png"
+          onChange={(e) => handleFileChange(e, fieldName, fileNameKey)}
+          required={required}
+          className="hidden"
+        />
+        <div 
+          onClick={() => inputRef.current?.click()}
+          className="w-full p-3 border-2 border-gray-300 border-dashed rounded-md cursor-pointer hover:border-[#1E4F91] transition-colors flex items-center justify-center gap-2"
+        >
+          <Upload size={20} className="text-gray-400" />
+          <span className="text-gray-600 text-sm">
+            {fileNames[fileNameKey] || "Click to upload (PDF, JPG, PNG - Max 10MB)"}
+          </span>
+        </div>
+      </div>
+      {helpText && <p className="text-xs text-gray-500 mt-1">{helpText}</p>}
+    </div>
+  );
 
   if (!isOpen) return null;
 
@@ -591,7 +624,7 @@ const ApplicationModal = ({ isOpen, onClose, programType }) => {
                         className="border-2 border-gray-300 focus:border-[#1E4F91]"
                       />
                     </div>
-                    <div>
+                    <div className="md:col-span-2">
                       <label className="block text-sm font-semibold text-[#0B1D39] mb-1">
                         Type of Discharge *
                       </label>
@@ -611,32 +644,52 @@ const ApplicationModal = ({ isOpen, onClose, programType }) => {
                         <option value="Medical">Medical Discharge</option>
                       </select>
                     </div>
-                    <div>
-                      <label className="block text-sm font-semibold text-[#0B1D39] mb-1">
-                        Upload DD214 *
-                      </label>
-                      <div className="relative">
-                        <input
-                          ref={fileInputRef}
-                          type="file"
-                          accept=".pdf,.jpg,.jpeg,.png"
-                          onChange={handleFileChange}
-                          required
-                          className="hidden"
-                        />
-                        <div 
-                          onClick={() => fileInputRef.current?.click()}
-                          className="w-full p-3 border-2 border-gray-300 border-dashed rounded-md cursor-pointer hover:border-[#1E4F91] transition-colors flex items-center justify-center gap-2"
-                        >
-                          <Upload size={20} className="text-gray-400" />
-                          <span className="text-gray-600">
-                            {fileName || "Click to upload (PDF, JPG, PNG - Max 10MB)"}
-                          </span>
-                        </div>
-                      </div>
-                      <p className="text-xs text-gray-500 mt-1">
-                        Your DD214 is required to verify military service. Accepted formats: PDF, JPG, PNG (Max 10MB)
-                      </p>
+                  </div>
+
+                  {/* File Upload Section */}
+                  <div className="mt-6">
+                    <h4 className="text-md font-semibold text-[#0B1D39] mb-4">Upload Documents</h4>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <FileUploadField
+                        label="Upload DD214"
+                        required={true}
+                        inputRef={dd214InputRef}
+                        fieldName="dd214File"
+                        fileNameKey="dd214"
+                        helpText="Your DD214 is required to verify military service."
+                      />
+                      <FileUploadField
+                        label="Service Treatment Records"
+                        required={false}
+                        inputRef={strInputRef}
+                        fieldName="serviceTreatmentRecords"
+                        fileNameKey="serviceTreatmentRecords"
+                        helpText="Upload your Service Treatment Records if available."
+                      />
+                      <FileUploadField
+                        label="VA Blue Button Report"
+                        required={false}
+                        inputRef={blueButtonInputRef}
+                        fieldName="vaBlueButtonReport"
+                        fileNameKey="vaBlueButtonReport"
+                        helpText="Upload your VA Blue Button Report if available."
+                      />
+                      <FileUploadField
+                        label="Private Medical Records"
+                        required={false}
+                        inputRef={privateMedicalInputRef}
+                        fieldName="privateMedicalRecords"
+                        fileNameKey="privateMedicalRecords"
+                        helpText="Upload any private medical records if available."
+                      />
+                      <FileUploadField
+                        label="Prior DBQ / Nexus Letter"
+                        required={false}
+                        inputRef={priorDbqInputRef}
+                        fieldName="priorDbqNexusLetter"
+                        fileNameKey="priorDbqNexusLetter"
+                        helpText="Upload any prior DBQ or Nexus Letter if available."
+                      />
                     </div>
                   </div>
                 </div>
@@ -681,6 +734,7 @@ const ApplicationModal = ({ isOpen, onClose, programType }) => {
                         ))}
                       </div>
                     </div>
+                    
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div>
                         <label className="block text-sm font-semibold text-[#0B1D39] mb-1">
@@ -719,16 +773,114 @@ const ApplicationModal = ({ isOpen, onClose, programType }) => {
                         </select>
                       </div>
                     </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-sm font-semibold text-[#0B1D39] mb-1">
+                          Type of Evaluation Needed *
+                        </label>
+                        <select
+                          name="evaluationType"
+                          value={formData.evaluationType}
+                          onChange={handleChange}
+                          required
+                          className="w-full p-3 border-2 border-gray-300 rounded-md focus:border-[#1E4F91] focus:outline-none"
+                        >
+                          <option value="">Select Evaluation Type</option>
+                          <option value="Nexus Letter">Nexus Letter</option>
+                          <option value="DBQ">DBQ</option>
+                          <option value="Independent Medical Opinion">Independent Medical Opinion</option>
+                          <option value="All of the above">All of the above</option>
+                        </select>
+                      </div>
+                      <div>
+                        <label className="block text-sm font-semibold text-[#0B1D39] mb-1">
+                          Conditions Being Claimed *
+                        </label>
+                        <select
+                          name="conditionsClaimed"
+                          value={formData.conditionsClaimed}
+                          onChange={handleChange}
+                          required
+                          className="w-full p-3 border-2 border-gray-300 rounded-md focus:border-[#1E4F91] focus:outline-none"
+                        >
+                          <option value="">Select Condition Type</option>
+                          <option value="Medical Conditions">Medical Conditions</option>
+                          <option value="Mental Health Condition">Mental Health Condition</option>
+                          <option value="All of the above">All of the above</option>
+                        </select>
+                      </div>
+                    </div>
+
                     <div>
                       <label className="block text-sm font-semibold text-[#0B1D39] mb-1">
-                        Service-Connected Medical Conditions *
+                        Existing Diagnosis *
+                      </label>
+                      <select
+                        name="existingDiagnosis"
+                        value={formData.existingDiagnosis}
+                        onChange={handleChange}
+                        required
+                        className="w-full p-3 border-2 border-gray-300 rounded-md focus:border-[#1E4F91] focus:outline-none"
+                      >
+                        <option value="">Select Option</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                      </select>
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-semibold text-[#0B1D39] mb-1">
+                        Service Connected Medical Conditions *
                       </label>
                       <Textarea
                         name="medicalConditions"
                         value={formData.medicalConditions}
                         onChange={handleChange}
                         required
-                        placeholder="Please list any conditions you are claiming or have claimed, whether service-connected, pending, or denied."
+                        placeholder="How the claimed condition is connected to military service or an already service-connected disability. The veteran describes the direct or secondary nexus in their own words."
+                        className="border-2 border-gray-300 focus:border-[#1E4F91] min-h-[100px]"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-semibold text-[#0B1D39] mb-1">
+                        Current Symptoms *
+                      </label>
+                      <Textarea
+                        name="currentSymptoms"
+                        value={formData.currentSymptoms}
+                        onChange={handleChange}
+                        required
+                        placeholder="A detailed description of present symptoms related to the claimed condition."
+                        className="border-2 border-gray-300 focus:border-[#1E4F91] min-h-[100px]"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-semibold text-[#0B1D39] mb-1">
+                        Current Medications *
+                      </label>
+                      <Textarea
+                        name="currentMedications"
+                        value={formData.currentMedications}
+                        onChange={handleChange}
+                        required
+                        placeholder="All medications currently being taken specifically for the claimed condition."
+                        className="border-2 border-gray-300 focus:border-[#1E4F91] min-h-[100px]"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-semibold text-[#0B1D39] mb-1">
+                        Prior Treatment History *
+                      </label>
+                      <Textarea
+                        name="priorTreatmentHistory"
+                        value={formData.priorTreatmentHistory}
+                        onChange={handleChange}
+                        required
+                        placeholder="Previous treatment for the condition, including doctors, therapists, clinics, or hospitals."
                         className="border-2 border-gray-300 focus:border-[#1E4F91] min-h-[100px]"
                       />
                     </div>
@@ -756,113 +908,10 @@ const ApplicationModal = ({ isOpen, onClose, programType }) => {
                   />
                 </div>
 
-                {/* Section 5: Requested Assistance */}
+                {/* Section 5: Certification & Consent */}
                 <div className="mb-8">
                   <h3 className="text-lg font-bold text-[#0B1D39] mb-4 pb-2 border-b-2 border-[#E64A38] flex items-center">
                     <span className="bg-[#0B1D39] text-white w-8 h-8 rounded-full flex items-center justify-center text-sm mr-3">5</span>
-                    Requested Assistance
-                  </h3>
-                  <div className="space-y-4">
-                    <div>
-                      <label className="block text-sm font-semibold text-[#0B1D39] mb-1">
-                        Amount of Assistance Requested *
-                      </label>
-                      <div className="relative">
-                        <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">$</span>
-                        <Input
-                          type="number"
-                          name="assistanceAmount"
-                          value={formData.assistanceAmount}
-                          onChange={handleChange}
-                          required
-                          min="0"
-                          step="0.01"
-                          placeholder="0.00"
-                          className="border-2 border-gray-300 focus:border-[#1E4F91] pl-8"
-                        />
-                      </div>
-                    </div>
-                    
-                    <div>
-                      <label className="block text-sm font-semibold text-[#0B1D39] mb-2">
-                        Primary Use of Funds * <span className="text-gray-500 font-normal">(Select all that apply)</span>
-                      </label>
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                        {fundUseOptions.map((option) => (
-                          <label
-                            key={option.value}
-                            className={`flex items-start p-3 border-2 rounded-lg cursor-pointer transition-colors ${
-                              formData.fundUse.includes(option.value)
-                                ? "border-[#1E4F91] bg-blue-50"
-                                : "border-gray-200 hover:border-gray-300"
-                            }`}
-                          >
-                            <input
-                              type="checkbox"
-                              name="fundUse"
-                              value={option.value}
-                              checked={formData.fundUse.includes(option.value)}
-                              onChange={handleChange}
-                              className="mt-0.5 mr-3 w-4 h-4 text-[#1E4F91] rounded"
-                            />
-                            <span className="text-sm text-[#0B1D39]">{option.label}</span>
-                          </label>
-                        ))}
-                      </div>
-                    </div>
-                    
-                    <div>
-                      <label className="block text-sm font-semibold text-[#0B1D39] mb-1">
-                        Detailed Explanation of Fund Usage *
-                      </label>
-                      <Textarea
-                        name="fundUseDetails"
-                        value={formData.fundUseDetails}
-                        onChange={handleChange}
-                        required
-                        placeholder="Please provide specific details about how the funds will be used..."
-                        className="border-2 border-gray-300 focus:border-[#1E4F91] min-h-[100px]"
-                      />
-                    </div>
-                    
-                    <div>
-                      <label className="block text-sm font-semibold text-[#0B1D39] mb-1">
-                        Urgency Level *
-                      </label>
-                      <select
-                        name="urgency"
-                        value={formData.urgency}
-                        onChange={handleChange}
-                        required
-                        className="w-full p-3 border-2 border-gray-300 rounded-md focus:border-[#1E4F91] focus:outline-none"
-                      >
-                        <option value="">Select Urgency</option>
-                        <option value="Critical">Critical (Immediate need - within 7 days)</option>
-                        <option value="High">High (Within 2 weeks)</option>
-                        <option value="Moderate">Moderate (Within 30 days)</option>
-                        <option value="Standard">Standard (No immediate deadline)</option>
-                      </select>
-                    </div>
-                    
-                    <div>
-                      <label className="block text-sm font-semibold text-[#0B1D39] mb-1">
-                        Additional Information
-                      </label>
-                      <Textarea
-                        name="additionalInfo"
-                        value={formData.additionalInfo}
-                        onChange={handleChange}
-                        placeholder="Is there anything else you'd like us to know?"
-                        className="border-2 border-gray-300 focus:border-[#1E4F91] min-h-[80px]"
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                {/* Section 6: Certification & Consent */}
-                <div className="mb-8">
-                  <h3 className="text-lg font-bold text-[#0B1D39] mb-4 pb-2 border-b-2 border-[#E64A38] flex items-center">
-                    <span className="bg-[#0B1D39] text-white w-8 h-8 rounded-full flex items-center justify-center text-sm mr-3">6</span>
                     Certification & Consent
                   </h3>
                   <p className="text-sm text-gray-600 mb-4">
@@ -933,8 +982,8 @@ const ApplicationModal = ({ isOpen, onClose, programType }) => {
                   Additional Information
                 </h3>
                 <Textarea
-                  name="additionalInfo"
-                  value={formData.additionalInfo}
+                  name="hardshipStatement"
+                  value={formData.hardshipStatement}
                   onChange={handleChange}
                   placeholder="Is there anything else you'd like us to know about your situation?"
                   className="border-2 border-gray-300 focus:border-[#1E4F91] min-h-[100px]"
@@ -967,7 +1016,7 @@ const ApplicationModal = ({ isOpen, onClose, programType }) => {
               </Button>
               <Button
                 type="submit"
-                disabled={isSubmitting || (isVMEAF && (formData.fundUse.length === 0 || formData.certifications.length !== 6))}
+                disabled={isSubmitting || (isVMEAF && formData.certifications.length !== 6)}
                 className="flex-1 bg-[#E64A38] hover:bg-[#d43e2e] text-white font-bold py-4 rounded-full disabled:opacity-50"
               >
                 {isSubmitting ? (
