@@ -1,5 +1,12 @@
 import React, { useState, useRef } from "react";
-import { X, Send, CheckCircle, Loader2, Upload, AlertCircle } from "lucide-react";
+import {
+  X,
+  Send,
+  CheckCircle,
+  Loader2,
+  Upload,
+  AlertCircle,
+} from "lucide-react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
@@ -71,7 +78,7 @@ const ApplicationModal = ({ isOpen, onClose, programType }) => {
   const blueButtonInputRef = useRef(null);
   const privateMedicalInputRef = useRef(null);
   const priorDbqInputRef = useRef(null);
-  
+
   const [formData, setFormData] = useState({
     // Section 1: Personal Information
     firstName: "",
@@ -82,7 +89,7 @@ const ApplicationModal = ({ isOpen, onClose, programType }) => {
     city: "",
     state: "",
     zipCode: "",
-    
+
     // Section 2: Military Service Verification
     branch: "",
     serviceNumber: "",
@@ -94,7 +101,7 @@ const ApplicationModal = ({ isOpen, onClose, programType }) => {
     vaBlueButtonReport: null,
     privateMedicalRecords: null,
     priorDbqNexusLetter: null,
-    
+
     // Section 3: VA Disability Information
     claimStatus: "",
     vaFileNumber: "",
@@ -106,14 +113,14 @@ const ApplicationModal = ({ isOpen, onClose, programType }) => {
     currentSymptoms: "",
     currentMedications: "",
     priorTreatmentHistory: "",
-    
+
     // Section 4: Financial Hardship Statement
     hardshipStatement: "",
-    
+
     // Section 5: Certification & Consent
     certifications: [],
     signature: "",
-    signatureDate: new Date().toISOString().split('T')[0],
+    signatureDate: new Date().toISOString().split("T")[0],
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -136,12 +143,36 @@ const ApplicationModal = ({ isOpen, onClose, programType }) => {
 
   // Certification options
   const certificationOptions = [
-    { value: "Information accurate", label: "I certify that all information provided in this application is true and accurate to the best of my knowledge." },
-    { value: "Financial hardship", label: "I certify that I am experiencing financial hardship and am in need of assistance." },
-    { value: "Understand verification", label: "I understand that All4Vets may verify the information provided and request additional documentation." },
-    { value: "Consent to contact", label: "I consent to be contacted by All4Vets regarding this application via phone, email, or mail." },
-    { value: "Funds for stated purpose", label: "I agree to use any funds received solely for the purposes stated in this application." },
-    { value: "Privacy policy", label: "I have read and agree to All4Vets' privacy policy regarding the handling of my personal information." },
+    {
+      value: "Information accurate",
+      label:
+        "I certify that all information provided in this application is true and accurate to the best of my knowledge.",
+    },
+    {
+      value: "Financial hardship",
+      label:
+        "I certify that I am experiencing financial hardship and am in need of assistance.",
+    },
+    {
+      value: "Understand verification",
+      label:
+        "I understand that All4Vets may verify the information provided and request additional documentation.",
+    },
+    {
+      value: "Consent to contact",
+      label:
+        "I consent to be contacted by All4Vets regarding this application via phone, email, or mail.",
+    },
+    {
+      value: "Funds for stated purpose",
+      label:
+        "I agree to use any funds received solely for the purposes stated in this application.",
+    },
+    {
+      value: "Privacy policy",
+      label:
+        "I have read and agree to All4Vets' privacy policy regarding the handling of my personal information.",
+    },
   ];
 
   const handleChange = (e) => {
@@ -172,7 +203,12 @@ const ApplicationModal = ({ isOpen, onClose, programType }) => {
         return;
       }
       // Check file type
-      const allowedTypes = ['application/pdf', 'image/jpeg', 'image/jpg', 'image/png'];
+      const allowedTypes = [
+        "application/pdf",
+        "image/jpeg",
+        "image/jpg",
+        "image/png",
+      ];
       if (!allowedTypes.includes(file.type)) {
         alert("Only PDF, JPG, JPEG, and PNG files are allowed");
         return;
@@ -184,13 +220,13 @@ const ApplicationModal = ({ isOpen, onClose, programType }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     // Validate all certifications are checked for V-MEAF
     if (isVMEAF && formData.certifications.length !== 6) {
       alert("Please agree to all certification statements to proceed");
       return;
     }
-    
+
     setIsSubmitting(true);
     setSubmitStatus(null);
 
@@ -211,10 +247,18 @@ const ApplicationModal = ({ isOpen, onClose, programType }) => {
         : "N/A",
       discharge_type: formData.dischargeType || "N/A",
       dd214_uploaded: formData.dd214File ? "Yes - " + fileNames.dd214 : "No",
-      str_uploaded: formData.serviceTreatmentRecords ? "Yes - " + fileNames.serviceTreatmentRecords : "No",
-      blue_button_uploaded: formData.vaBlueButtonReport ? "Yes - " + fileNames.vaBlueButtonReport : "No",
-      private_medical_uploaded: formData.privateMedicalRecords ? "Yes - " + fileNames.privateMedicalRecords : "No",
-      prior_dbq_uploaded: formData.priorDbqNexusLetter ? "Yes - " + fileNames.priorDbqNexusLetter : "No",
+      str_uploaded: formData.serviceTreatmentRecords
+        ? "Yes - " + fileNames.serviceTreatmentRecords
+        : "No",
+      blue_button_uploaded: formData.vaBlueButtonReport
+        ? "Yes - " + fileNames.vaBlueButtonReport
+        : "No",
+      private_medical_uploaded: formData.privateMedicalRecords
+        ? "Yes - " + fileNames.privateMedicalRecords
+        : "No",
+      prior_dbq_uploaded: formData.priorDbqNexusLetter
+        ? "Yes - " + fileNames.priorDbqNexusLetter
+        : "No",
       // VA Disability Info
       va_claim_status: formData.claimStatus || "N/A",
       va_file_number: formData.vaFileNumber || "N/A",
@@ -305,7 +349,7 @@ const ApplicationModal = ({ isOpen, onClose, programType }) => {
       hardshipStatement: "",
       certifications: [],
       signature: "",
-      signatureDate: new Date().toISOString().split('T')[0],
+      signatureDate: new Date().toISOString().split("T")[0],
     });
     setFileNames({
       dd214: "",
@@ -319,7 +363,14 @@ const ApplicationModal = ({ isOpen, onClose, programType }) => {
   };
 
   // File upload component
-  const FileUploadField = ({ label, required, inputRef, fieldName, fileNameKey, helpText }) => (
+  const FileUploadField = ({
+    label,
+    required,
+    inputRef,
+    fieldName,
+    fileNameKey,
+    helpText,
+  }) => (
     <div>
       <label className="block text-sm font-semibold text-[#0B1D39] mb-1">
         {label} {required && "*"}
@@ -333,13 +384,14 @@ const ApplicationModal = ({ isOpen, onClose, programType }) => {
           required={required}
           className="hidden"
         />
-        <div 
+        <div
           onClick={() => inputRef.current?.click()}
           className="w-full p-3 border-2 border-gray-300 border-dashed rounded-md cursor-pointer hover:border-[#1E4F91] transition-colors flex items-center justify-center gap-2"
         >
           <Upload size={20} className="text-gray-400" />
           <span className="text-gray-600 text-sm">
-            {fileNames[fileNameKey] || "Click to upload (PDF, JPG, PNG - Max 10MB)"}
+            {fileNames[fileNameKey] ||
+              "Click to upload (PDF, JPG, PNG - Max 10MB)"}
           </span>
         </div>
       </div>
@@ -354,7 +406,9 @@ const ApplicationModal = ({ isOpen, onClose, programType }) => {
       <div className="bg-white rounded-2xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-hidden">
         {/* Header */}
         <div className="bg-[#0B1D39] text-white p-6 flex items-center justify-between">
-          <h2 className="text-xl md:text-2xl font-bold">{programTitles[programType]}</h2>
+          <h2 className="text-xl md:text-2xl font-bold">
+            {programTitles[programType]}
+          </h2>
           <button
             onClick={resetAndClose}
             className="p-2 hover:bg-white/10 rounded-full transition-colors"
@@ -424,13 +478,20 @@ const ApplicationModal = ({ isOpen, onClose, programType }) => {
           >
             {/* Info Box for V-MEAF */}
             {isVMEAF && (
-              <div className="mb-6 p-4 bg-blue-50 border-l-4 border-blue-500 rounded-r-lg">
+              <div className="mb-6 p-4 bg-red-50 border-l-4 border-red-500 rounded-r-lg">
                 <div className="flex items-start">
-                  <AlertCircle className="text-blue-500 mr-3 flex-shrink-0 mt-0.5" size={20} />
+                  <AlertCircle
+                    className="text-red-500 mr-3 flex-shrink-0 mt-0.5"
+                    size={20}
+                  />
                   <div>
-                    <h4 className="font-semibold text-blue-800">Confidential Application</h4>
-                    <p className="text-sm text-blue-700 mt-1">
-                      All information provided will be kept strictly confidential. Applications are typically reviewed within 10-14 business days.
+                    <h4 className="font-semibold text-red-800">
+                      Confidential Application
+                    </h4>
+                    <p className="text-sm text-red-700 mt-1">
+                      All information provided will be kept strictly
+                      confidential. Applications are typically reviewed within
+                      10-14 business days.
                     </p>
                   </div>
                 </div>
@@ -440,7 +501,9 @@ const ApplicationModal = ({ isOpen, onClose, programType }) => {
             {/* Section 1: Personal Information */}
             <div className="mb-8">
               <h3 className="text-lg font-bold text-[#0B1D39] mb-4 pb-2 border-b-2 border-[#E64A38] flex items-center">
-                <span className="bg-[#0B1D39] text-white w-8 h-8 rounded-full flex items-center justify-center text-sm mr-3">1</span>
+                <span className="bg-[#0B1D39] text-white w-8 h-8 rounded-full flex items-center justify-center text-sm mr-3">
+                  1
+                </span>
                 Personal Information
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -562,7 +625,9 @@ const ApplicationModal = ({ isOpen, onClose, programType }) => {
                 {/* Section 2: Military Service Verification */}
                 <div className="mb-8">
                   <h3 className="text-lg font-bold text-[#0B1D39] mb-4 pb-2 border-b-2 border-[#E64A38] flex items-center">
-                    <span className="bg-[#0B1D39] text-white w-8 h-8 rounded-full flex items-center justify-center text-sm mr-3">2</span>
+                    <span className="bg-[#0B1D39] text-white w-8 h-8 rounded-full flex items-center justify-center text-sm mr-3">
+                      2
+                    </span>
                     Military Service Verification
                   </h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -637,8 +702,12 @@ const ApplicationModal = ({ isOpen, onClose, programType }) => {
                       >
                         <option value="">Select Discharge Type</option>
                         <option value="Honorable">Honorable</option>
-                        <option value="General">General (Under Honorable Conditions)</option>
-                        <option value="Other Than Honorable">Other Than Honorable</option>
+                        <option value="General">
+                          General (Under Honorable Conditions)
+                        </option>
+                        <option value="Other Than Honorable">
+                          Other Than Honorable
+                        </option>
                         <option value="Bad Conduct">Bad Conduct</option>
                         <option value="Dishonorable">Dishonorable</option>
                         <option value="Medical">Medical Discharge</option>
@@ -648,7 +717,9 @@ const ApplicationModal = ({ isOpen, onClose, programType }) => {
 
                   {/* File Upload Section */}
                   <div className="mt-6">
-                    <h4 className="text-md font-semibold text-[#0B1D39] mb-4">Upload Documents</h4>
+                    <h4 className="text-md font-semibold text-[#0B1D39] mb-4">
+                      Upload Documents
+                    </h4>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <FileUploadField
                         label="Upload DD214"
@@ -697,44 +768,32 @@ const ApplicationModal = ({ isOpen, onClose, programType }) => {
                 {/* Section 3: VA Disability Information */}
                 <div className="mb-8">
                   <h3 className="text-lg font-bold text-[#0B1D39] mb-4 pb-2 border-b-2 border-[#E64A38] flex items-center">
-                    <span className="bg-[#0B1D39] text-white w-8 h-8 rounded-full flex items-center justify-center text-sm mr-3">3</span>
+                    <span className="bg-[#0B1D39] text-white w-8 h-8 rounded-full flex items-center justify-center text-sm mr-3">
+                      3
+                    </span>
                     VA Disability Information
                   </h3>
                   <div className="space-y-4">
                     <div>
-                      <label className="block text-sm font-semibold text-[#0B1D39] mb-2">
+                      <label className="block text-sm font-semibold text-[#0B1D39] mb-1">
                         VA Disability Claim Status *
                       </label>
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                        {[
-                          { value: "Pending", label: "Claim Pending" },
-                          { value: "Approved", label: "Claim Approved" },
-                          { value: "Denied/Appealing", label: "Denied/Appealing" },
-                          { value: "Not Yet Filed", label: "Not Yet Filed" },
-                        ].map((option) => (
-                          <label
-                            key={option.value}
-                            className={`flex items-center p-3 border-2 rounded-lg cursor-pointer transition-colors ${
-                              formData.claimStatus === option.value
-                                ? "border-[#1E4F91] bg-blue-50"
-                                : "border-gray-200 hover:border-gray-300"
-                            }`}
-                          >
-                            <input
-                              type="radio"
-                              name="claimStatus"
-                              value={option.value}
-                              checked={formData.claimStatus === option.value}
-                              onChange={handleChange}
-                              required
-                              className="mr-3 w-4 h-4 text-[#1E4F91]"
-                            />
-                            <span className="text-[#0B1D39]">{option.label}</span>
-                          </label>
-                        ))}
-                      </div>
+                      <select
+                        name="claimStatus"
+                        value={formData.claimStatus}
+                        onChange={handleChange}
+                        className="w-full p-3 border-2 border-gray-300 rounded-md focus:border-[#1E4F91] focus:outline-none"
+                      >
+                        <option value="">Select Status</option>
+                        <option value="Pending">Claim Pending</option>
+                        <option value="Approved">Claim Approved</option>
+                        <option value="Denied/Appealing">
+                          Denied/Appealing
+                        </option>
+                        <option value="Not Yet Filed">Not Yet Filed</option>
+                      </select>
                     </div>
-                    
+
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div>
                         <label className="block text-sm font-semibold text-[#0B1D39] mb-1">
@@ -789,8 +848,12 @@ const ApplicationModal = ({ isOpen, onClose, programType }) => {
                           <option value="">Select Evaluation Type</option>
                           <option value="Nexus Letter">Nexus Letter</option>
                           <option value="DBQ">DBQ</option>
-                          <option value="Independent Medical Opinion">Independent Medical Opinion</option>
-                          <option value="All of the above">All of the above</option>
+                          <option value="Independent Medical Opinion">
+                            Independent Medical Opinion
+                          </option>
+                          <option value="All of the above">
+                            All of the above
+                          </option>
                         </select>
                       </div>
                       <div>
@@ -805,9 +868,15 @@ const ApplicationModal = ({ isOpen, onClose, programType }) => {
                           className="w-full p-3 border-2 border-gray-300 rounded-md focus:border-[#1E4F91] focus:outline-none"
                         >
                           <option value="">Select Condition Type</option>
-                          <option value="Medical Conditions">Medical Conditions</option>
-                          <option value="Mental Health Condition">Mental Health Condition</option>
-                          <option value="All of the above">All of the above</option>
+                          <option value="Medical Conditions">
+                            Medical Conditions
+                          </option>
+                          <option value="Mental Health Condition">
+                            Mental Health Condition
+                          </option>
+                          <option value="All of the above">
+                            All of the above
+                          </option>
                         </select>
                       </div>
                     </div>
@@ -890,12 +959,17 @@ const ApplicationModal = ({ isOpen, onClose, programType }) => {
                 {/* Section 4: Financial Hardship Statement */}
                 <div className="mb-8">
                   <h3 className="text-lg font-bold text-[#0B1D39] mb-4 pb-2 border-b-2 border-[#E64A38] flex items-center">
-                    <span className="bg-[#0B1D39] text-white w-8 h-8 rounded-full flex items-center justify-center text-sm mr-3">4</span>
+                    <span className="bg-[#0B1D39] text-white w-8 h-8 rounded-full flex items-center justify-center text-sm mr-3">
+                      4
+                    </span>
                     Financial Hardship Statement
                   </h3>
-                  <div className="mb-4 p-4 bg-amber-50 border-l-4 border-amber-500 rounded-r-lg">
-                    <p className="text-sm text-amber-800">
-                      Please provide a brief statement explaining your current financial situation and why you need assistance. This helps us understand your circumstances and prioritize applications.
+                  <div className="mb-4 p-4 bg-red-50 border-l-4 border-red-500 rounded-r-lg">
+                    <p className="text-sm text-red-800">
+                      Please provide a brief statement explaining your current
+                      financial situation and why you need assistance. This
+                      helps us understand your circumstances and prioritize
+                      applications.
                     </p>
                   </div>
                   <Textarea
@@ -911,11 +985,14 @@ const ApplicationModal = ({ isOpen, onClose, programType }) => {
                 {/* Section 5: Certification & Consent */}
                 <div className="mb-8">
                   <h3 className="text-lg font-bold text-[#0B1D39] mb-4 pb-2 border-b-2 border-[#E64A38] flex items-center">
-                    <span className="bg-[#0B1D39] text-white w-8 h-8 rounded-full flex items-center justify-center text-sm mr-3">5</span>
+                    <span className="bg-[#0B1D39] text-white w-8 h-8 rounded-full flex items-center justify-center text-sm mr-3">
+                      5
+                    </span>
                     Certification & Consent
                   </h3>
                   <p className="text-sm text-gray-600 mb-4">
-                    Please read and agree to all statements below to complete your application:
+                    Please read and agree to all statements below to complete
+                    your application:
                   </p>
                   <div className="space-y-3 mb-6">
                     {certificationOptions.map((option) => (
@@ -931,15 +1008,19 @@ const ApplicationModal = ({ isOpen, onClose, programType }) => {
                           type="checkbox"
                           name="certifications"
                           value={option.value}
-                          checked={formData.certifications.includes(option.value)}
+                          checked={formData.certifications.includes(
+                            option.value,
+                          )}
                           onChange={handleChange}
                           className="mt-0.5 mr-3 w-4 h-4 text-[#1E4F91] rounded"
                         />
-                        <span className="text-sm text-[#0B1D39]">{option.label}</span>
+                        <span className="text-sm text-[#0B1D39]">
+                          {option.label}
+                        </span>
                       </label>
                     ))}
                   </div>
-                  
+
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 bg-gray-50 rounded-lg">
                     <div>
                       <label className="block text-sm font-semibold text-[#0B1D39] mb-1">
@@ -954,7 +1035,8 @@ const ApplicationModal = ({ isOpen, onClose, programType }) => {
                         className="border-2 border-gray-300 focus:border-[#1E4F91] bg-white"
                       />
                       <p className="text-xs text-gray-500 mt-1">
-                        By typing your name, you agree this serves as your electronic signature.
+                        By typing your name, you agree this serves as your
+                        electronic signature.
                       </p>
                     </div>
                     <div>
@@ -993,13 +1075,25 @@ const ApplicationModal = ({ isOpen, onClose, programType }) => {
 
             {/* What Happens Next - V-MEAF only */}
             {isVMEAF && (
-              <div className="mb-6 p-4 bg-green-50 border-l-4 border-green-500 rounded-r-lg">
-                <h4 className="font-semibold text-green-800 mb-2">What happens next?</h4>
-                <ul className="text-sm text-green-700 space-y-1">
-                  <li>• Your application will be reviewed within 10-14 business days</li>
-                  <li>• We may contact you if additional information is needed</li>
-                  <li>• You will receive notification of our decision via email</li>
-                  <li>• For questions, email info@all4vets.us or call (800) 555-VETS</li>
+              <div className="mb-6 p-4 bg-red-50 border-l-4 border-red-500 rounded-r-lg">
+                <h4 className="font-semibold text-red-800 mb-2">
+                  What happens next?
+                </h4>
+                <ul className="text-sm text-red-700 space-y-1">
+                  <li>
+                    • Your application will be reviewed within 10-14 business
+                    days
+                  </li>
+                  <li>
+                    • We may contact you if additional information is needed
+                  </li>
+                  <li>
+                    • You will receive notification of our decision via email
+                  </li>
+                  <li>
+                    • For questions, email info@all4vets.us or call (800)
+                    555-VETS
+                  </li>
                 </ul>
               </div>
             )}
@@ -1016,7 +1110,10 @@ const ApplicationModal = ({ isOpen, onClose, programType }) => {
               </Button>
               <Button
                 type="submit"
-                disabled={isSubmitting || (isVMEAF && formData.certifications.length !== 6)}
+                disabled={
+                  isSubmitting ||
+                  (isVMEAF && formData.certifications.length !== 6)
+                }
                 className="flex-1 bg-[#E64A38] hover:bg-[#d43e2e] text-white font-bold py-4 rounded-full disabled:opacity-50"
               >
                 {isSubmitting ? (
