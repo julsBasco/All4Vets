@@ -9,8 +9,8 @@ export const siteConfig = {
     email: "joe@all4vets.us",
     partnershipsEmail: "joe@all4vets.us",
     phone: "(386) 837-8131",
-    address: "All4Vets, 113 Synandra Lane, Holly Springs, NC 27540",
-    city: "[City, State ZIP]",
+    address: "All4Vets, 113 Synandra Lane, Holly Springs ",
+    city: "NC 27540",
   },
   social: [
     { name: "Facebook", url: "https://facebook.com/all4vets" },
