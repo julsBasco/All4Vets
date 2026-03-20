@@ -1,11 +1,32 @@
-import React, { useState, useEffect } from 'react';
-import { FileText, GraduationCap, Heart, ChevronLeft, ChevronRight, CheckCircle, ArrowRight, Users, Building, TrendingUp } from 'lucide-react';
-import { Link } from 'react-router-dom';
-import { Button } from '../components/ui/button';
-import { Card, CardContent } from '../components/ui/card';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
-import { hero, aboutSection, missionPillars, processSteps, testimonials, impactStats, getInvolved, ctaBanner, images } from '../mock';
+import React, { useState, useEffect } from "react";
+import {
+  FileText,
+  GraduationCap,
+  Heart,
+  ChevronLeft,
+  ChevronRight,
+  CheckCircle,
+  ArrowRight,
+  Users,
+  Building,
+  TrendingUp,
+} from "lucide-react";
+import { Link } from "react-router-dom";
+import { Button } from "../components/ui/button";
+import { Card, CardContent } from "../components/ui/card";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
+import {
+  hero,
+  aboutSection,
+  missionPillars,
+  processSteps,
+  testimonials,
+  impactStats,
+  getInvolved,
+  ctaBanner,
+  images,
+} from "../mock";
 
 const Home = () => {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
@@ -19,7 +40,9 @@ const Home = () => {
   }, []);
 
   const handlePrevTestimonial = () => {
-    setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+    setCurrentTestimonial(
+      (prev) => (prev - 1 + testimonials.length) % testimonials.length,
+    );
   };
 
   const handleNextTestimonial = () => {
@@ -31,7 +54,7 @@ const Home = () => {
     graduationCap: GraduationCap,
     heart: Heart,
     users: Users,
-    building: Building
+    building: Building,
   };
 
   return (
@@ -41,13 +64,13 @@ const Home = () => {
       {/* Hero Section */}
       <section className="relative min-h-[600px] flex items-center overflow-hidden">
         {/* Background Image */}
-        <div 
+        <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{ backgroundImage: `url(${images.hero})` }}
         >
           <div className="absolute inset-0 bg-gradient-to-r from-[#0B1D39]/95 via-[#0B1D39]/80 to-[#0B1D39]/60"></div>
         </div>
-        
+
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28">
           <div className="max-w-3xl">
             {/* Trust Badge */}
@@ -57,8 +80,10 @@ const Home = () => {
               </h1>
               <div className="flex justify-center items-center mb-6">
                 <div className="inline-flex items-center bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full border border-[#BF9B30]">
-                <CheckCircle size={16} className="mr-2 text-[#BF9B30]" />
-                <span className="text-sm font-medium text-white">501(c)(3) Nonprofit Organization</span>
+                  <CheckCircle size={16} className="mr-2 text-[#BF9B30]" />
+                  <span className="text-sm font-medium text-white">
+                    501(c)(3) Nonprofit Organization
+                  </span>
                 </div>
               </div>
               <p className="text-lg md:text-xl text-gray-200 mb-8 leading-relaxed text-center">
@@ -67,7 +92,7 @@ const Home = () => {
             </div>
             <div className="flex flex-col sm:flex-row gap-4 flex justify-center items-center">
               <Link to="/programs">
-                <Button className="bg-[#E64A38] hover:bg-[#d43e2e] text-white font-bold px-8 py-6 text-lg rounded-full transition-all duration-200 shadow-lg hover:shadow-xl hover:scale-105">
+                <Button className="bg-[#B31942] hover:bg-[#d43e2e] text-white font-bold px-8 py-6 text-lg rounded-full transition-all duration-200 shadow-lg hover:shadow-xl hover:scale-105">
                   {hero.secondaryCTA}
                 </Button>
               </Link>
@@ -108,12 +133,12 @@ const Home = () => {
               </Link>
             </div>
             <div className="relative">
-              <img 
-                src={images.military} 
-                alt="Veterans being honored" 
+              <img
+                src={images.military}
+                alt="Veterans being honored"
                 className="rounded-lg shadow-xl w-full h-[400px] object-cover"
               />
-              <div className="absolute -bottom-6 -left-6 bg-[#E64A38] text-white p-6 rounded-lg shadow-lg">
+              <div className="absolute -bottom-6 -left-6 bg-[#B31942] text-white p-6 rounded-lg shadow-lg">
                 <p className="text-3xl font-bold">100%</p>
                 <p className="text-sm">Committed to Veterans</p>
               </div>
@@ -130,7 +155,8 @@ const Home = () => {
               Real Support for Real Heroes
             </h2>
             <p className="text-lg text-[#3C4A5B] max-w-2xl mx-auto">
-              We provide targeted financial assistance through three core programs designed to meet veterans where they are.
+              We provide targeted financial assistance through three core
+              programs designed to meet veterans where they are.
             </p>
           </div>
 
@@ -138,7 +164,10 @@ const Home = () => {
             {missionPillars.map((pillar) => {
               const Icon = iconMap[pillar.icon];
               return (
-                <Card key={pillar.id} className="group hover:shadow-xl transition-all duration-300 border-2 hover:border-[#1E4F91] bg-white">
+                <Card
+                  key={pillar.id}
+                  className="group hover:shadow-xl transition-all duration-300 border-2 hover:border-[#1E4F91] bg-white"
+                >
                   <CardContent className="p-8 text-center">
                     <div className="inline-flex items-center justify-center w-16 h-16 bg-[#0B1D39] rounded-full mb-6 group-hover:scale-110 transition-transform duration-300">
                       <Icon size={28} className="text-white" />
@@ -174,17 +203,23 @@ const Home = () => {
               Impact That Matters
             </h2>
             <p className="text-lg text-gray-300 max-w-2xl mx-auto">
-              Your generosity makes a real difference in the lives of veterans and their families.
+              Your generosity makes a real difference in the lives of veterans
+              and their families.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {impactStats.map((stat) => (
-              <div key={stat.id} className="text-center p-8 bg-white/5 rounded-lg backdrop-blur-sm">
+              <div
+                key={stat.id}
+                className="text-center p-8 bg-white/5 rounded-lg backdrop-blur-sm"
+              >
                 <div className="flex justify-center mb-4">
                   <TrendingUp size={32} className="text-[#BF9B30]" />
                 </div>
-                <p className="text-4xl md:text-5xl font-black text-[#BF9B30] mb-2">{stat.value}</p>
+                <p className="text-4xl md:text-5xl font-black text-[#BF9B30] mb-2">
+                  {stat.value}
+                </p>
                 <p className="text-xl font-semibold mb-2">{stat.label}</p>
                 <p className="text-sm text-gray-400">{stat.description}</p>
               </div>
@@ -217,8 +252,12 @@ const Home = () => {
                       {step.number}
                     </div>
                   </div>
-                  <h3 className="text-xl font-bold text-[#0B1D39] mb-3">{step.title}</h3>
-                  <p className="text-[#3C4A5B] leading-relaxed">{step.description}</p>
+                  <h3 className="text-xl font-bold text-[#0B1D39] mb-3">
+                    {step.title}
+                  </h3>
+                  <p className="text-[#3C4A5B] leading-relaxed">
+                    {step.description}
+                  </p>
                 </CardContent>
               </Card>
             ))}
@@ -240,8 +279,12 @@ const Home = () => {
               <p className="text-xl md:text-2xl italic mb-6 leading-relaxed">
                 "{testimonials[currentTestimonial].quote}"
               </p>
-              <p className="font-semibold text-lg">{testimonials[currentTestimonial].author}</p>
-              <p className="text-gray-300">{testimonials[currentTestimonial].branch}</p>
+              <p className="font-semibold text-lg">
+                {testimonials[currentTestimonial].author}
+              </p>
+              <p className="text-gray-300">
+                {testimonials[currentTestimonial].branch}
+              </p>
             </div>
 
             {/* Carousel Controls */}
@@ -258,7 +301,7 @@ const Home = () => {
                   <button
                     key={index}
                     onClick={() => setCurrentTestimonial(index)}
-                    className={`w-2 h-2 rounded-full transition-all duration-300 ${index === currentTestimonial ? 'bg-[#E64A38] w-6' : 'bg-white/30'}`}
+                    className={`w-2 h-2 rounded-full transition-all duration-300 ${index === currentTestimonial ? "bg-[#B31942] w-6" : "bg-white/30"}`}
                     aria-label={`Go to testimonial ${index + 1}`}
                   />
                 ))}
@@ -292,17 +335,15 @@ const Home = () => {
               const Icon = iconMap[option.icon];
               return (
                 <Link key={index} to={option.url}>
-                  <Card className="group hover:shadow-xl transition-all duration-300 border-2 hover:border-[#E64A38] h-full cursor-pointer">
+                  <Card className="group hover:shadow-xl transition-all duration-300 border-2 hover:border-[#B31942] h-full cursor-pointer">
                     <CardContent className="p-8 text-center">
-                      <div className="inline-flex items-center justify-center w-16 h-16 bg-[#E64A38] rounded-full mb-6 group-hover:scale-110 transition-transform duration-300">
+                      <div className="inline-flex items-center justify-center w-16 h-16 bg-[#B31942] rounded-full mb-6 group-hover:scale-110 transition-transform duration-300">
                         <Icon size={28} className="text-white" />
                       </div>
                       <h3 className="text-xl font-bold text-[#0B1D39] mb-3">
                         {option.title}
                       </h3>
-                      <p className="text-[#3C4A5B]">
-                        {option.description}
-                      </p>
+                      <p className="text-[#3C4A5B]">{option.description}</p>
                     </CardContent>
                   </Card>
                 </Link>
@@ -313,7 +354,7 @@ const Home = () => {
       </section>
 
       {/* CTA Banner */}
-      <section 
+      <section
         className="relative py-20 md:py-28 bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: `url(${images.flag})` }}
       >
@@ -326,7 +367,7 @@ const Home = () => {
             {ctaBanner.subtext}
           </p>
           <Link to="/donate">
-            <Button className="bg-[#E64A38] hover:bg-[#d43e2e] text-white font-bold px-10 py-6 text-lg rounded-full transition-all duration-200 shadow-lg hover:shadow-xl hover:scale-105">
+            <Button className="bg-[#B31942] hover:bg-[#d43e2e] text-white font-bold px-10 py-6 text-lg rounded-full transition-all duration-200 shadow-lg hover:shadow-xl hover:scale-105">
               {ctaBanner.cta}
               <ArrowRight size={20} className="ml-2" />
             </Button>

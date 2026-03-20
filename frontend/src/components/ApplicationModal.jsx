@@ -500,7 +500,7 @@ const ApplicationModal = ({ isOpen, onClose, programType }) => {
 
             {/* Section 1: Personal Information */}
             <div className="mb-8">
-              <h3 className="text-lg font-bold text-[#0B1D39] mb-4 pb-2 border-b-2 border-[#E64A38] flex items-center">
+              <h3 className="text-lg font-bold text-[#0B1D39] mb-4 pb-2 border-b-2 border-[#B31942] flex items-center">
                 <span className="bg-[#0B1D39] text-white w-8 h-8 rounded-full flex items-center justify-center text-sm mr-3">
                   1
                 </span>
@@ -624,7 +624,7 @@ const ApplicationModal = ({ isOpen, onClose, programType }) => {
               <>
                 {/* Section 2: Military Service Verification */}
                 <div className="mb-8">
-                  <h3 className="text-lg font-bold text-[#0B1D39] mb-4 pb-2 border-b-2 border-[#E64A38] flex items-center">
+                  <h3 className="text-lg font-bold text-[#0B1D39] mb-4 pb-2 border-b-2 border-[#B31942] flex items-center">
                     <span className="bg-[#0B1D39] text-white w-8 h-8 rounded-full flex items-center justify-center text-sm mr-3">
                       2
                     </span>
@@ -767,7 +767,7 @@ const ApplicationModal = ({ isOpen, onClose, programType }) => {
 
                 {/* Section 3: VA Disability Information */}
                 <div className="mb-8">
-                  <h3 className="text-lg font-bold text-[#0B1D39] mb-4 pb-2 border-b-2 border-[#E64A38] flex items-center">
+                  <h3 className="text-lg font-bold text-[#0B1D39] mb-4 pb-2 border-b-2 border-[#B31942] flex items-center">
                     <span className="bg-[#0B1D39] text-white w-8 h-8 rounded-full flex items-center justify-center text-sm mr-3">
                       3
                     </span>
@@ -958,7 +958,7 @@ const ApplicationModal = ({ isOpen, onClose, programType }) => {
 
                 {/* Section 4: Financial Hardship Statement */}
                 <div className="mb-8">
-                  <h3 className="text-lg font-bold text-[#0B1D39] mb-4 pb-2 border-b-2 border-[#E64A38] flex items-center">
+                  <h3 className="text-lg font-bold text-[#0B1D39] mb-4 pb-2 border-b-2 border-[#B31942] flex items-center">
                     <span className="bg-[#0B1D39] text-white w-8 h-8 rounded-full flex items-center justify-center text-sm mr-3">
                       4
                     </span>
@@ -984,7 +984,7 @@ const ApplicationModal = ({ isOpen, onClose, programType }) => {
 
                 {/* Section 5: Certification & Consent */}
                 <div className="mb-8">
-                  <h3 className="text-lg font-bold text-[#0B1D39] mb-4 pb-2 border-b-2 border-[#E64A38] flex items-center">
+                  <h3 className="text-lg font-bold text-[#0B1D39] mb-4 pb-2 border-b-2 border-[#B31942] flex items-center">
                     <span className="bg-[#0B1D39] text-white w-8 h-8 rounded-full flex items-center justify-center text-sm mr-3">
                       5
                     </span>
@@ -1060,7 +1060,7 @@ const ApplicationModal = ({ isOpen, onClose, programType }) => {
             {/* Non-V-MEAF forms - keep simple additional info */}
             {!isVMEAF && (
               <div className="mb-8">
-                <h3 className="text-lg font-bold text-[#0B1D39] mb-4 pb-2 border-b-2 border-[#E64A38]">
+                <h3 className="text-lg font-bold text-[#0B1D39] mb-4 pb-2 border-b-2 border-[#B31942]">
                   Additional Information
                 </h3>
                 <Textarea
@@ -1114,7 +1114,7 @@ const ApplicationModal = ({ isOpen, onClose, programType }) => {
                   isSubmitting ||
                   (isVMEAF && formData.certifications.length !== 6)
                 }
-                className="flex-1 bg-[#E64A38] hover:bg-[#d43e2e] text-white font-bold py-4 rounded-full disabled:opacity-50"
+                className="flex-1 bg-[#B31942] hover:bg-[#d43e2e] text-white font-bold py-4 rounded-full disabled:opacity-50"
               >
                 {isSubmitting ? (
                   <>

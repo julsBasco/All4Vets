@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import { Star, Quote } from 'lucide-react';
-import { Button } from '../components/ui/button';
-import { Card, CardContent } from '../components/ui/card';
-import { Badge } from '../components/ui/badge';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
-import { reviews } from '../mock';
+import React, { useState } from "react";
+import { Star, Quote } from "lucide-react";
+import { Button } from "../components/ui/button";
+import { Card, CardContent } from "../components/ui/card";
+import { Badge } from "../components/ui/badge";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
+import { reviews } from "../mock";
 
 const Reviews = () => {
   const [showAll, setShowAll] = useState(false);
@@ -16,12 +16,16 @@ const Reviews = () => {
       <Star
         key={index}
         size={20}
-        className={index < rating ? 'fill-[#BF9B30] text-[#BF9B30]' : 'text-gray-300'}
+        className={
+          index < rating ? "fill-[#BF9B30] text-[#BF9B30]" : "text-gray-300"
+        }
       />
     ));
   };
 
-  const averageRating = (reviews.reduce((acc, review) => acc + review.rating, 0) / reviews.length).toFixed(1);
+  const averageRating = (
+    reviews.reduce((acc, review) => acc + review.rating, 0) / reviews.length
+  ).toFixed(1);
   const totalReviews = reviews.length;
 
   return (
@@ -36,16 +40,19 @@ const Reviews = () => {
               Veteran Success Stories
             </h1>
             <p className="text-xl text-gray-200 max-w-3xl mx-auto mb-8">
-              Read how All4Vets has helped veterans secure the benefits and support they deserve.
+              Read how All4Vets has helped veterans secure the benefits and
+              support they deserve.
             </p>
-            
+
             {/* Rating Summary */}
             <div className="inline-flex flex-col items-center bg-white/10 backdrop-blur-sm px-8 py-4 rounded-lg">
               <div className="flex items-center gap-2 mb-2">
                 {renderStars(5)}
               </div>
               <p className="text-3xl font-bold">{averageRating} out of 5</p>
-              <p className="text-sm text-gray-300">Based on {totalReviews} reviews</p>
+              <p className="text-sm text-gray-300">
+                Based on {totalReviews} reviews
+              </p>
             </div>
           </div>
         </div>
@@ -56,7 +63,10 @@ const Reviews = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {displayedReviews.map((review) => (
-              <Card key={review.id} className="hover:shadow-xl transition-all duration-300">
+              <Card
+                key={review.id}
+                className="hover:shadow-xl transition-all duration-300"
+              >
                 <CardContent className="p-6">
                   {/* Quote Icon */}
                   <div className="mb-4">
@@ -88,10 +98,15 @@ const Reviews = () => {
                     <div>
                       <p className="font-bold text-[#0B1D39]">{review.name}</p>
                       <div className="flex items-center gap-2">
-                        <Badge variant="secondary" className="bg-[#0B1D39] text-white text-xs">
+                        <Badge
+                          variant="secondary"
+                          className="bg-[#0B1D39] text-white text-xs"
+                        >
                           {review.branch}
                         </Badge>
-                        <span className="text-sm text-[#3C4A5B]">{review.date}</span>
+                        <span className="text-sm text-[#3C4A5B]">
+                          {review.date}
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -122,23 +137,37 @@ const Reviews = () => {
               Our Impact by the Numbers
             </h2>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div className="text-center">
-              <div className="text-5xl font-black text-[#BF9B30] mb-2">5,000+</div>
-              <p className="text-lg text-[#3C4A5B] font-semibold">Veterans Served</p>
+              <div className="text-5xl font-black text-[#BF9B30] mb-2">
+                5,000+
+              </div>
+              <p className="text-lg text-[#3C4A5B] font-semibold">
+                Veterans Served
+              </p>
             </div>
             <div className="text-center">
-              <div className="text-5xl font-black text-[#BF9B30] mb-2">$25M+</div>
-              <p className="text-lg text-[#3C4A5B] font-semibold">Benefits Secured</p>
+              <div className="text-5xl font-black text-[#BF9B30] mb-2">
+                $25M+
+              </div>
+              <p className="text-lg text-[#3C4A5B] font-semibold">
+                Benefits Secured
+              </p>
             </div>
             <div className="text-center">
               <div className="text-5xl font-black text-[#BF9B30] mb-2">92%</div>
-              <p className="text-lg text-[#3C4A5B] font-semibold">Success Rate</p>
+              <p className="text-lg text-[#3C4A5B] font-semibold">
+                Success Rate
+              </p>
             </div>
             <div className="text-center">
-              <div className="text-5xl font-black text-[#BF9B30] mb-2">4.9/5</div>
-              <p className="text-lg text-[#3C4A5B] font-semibold">Average Rating</p>
+              <div className="text-5xl font-black text-[#BF9B30] mb-2">
+                4.9/5
+              </div>
+              <p className="text-lg text-[#3C4A5B] font-semibold">
+                Average Rating
+              </p>
             </div>
           </div>
         </div>
@@ -151,10 +180,11 @@ const Reviews = () => {
             Ready to Share Your Story?
           </h2>
           <p className="text-lg text-gray-200 mb-8">
-            Join thousands of veterans who have successfully navigated their benefits journey with All4Vets.
+            Join thousands of veterans who have successfully navigated their
+            benefits journey with All4Vets.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button className="bg-[#E64A38] hover:bg-[#d43e2e] text-white font-bold px-8 py-6 text-lg rounded-full">
+            <Button className="bg-[#B31942] hover:bg-[#d43e2e] text-white font-bold px-8 py-6 text-lg rounded-full">
               Apply for Aid
             </Button>
             <Button

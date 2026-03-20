@@ -130,7 +130,7 @@ const Donate = () => {
                 <li className="flex items-start">
                   <CheckCircle
                     size={24}
-                    className="text-[#E64A38] mr-3 flex-shrink-0 mt-0.5"
+                    className="text-[#B31942] mr-3 flex-shrink-0 mt-0.5"
                   />
                   <span className="text-[#3C4A5B]">
                     Predictable funding helps us plan and serve more veterans
@@ -139,7 +139,7 @@ const Donate = () => {
                 <li className="flex items-start">
                   <CheckCircle
                     size={24}
-                    className="text-[#E64A38] mr-3 flex-shrink-0 mt-0.5"
+                    className="text-[#B31942] mr-3 flex-shrink-0 mt-0.5"
                   />
                   <span className="text-[#3C4A5B]">
                     Receive exclusive updates on the impact of your giving
@@ -148,7 +148,7 @@ const Donate = () => {
                 <li className="flex items-start">
                   <CheckCircle
                     size={24}
-                    className="text-[#E64A38] mr-3 flex-shrink-0 mt-0.5"
+                    className="text-[#B31942] mr-3 flex-shrink-0 mt-0.5"
                   />
                   <span className="text-[#3C4A5B]">
                     Easy to manage — cancel or modify anytime
@@ -250,7 +250,7 @@ const Donate = () => {
       </section>
 
       {/* Final CTA */}
-      <section className="py-12 bg-[#E64A38] text-white">
+      <section className="py-12 bg-[#B31942] text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <p className="text-xl font-semibold">
             However you choose to give — thank you for standing behind those who

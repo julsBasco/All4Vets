@@ -1,26 +1,36 @@
-import React, { useState } from 'react';
-import { Facebook, Twitter, Linkedin, Instagram, Lock, Mail, Phone, MapPin, ArrowRight } from 'lucide-react';
-import { Link } from 'react-router-dom';
-import { Button } from './ui/button';
-import { Input } from './ui/input';
-import { siteConfig, footerLinks } from '../mock';
-import logo from './logo2.png';
+import React, { useState } from "react";
+import {
+  Facebook,
+  Twitter,
+  Linkedin,
+  Instagram,
+  Lock,
+  Mail,
+  Phone,
+  MapPin,
+  ArrowRight,
+} from "lucide-react";
+import { Link } from "react-router-dom";
+import { Button } from "./ui/button";
+import { Input } from "./ui/input";
+import { siteConfig, footerLinks } from "../mock";
+import logo from "./logo2.png";
 
 const Footer = () => {
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState("");
 
   const handleNewsletterSubmit = (e) => {
     e.preventDefault();
-    console.log('Newsletter signup:', email);
-    setEmail('');
-    alert('Thank you for subscribing!');
+    console.log("Newsletter signup:", email);
+    setEmail("");
+    alert("Thank you for subscribing!");
   };
 
   const socialIcons = {
     Facebook: Facebook,
     Twitter: Twitter,
     LinkedIn: Linkedin,
-    Instagram: Instagram
+    Instagram: Instagram,
   };
 
   return (
@@ -31,17 +41,14 @@ const Footer = () => {
           {/* Brand Column */}
           <div className="lg:col-span-1">
             <Link to="/" className="inline-block mb-6">
-              <img 
-                src={logo}
-                alt="All4Vets Logo" 
-                className="h-16 w-auto brightness-0 invert"
-              />
+              <img src={logo} alt="All4Vets Logo" className="h-16" />
             </Link>
             <p className="text-sm text-gray-300 mb-4 leading-relaxed">
               {siteConfig.tagline}
             </p>
             <p className="text-sm text-gray-400 mb-6">
-              Empowering veterans through financial aid, scholarships, and emergency relief.
+              Empowering veterans through financial aid, scholarships, and
+              emergency relief.
             </p>
             <div className="flex space-x-3">
               {siteConfig.social.map((social) => {
@@ -52,7 +59,7 @@ const Footer = () => {
                     href={social.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-[#E64A38] transition-colors"
+                    className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-[#B31942] transition-colors"
                     aria-label={social.name}
                   >
                     <Icon size={18} />
@@ -64,7 +71,9 @@ const Footer = () => {
 
           {/* Programs Column */}
           <div>
-            <h3 className="font-bold text-sm uppercase mb-6 tracking-wide text-[#BF9B30]">Programs</h3>
+            <h3 className="font-bold text-sm uppercase mb-6 tracking-wide text-[#BF9B30]">
+              Programs
+            </h3>
             <ul className="space-y-3">
               {footerLinks.programs.map((link) => (
                 <li key={link.title}>
@@ -72,7 +81,10 @@ const Footer = () => {
                     to={link.url}
                     className="text-sm text-gray-300 hover:text-white transition-colors inline-flex items-center group"
                   >
-                    <ArrowRight size={14} className="mr-2 opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <ArrowRight
+                      size={14}
+                      className="mr-2 opacity-0 group-hover:opacity-100 transition-opacity"
+                    />
                     {link.title}
                   </Link>
                 </li>
@@ -82,7 +94,9 @@ const Footer = () => {
 
           {/* About Column */}
           <div>
-            <h3 className="font-bold text-sm uppercase mb-6 tracking-wide text-[#BF9B30]">About</h3>
+            <h3 className="font-bold text-sm uppercase mb-6 tracking-wide text-[#BF9B30]">
+              About
+            </h3>
             <ul className="space-y-3">
               {footerLinks.about.map((link) => (
                 <li key={link.title}>
@@ -90,7 +104,10 @@ const Footer = () => {
                     to={link.url}
                     className="text-sm text-gray-300 hover:text-white transition-colors inline-flex items-center group"
                   >
-                    <ArrowRight size={14} className="mr-2 opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <ArrowRight
+                      size={14}
+                      className="mr-2 opacity-0 group-hover:opacity-100 transition-opacity"
+                    />
                     {link.title}
                   </Link>
                 </li>
@@ -100,8 +117,12 @@ const Footer = () => {
 
           {/* Newsletter & Contact Column */}
           <div>
-            <h3 className="font-bold text-sm uppercase mb-6 tracking-wide text-[#BF9B30]">Stay Connected</h3>
-            <p className="text-sm text-gray-300 mb-4">Get updates on our programs and impact.</p>
+            <h3 className="font-bold text-sm uppercase mb-6 tracking-wide text-[#BF9B30]">
+              Stay Connected
+            </h3>
+            <p className="text-sm text-gray-300 mb-4">
+              Get updates on our programs and impact.
+            </p>
             <form onSubmit={handleNewsletterSubmit} className="space-y-3 mb-8">
               <Input
                 type="email"
@@ -113,7 +134,7 @@ const Footer = () => {
               />
               <Button
                 type="submit"
-                className="w-full bg-[#E64A38] hover:bg-[#d43e2e] text-white font-semibold rounded-full"
+                className="w-full bg-[#B31942] hover:bg-[#d43e2e] text-white font-semibold rounded-full"
               >
                 Subscribe
               </Button>
@@ -123,13 +144,19 @@ const Footer = () => {
             <div className="space-y-3 text-sm">
               <div className="flex items-center text-gray-300">
                 <Mail size={16} className="mr-3 text-[#BF9B30]" />
-                <a href={`mailto:${siteConfig.contact.email}`} className="hover:text-white transition-colors">
+                <a
+                  href={`mailto:${siteConfig.contact.email}`}
+                  className="hover:text-white transition-colors"
+                >
                   {siteConfig.contact.email}
                 </a>
               </div>
               <div className="flex items-center text-gray-300">
                 <Phone size={16} className="mr-3 text-[#BF9B30]" />
-                <a href={`tel:${siteConfig.contact.phone}`} className="hover:text-white transition-colors">
+                <a
+                  href={`tel:${siteConfig.contact.phone}`}
+                  className="hover:text-white transition-colors"
+                >
                   {siteConfig.contact.phone}
                 </a>
               </div>
@@ -144,17 +171,24 @@ const Footer = () => {
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <div className="text-center md:text-left">
               <p className="text-sm text-gray-400">
-                © {new Date().getFullYear()} {siteConfig.siteName}. All rights reserved.
+                © {new Date().getFullYear()} {siteConfig.siteName}. All rights
+                reserved.
               </p>
               <p className="text-xs text-gray-500 mt-1">
                 {siteConfig.nonprofit} • EIN: {siteConfig.ein}
               </p>
             </div>
             <div className="flex items-center space-x-6 text-sm">
-              <Link to="/privacy" className="text-gray-400 hover:text-white transition-colors">
+              <Link
+                to="/privacy"
+                className="text-gray-400 hover:text-white transition-colors"
+              >
                 Privacy Policy
               </Link>
-              <Link to="/terms" className="text-gray-400 hover:text-white transition-colors">
+              <Link
+                to="/terms"
+                className="text-gray-400 hover:text-white transition-colors"
+              >
                 Terms of Service
               </Link>
               <div className="flex items-center text-gray-400">

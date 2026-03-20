@@ -115,14 +115,14 @@ export const programs = [
     description:
       "Building pathways to civilian success through educational support.",
     fullDescription:
-      "We provide funding for scholarships, tuition support, and training grants to help veterans earn degrees, licenses, or vocational certifications that open doors to meaningful civilian careers.",
+      "We provide funding for scholarships, tuition support, and training grants to help veteran dependents earn degrees, licenses, or vocational certifications that open doors to meaningful civilian careers.",
     whatItSupports: [
       "College and trade school tuition",
       "Certification and licensing programs",
       "Continuing education or career transition programs",
     ],
     primaryCTA: "Apply for a Scholarship",
-    secondaryCTA: "Sponsor a Veteran's Education",
+    secondaryCTA: "Sponsor a Dependents' Education",
     disableCTA: true,
   },
   {

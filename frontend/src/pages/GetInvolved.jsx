@@ -1,74 +1,89 @@
-import React, { useState } from 'react';
-import { Users, Building, Calendar, Share2, Heart, Mail, CheckCircle, ArrowRight, Megaphone, Handshake, Gift } from 'lucide-react';
-import { Link } from 'react-router-dom';
-import { Button } from '../components/ui/button';
-import { Card, CardContent } from '../components/ui/card';
-import { Input } from '../components/ui/input';
-import { Textarea } from '../components/ui/textarea';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
-import { siteConfig, images } from '../mock';
+import React, { useState } from "react";
+import {
+  Users,
+  Building,
+  Calendar,
+  Share2,
+  Heart,
+  Mail,
+  CheckCircle,
+  ArrowRight,
+  Megaphone,
+  Handshake,
+  Gift,
+} from "lucide-react";
+import { Link } from "react-router-dom";
+import { Button } from "../components/ui/button";
+import { Card, CardContent } from "../components/ui/card";
+import { Input } from "../components/ui/input";
+import { Textarea } from "../components/ui/textarea";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
+import { siteConfig, images } from "../mock";
 
 const GetInvolved = () => {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    interest: '',
-    message: ''
+    name: "",
+    email: "",
+    interest: "",
+    message: "",
   });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
-    alert('Thank you for your interest in getting involved! We\'ll be in touch soon.');
-    setFormData({ name: '', email: '', interest: '', message: '' });
+    console.log("Form submitted:", formData);
+    alert(
+      "Thank you for your interest in getting involved! We'll be in touch soon.",
+    );
+    setFormData({ name: "", email: "", interest: "", message: "" });
   };
 
   const involvementOptions = [
     {
       icon: Users,
-      title: 'Volunteer Opportunities',
-      description: 'Give your time and skills to help veterans in your community.',
+      title: "Volunteer Opportunities",
+      description:
+        "Give your time and skills to help veterans in your community.",
       details: [
-        'Administrative support and office assistance',
-        'Event planning and coordination',
-        'Outreach and community engagement',
-        'Professional services (legal, medical, financial advice)'
-      ]
+        "Administrative support and office assistance",
+        "Event planning and coordination",
+        "Outreach and community engagement",
+        "Professional services (legal, medical, financial advice)",
+      ],
     },
     {
       icon: Building,
-      title: 'Corporate Partnerships',
-      description: 'Partner with All4Vets to make a greater impact together.',
+      title: "Corporate Partnerships",
+      description: "Partner with All4Vets to make a greater impact together.",
       details: [
-        'Sponsor specific programs or events',
-        'Match employee donations',
-        'Provide in-kind services or products',
-        'Host workplace giving campaigns'
-      ]
+        "Sponsor specific programs or events",
+        "Match employee donations",
+        "Provide in-kind services or products",
+        "Host workplace giving campaigns",
+      ],
     },
     {
       icon: Calendar,
-      title: 'Fundraising Events',
-      description: 'Host or participate in events that support our mission.',
+      title: "Fundraising Events",
+      description: "Host or participate in events that support our mission.",
       details: [
-        'Community fundraisers',
-        'Athletic events and challenges',
-        'Workplace campaigns',
-        'Memorial and tribute events'
-      ]
+        "Community fundraisers",
+        "Athletic events and challenges",
+        "Workplace campaigns",
+        "Memorial and tribute events",
+      ],
     },
     {
       icon: Share2,
-      title: 'Spread the Word',
-      description: 'Help us reach more veterans and supporters.',
+      title: "Spread the Word",
+      description: "Help us reach more veterans and supporters.",
       details: [
-        'Share our mission on social media',
-        'Tell friends and family about All4Vets',
-        'Write reviews and testimonials',
-        'Connect us with potential partners'
-      ]
-    }
+        "Share our mission on social media",
+        "Tell friends and family about All4Vets",
+        "Write reviews and testimonials",
+        "Connect us with potential partners",
+      ],
+    },
   ];
 
   return (
@@ -78,14 +93,19 @@ const GetInvolved = () => {
       {/* Hero Section */}
       <section className="relative py-20 md:py-28 bg-[#0B1D39] text-white overflow-hidden">
         <div className="absolute inset-0 opacity-20">
-          <img src={images.community} alt="" className="w-full h-full object-cover" />
+          <img
+            src={images.community}
+            alt=""
+            className="w-full h-full object-cover"
+          />
         </div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tight mb-6">
             Get Involved
           </h1>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            Your Support Changes Lives — Join us in serving those who served our nation.
+            Your Support Changes Lives — Join us in serving those who served our
+            nation.
           </p>
         </div>
       </section>
@@ -94,7 +114,10 @@ const GetInvolved = () => {
       <section className="py-12 bg-[#F3F5F7]">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <p className="text-lg text-[#3C4A5B] leading-relaxed">
-            Whether you're an individual donor, a corporate partner, or a volunteer, you can make a direct difference in the lives of those who served. There are many ways to support All4Vets and help veterans achieve stability and dignity.
+            Whether you're an individual donor, a corporate partner, or a
+            volunteer, you can make a direct difference in the lives of those
+            who served. There are many ways to support All4Vets and help
+            veterans achieve stability and dignity.
           </p>
         </div>
       </section>
@@ -110,19 +133,29 @@ const GetInvolved = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {involvementOptions.map((option, index) => (
-              <Card key={index} className="border-2 hover:border-[#1E4F91] transition-all duration-300">
+              <Card
+                key={index}
+                className="border-2 hover:border-[#1E4F91] transition-all duration-300"
+              >
                 <CardContent className="p-8">
                   <div className="flex items-center mb-6">
                     <div className="w-14 h-14 bg-[#0B1D39] rounded-full flex items-center justify-center mr-4">
                       <option.icon size={28} className="text-white" />
                     </div>
-                    <h3 className="text-2xl font-bold text-[#0B1D39]">{option.title}</h3>
+                    <h3 className="text-2xl font-bold text-[#0B1D39]">
+                      {option.title}
+                    </h3>
                   </div>
-                  <p className="text-lg text-[#3C4A5B] mb-6">{option.description}</p>
+                  <p className="text-lg text-[#3C4A5B] mb-6">
+                    {option.description}
+                  </p>
                   <ul className="space-y-3">
                     {option.details.map((detail, i) => (
                       <li key={i} className="flex items-start">
-                        <CheckCircle size={20} className="text-[#E64A38] mr-3 flex-shrink-0 mt-0.5" />
+                        <CheckCircle
+                          size={20}
+                          className="text-[#B31942] mr-3 flex-shrink-0 mt-0.5"
+                        />
                         <span className="text-[#3C4A5B]">{detail}</span>
                       </li>
                     ))}
@@ -145,12 +178,15 @@ const GetInvolved = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <Link to="/donate">
-              <Card className="h-full bg-[#E64A38] text-white border-none hover:scale-105 transition-transform duration-300 cursor-pointer">
+              <Card className="h-full bg-[#B31942] text-white border-none hover:scale-105 transition-transform duration-300 cursor-pointer">
                 <CardContent className="p-8 text-center">
                   <Heart size={48} className="mx-auto mb-6" />
                   <h3 className="text-2xl font-bold mb-4">Donate Now</h3>
-                  <p className="text-white/90 mb-6">Make a one-time or recurring gift to support veterans in need.</p>
-                  <Button className="bg-white text-[#E64A38] hover:bg-gray-100 font-bold px-6 py-3 rounded-full">
+                  <p className="text-white/90 mb-6">
+                    Make a one-time or recurring gift to support veterans in
+                    need.
+                  </p>
+                  <Button className="bg-white text-[#B31942] hover:bg-gray-100 font-bold px-6 py-3 rounded-full">
                     Give Today <ArrowRight size={18} className="ml-2" />
                   </Button>
                 </CardContent>
@@ -161,7 +197,10 @@ const GetInvolved = () => {
               <CardContent className="p-8 text-center">
                 <Megaphone size={48} className="mx-auto mb-6" />
                 <h3 className="text-2xl font-bold mb-4">Share Our Mission</h3>
-                <p className="text-white/90 mb-6">Follow us on social media and help spread the word about All4Vets.</p>
+                <p className="text-white/90 mb-6">
+                  Follow us on social media and help spread the word about
+                  All4Vets.
+                </p>
                 <div className="flex justify-center space-x-4">
                   {siteConfig.social.map((social) => (
                     <a
@@ -171,7 +210,9 @@ const GetInvolved = () => {
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      <span className="text-sm font-bold">{social.name[0]}</span>
+                      <span className="text-sm font-bold">
+                        {social.name[0]}
+                      </span>
                     </a>
                   ))}
                 </div>
@@ -182,7 +223,10 @@ const GetInvolved = () => {
               <CardContent className="p-8 text-center">
                 <Gift size={48} className="mx-auto mb-6" />
                 <h3 className="text-2xl font-bold mb-4">Matching Gifts</h3>
-                <p className="text-white/90 mb-6">Double your impact! Check if your employer matches charitable donations.</p>
+                <p className="text-white/90 mb-6">
+                  Double your impact! Check if your employer matches charitable
+                  donations.
+                </p>
                 <Button className="bg-white text-[#1E4F91] hover:bg-gray-100 font-bold px-6 py-3 rounded-full">
                   Learn More <ArrowRight size={18} className="ml-2" />
                 </Button>
@@ -200,7 +244,8 @@ const GetInvolved = () => {
               Ready to Get Started?
             </h2>
             <p className="text-lg text-[#3C4A5B]">
-              Fill out the form below and we'll connect you with the right opportunities.
+              Fill out the form below and we'll connect you with the right
+              opportunities.
             </p>
           </div>
 
@@ -209,22 +254,30 @@ const GetInvolved = () => {
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-sm font-semibold text-[#0B1D39] mb-2">Your Name *</label>
+                    <label className="block text-sm font-semibold text-[#0B1D39] mb-2">
+                      Your Name *
+                    </label>
                     <Input
                       type="text"
                       value={formData.name}
-                      onChange={(e) => setFormData({...formData, name: e.target.value})}
+                      onChange={(e) =>
+                        setFormData({ ...formData, name: e.target.value })
+                      }
                       required
                       className="border-2 border-gray-300 focus:border-[#1E4F91]"
                       placeholder="John Smith"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-semibold text-[#0B1D39] mb-2">Email Address *</label>
+                    <label className="block text-sm font-semibold text-[#0B1D39] mb-2">
+                      Email Address *
+                    </label>
                     <Input
                       type="email"
                       value={formData.email}
-                      onChange={(e) => setFormData({...formData, email: e.target.value})}
+                      onChange={(e) =>
+                        setFormData({ ...formData, email: e.target.value })
+                      }
                       required
                       className="border-2 border-gray-300 focus:border-[#1E4F91]"
                       placeholder="john@example.com"
@@ -233,10 +286,14 @@ const GetInvolved = () => {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-semibold text-[#0B1D39] mb-2">I'm Interested In *</label>
+                  <label className="block text-sm font-semibold text-[#0B1D39] mb-2">
+                    I'm Interested In *
+                  </label>
                   <select
                     value={formData.interest}
-                    onChange={(e) => setFormData({...formData, interest: e.target.value})}
+                    onChange={(e) =>
+                      setFormData({ ...formData, interest: e.target.value })
+                    }
                     required
                     className="w-full p-3 border-2 border-gray-300 rounded-md focus:border-[#1E4F91] focus:outline-none"
                   >
@@ -249,10 +306,14 @@ const GetInvolved = () => {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-semibold text-[#0B1D39] mb-2">Message (Optional)</label>
+                  <label className="block text-sm font-semibold text-[#0B1D39] mb-2">
+                    Message (Optional)
+                  </label>
                   <Textarea
                     value={formData.message}
-                    onChange={(e) => setFormData({...formData, message: e.target.value})}
+                    onChange={(e) =>
+                      setFormData({ ...formData, message: e.target.value })
+                    }
                     className="border-2 border-gray-300 focus:border-[#1E4F91] min-h-[120px]"
                     placeholder="Tell us more about how you'd like to help..."
                   />
@@ -260,7 +321,7 @@ const GetInvolved = () => {
 
                 <Button
                   type="submit"
-                  className="w-full bg-[#E64A38] hover:bg-[#d43e2e] text-white font-bold py-4 text-lg rounded-full"
+                  className="w-full bg-[#B31942] hover:bg-[#d43e2e] text-white font-bold py-4 text-lg rounded-full"
                 >
                   Submit Interest
                 </Button>
@@ -278,13 +339,20 @@ const GetInvolved = () => {
             Corporate Partnership Opportunities
           </h2>
           <p className="text-xl text-gray-300 mb-8">
-            Partner with All4Vets to create meaningful impact for veterans while demonstrating your organization's commitment to those who served.
+            Partner with All4Vets to create meaningful impact for veterans while
+            demonstrating your organization's commitment to those who served.
           </p>
           <p className="text-lg text-gray-400 mb-8">
-            Contact us at <a href={`mailto:${siteConfig.contact.partnershipsEmail}`} className="text-[#BF9B30] hover:underline">{siteConfig.contact.partnershipsEmail}</a>
+            Contact us at{" "}
+            <a
+              href={`mailto:${siteConfig.contact.partnershipsEmail}`}
+              className="text-[#BF9B30] hover:underline"
+            >
+              {siteConfig.contact.partnershipsEmail}
+            </a>
           </p>
           <Link to="/contact">
-            <Button className="bg-[#E64A38] hover:bg-[#d43e2e] text-white font-bold px-8 py-4 rounded-full text-lg">
+            <Button className="bg-[#B31942] hover:bg-[#d43e2e] text-white font-bold px-8 py-4 rounded-full text-lg">
               Contact Us Today
             </Button>
           </Link>

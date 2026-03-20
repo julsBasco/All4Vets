@@ -126,7 +126,7 @@ const Programs = () => {
                                 <li key={i} className="flex items-start">
                                   <CheckCircle
                                     size={20}
-                                    className="text-[#E64A38] mr-3 flex-shrink-0 mt-0.5"
+                                    className="text-[#B31942] mr-3 flex-shrink-0 mt-0.5"
                                   />
                                   <span className="text-[#3C4A5B]">{item}</span>
                                 </li>
@@ -186,7 +186,7 @@ const Programs = () => {
                             {program.disableCTA ? (
                               <Button
                                 onClick={() => handleApplyClick(program.slug)}
-                                className="bg-[#E64A38] hover:bg-[#d43e2e] text-white font-bold px-6 py-3 rounded-full"
+                                className="bg-[#B31942] hover:bg-[#d43e2e] text-white font-bold px-6 py-3 rounded-full"
                                 disabled
                               >
                                 {<>Coming Soon</>}
@@ -194,7 +194,7 @@ const Programs = () => {
                             ) : (
                               <Button
                                 onClick={() => handleApplyClick(program.slug)}
-                                className="bg-[#E64A38] hover:bg-[#d43e2e] text-white font-bold px-6 py-3 rounded-full"
+                                className="bg-[#B31942] hover:bg-[#d43e2e] text-white font-bold px-6 py-3 rounded-full"
                               >
                                 {program.primaryCTA}
                               </Button>
@@ -277,7 +277,7 @@ const Programs = () => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
               onClick={() => handleApplyClick("va-disability-claims")}
-              className="bg-[#E64A38] hover:bg-[#d43e2e] text-white font-bold px-8 py-4 rounded-full text-lg"
+              className="bg-[#B31942] hover:bg-[#d43e2e] text-white font-bold px-8 py-4 rounded-full text-lg"
             >
               Apply for Aid Now
             </Button>

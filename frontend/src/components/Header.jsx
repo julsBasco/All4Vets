@@ -61,13 +61,13 @@ const Header = () => {
                   to={link.url}
                   className={`px-4 py-2 text-sm font-semibold transition-colors relative group ${
                     isActive(link.url)
-                      ? "text-[#E64A38]"
+                      ? "text-[#B31942]"
                       : "text-[#0B1D39] hover:text-[#1E4F91]"
                   }`}
                 >
                   {link.title}
                   <span
-                    className={`absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 bg-[#E64A38] transition-all duration-300 ${
+                    className={`absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 bg-[#B31942] transition-all duration-300 ${
                       isActive(link.url) ? "w-3/4" : "w-0 group-hover:w-3/4"
                     }`}
                   ></span>
@@ -78,7 +78,7 @@ const Header = () => {
             {/* Desktop CTA */}
             <div className="hidden lg:flex items-center space-x-3">
               <Link to="/donate">
-                <Button className="bg-[#E64A38] hover:bg-[#d43e2e] text-white font-bold px-6 py-2.5 rounded-full transition-all duration-200 shadow-md hover:shadow-lg">
+                <Button className="bg-[#B31942] hover:bg-[#d43e2e] text-white font-bold px-6 py-2.5 rounded-full transition-all duration-200 shadow-md hover:shadow-lg">
                   Donate Now
                 </Button>
               </Link>
@@ -106,7 +106,7 @@ const Header = () => {
                   onClick={() => setMobileMenuOpen(false)}
                   className={`block px-4 py-3 text-base font-semibold rounded-lg transition-colors ${
                     isActive(link.url)
-                      ? "text-[#E64A38] bg-red-50"
+                      ? "text-[#B31942] bg-red-50"
                       : "text-[#0B1D39] hover:bg-gray-100"
                   }`}
                 >
@@ -115,7 +115,7 @@ const Header = () => {
               ))}
               <div className="pt-4 border-t border-gray-200">
                 <Link to="/donate" onClick={() => setMobileMenuOpen(false)}>
-                  <Button className="w-full bg-[#E64A38] hover:bg-[#d43e2e] text-white font-bold py-3 rounded-full">
+                  <Button className="w-full bg-[#B31942] hover:bg-[#d43e2e] text-white font-bold py-3 rounded-full">
                     Donate Now
                   </Button>
                 </Link>

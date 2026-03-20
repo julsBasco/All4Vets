@@ -1,20 +1,29 @@
-import React, { useState } from 'react';
-import { Calendar, User, Tag, ArrowRight } from 'lucide-react';
-import { Button } from '../components/ui/button';
-import { Card, CardContent } from '../components/ui/card';
-import { Badge } from '../components/ui/badge';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
-import { blogPosts } from '../mock';
+import React, { useState } from "react";
+import { Calendar, User, Tag, ArrowRight } from "lucide-react";
+import { Button } from "../components/ui/button";
+import { Card, CardContent } from "../components/ui/card";
+import { Badge } from "../components/ui/badge";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
+import { blogPosts } from "../mock";
 
 const Blog = () => {
-  const [selectedCategory, setSelectedCategory] = useState('All');
-  
-  const categories = ['All', 'Healthcare', 'Benefits', 'Mental Health', 'Career', 'Housing', 'News'];
-  
-  const filteredPosts = selectedCategory === 'All' 
-    ? blogPosts 
-    : blogPosts.filter(post => post.category === selectedCategory);
+  const [selectedCategory, setSelectedCategory] = useState("All");
+
+  const categories = [
+    "All",
+    "Healthcare",
+    "Benefits",
+    "Mental Health",
+    "Career",
+    "Housing",
+    "News",
+  ];
+
+  const filteredPosts =
+    selectedCategory === "All"
+      ? blogPosts
+      : blogPosts.filter((post) => post.category === selectedCategory);
 
   return (
     <div className="min-h-screen bg-white">
@@ -28,7 +37,8 @@ const Blog = () => {
               Veterans Resources & Insights
             </h1>
             <p className="text-xl text-gray-200 max-w-3xl mx-auto">
-              Expert guidance, latest news, and valuable resources to help veterans navigate benefits, healthcare, and life transitions.
+              Expert guidance, latest news, and valuable resources to help
+              veterans navigate benefits, healthcare, and life transitions.
             </p>
           </div>
         </div>
@@ -44,8 +54,8 @@ const Blog = () => {
                 onClick={() => setSelectedCategory(category)}
                 className={`px-6 py-2 rounded-full font-semibold transition-all duration-200 ${
                   selectedCategory === category
-                    ? 'bg-[#0B1D39] text-white shadow-md'
-                    : 'bg-white text-[#3C4A5B] hover:bg-[#0B1D39] hover:text-white border border-gray-200'
+                    ? "bg-[#0B1D39] text-white shadow-md"
+                    : "bg-white text-[#3C4A5B] hover:bg-[#0B1D39] hover:text-white border border-gray-200"
                 }`}
               >
                 {category}
@@ -60,7 +70,10 @@ const Blog = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredPosts.map((post) => (
-              <Card key={post.id} className="group hover:shadow-xl transition-all duration-300 overflow-hidden">
+              <Card
+                key={post.id}
+                className="group hover:shadow-xl transition-all duration-300 overflow-hidden"
+              >
                 <div className="relative h-48 overflow-hidden">
                   <img
                     src={post.image}
@@ -82,7 +95,7 @@ const Blog = () => {
                       <span>{post.author}</span>
                     </div>
                   </div>
-                  <h3 className="text-xl font-bold text-[#0B1D39] mb-3 group-hover:text-[#E64A38] transition-colors">
+                  <h3 className="text-xl font-bold text-[#0B1D39] mb-3 group-hover:text-[#B31942] transition-colors">
                     {post.title}
                   </h3>
                   <p className="text-[#3C4A5B] mb-4 leading-relaxed">
@@ -90,10 +103,13 @@ const Blog = () => {
                   </p>
                   <Button
                     variant="ghost"
-                    className="text-[#0B1D39] hover:text-[#E64A38] p-0 font-semibold group/btn"
+                    className="text-[#0B1D39] hover:text-[#B31942] p-0 font-semibold group/btn"
                   >
-                    Read More 
-                    <ArrowRight size={16} className="ml-2 group-hover/btn:translate-x-1 transition-transform" />
+                    Read More
+                    <ArrowRight
+                      size={16}
+                      className="ml-2 group-hover/btn:translate-x-1 transition-transform"
+                    />
                   </Button>
                 </CardContent>
               </Card>
@@ -102,7 +118,9 @@ const Blog = () => {
 
           {filteredPosts.length === 0 && (
             <div className="text-center py-16">
-              <p className="text-xl text-[#3C4A5B]">No articles found in this category.</p>
+              <p className="text-xl text-[#3C4A5B]">
+                No articles found in this category.
+              </p>
             </div>
           )}
         </div>
@@ -115,10 +133,11 @@ const Blog = () => {
             Need Personalized Support?
           </h2>
           <p className="text-lg text-gray-200 mb-8">
-            Our expert advocates are here to help you navigate your unique situation.
+            Our expert advocates are here to help you navigate your unique
+            situation.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button className="bg-[#E64A38] hover:bg-[#d43e2e] text-white font-bold px-8 py-6 text-lg rounded-full">
+            <Button className="bg-[#B31942] hover:bg-[#d43e2e] text-white font-bold px-8 py-6 text-lg rounded-full">
               Apply for Aid
             </Button>
             <Button
