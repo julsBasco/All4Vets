@@ -331,7 +331,7 @@ export const navLinks = [
   { title: "About Us", url: "/about" },
   { title: "Programs", url: "/programs" },
   { title: "Donate", url: "/donate" },
-  { title: "Get Involved", url: "/get-involved" },
+  { title: "Sponsorship", url: "/sponsorship" },
   { title: "Contact", url: "/contact" },
 ];
 
