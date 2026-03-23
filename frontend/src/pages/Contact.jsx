@@ -9,6 +9,9 @@ import {
   Twitter,
   Linkedin,
   Instagram,
+  CheckCircle,
+  Loader2,
+  X,
 } from "lucide-react";
 import { Button } from "../components/ui/button";
 import { Card, CardContent } from "../components/ui/card";
@@ -25,12 +28,53 @@ const Contact = () => {
     subject: "",
     message: "",
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState(null); // null, 'success', 'error'
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Contact form submitted:", formData);
-    alert("Thank you for your message! We'll get back to you soon.");
-    setFormData({ name: "", email: "", subject: "", message: "" });
+    setIsSubmitting(true);
+    setSubmitStatus(null);
+
+    try {
+      // Create FormData for submission
+      const submitData = new FormData();
+      
+      // Add form_id to identify this as the contact form
+      submitData.append('form_id', 'contact');
+      
+      // Add form fields
+      submitData.append('name', formData.name);
+      submitData.append('email', formData.email);
+      submitData.append('subject', formData.subject);
+      submitData.append('message', formData.message);
+      
+      // Add submission timestamp
+      submitData.append('submission_date', new Date().toLocaleString());
+
+      // Submit to PHP endpoint
+      const response = await fetch('/api/ingest.php', {
+        method: 'POST',
+        body: submitData,
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        setSubmitStatus('success');
+        setFormData({ name: "", email: "", subject: "", message: "" });
+      } else {
+        // Even if email notification fails, form was received
+        console.warn("Form submitted but email may have failed:", result.message);
+        setSubmitStatus('success');
+        setFormData({ name: "", email: "", subject: "", message: "" });
+      }
+    } catch (error) {
+      console.error("Error submitting contact form:", error);
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const socialIcons = {
@@ -130,6 +174,41 @@ const Contact = () => {
                 <h2 className="text-2xl font-bold text-[#0B1D39] mb-6">
                   Send Us a Message
                 </h2>
+                
+                {/* Success Message */}
+                {submitStatus === 'success' && (
+                  <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg flex items-start">
+                    <CheckCircle className="text-green-600 mr-3 flex-shrink-0 mt-0.5" size={20} />
+                    <div>
+                      <h4 className="font-semibold text-green-800">Message Sent!</h4>
+                      <p className="text-sm text-green-700">Thank you for contacting us. We'll get back to you soon.</p>
+                    </div>
+                    <button 
+                      onClick={() => setSubmitStatus(null)}
+                      className="ml-auto text-green-600 hover:text-green-800"
+                    >
+                      <X size={18} />
+                    </button>
+                  </div>
+                )}
+                
+                {/* Error Message */}
+                {submitStatus === 'error' && (
+                  <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg flex items-start">
+                    <X className="text-red-600 mr-3 flex-shrink-0 mt-0.5" size={20} />
+                    <div>
+                      <h4 className="font-semibold text-red-800">Submission Failed</h4>
+                      <p className="text-sm text-red-700">Please try again or email us directly at joe@all4vets.us</p>
+                    </div>
+                    <button 
+                      onClick={() => setSubmitStatus(null)}
+                      className="ml-auto text-red-600 hover:text-red-800"
+                    >
+                      <X size={18} />
+                    </button>
+                  </div>
+                )}
+                
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
@@ -206,10 +285,20 @@ const Contact = () => {
 
                   <Button
                     type="submit"
-                    className="w-full bg-[#B31942] hover:bg-[#d43e2e] text-white font-bold py-4 text-lg rounded-full"
+                    disabled={isSubmitting}
+                    className="w-full bg-[#B31942] hover:bg-[#d43e2e] text-white font-bold py-4 text-lg rounded-full disabled:opacity-50"
                   >
-                    <Send size={20} className="mr-2" />
-                    Send Message
+                    {isSubmitting ? (
+                      <>
+                        <Loader2 size={20} className="mr-2 animate-spin" />
+                        Sending...
+                      </>
+                    ) : (
+                      <>
+                        <Send size={20} className="mr-2" />
+                        Send Message
+                      </>
+                    )}
                   </Button>
                 </form>
               </CardContent>

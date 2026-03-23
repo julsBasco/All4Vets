@@ -11,6 +11,8 @@ import {
   Megaphone,
   Handshake,
   Gift,
+  Loader2,
+  X,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "../components/ui/button";
@@ -28,14 +30,53 @@ const GetInvolved = () => {
     interest: "",
     message: "",
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState(null); // null, 'success', 'error'
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
-    alert(
-      "Thank you for your interest in getting involved! We'll be in touch soon.",
-    );
-    setFormData({ name: "", email: "", interest: "", message: "" });
+    setIsSubmitting(true);
+    setSubmitStatus(null);
+
+    try {
+      // Create FormData for submission
+      const submitData = new FormData();
+      
+      // Add form_id to identify this as the get_involved form
+      submitData.append('form_id', 'get_involved');
+      
+      // Add form fields
+      submitData.append('name', formData.name);
+      submitData.append('email', formData.email);
+      submitData.append('interest_area', formData.interest);
+      submitData.append('message', formData.message || 'No additional message provided');
+      
+      // Add submission timestamp
+      submitData.append('submission_date', new Date().toLocaleString());
+
+      // Submit to PHP endpoint
+      const response = await fetch('/api/ingest.php', {
+        method: 'POST',
+        body: submitData,
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        setSubmitStatus('success');
+        setFormData({ name: "", email: "", interest: "", message: "" });
+      } else {
+        // Even if email notification fails, form was received
+        console.warn("Form submitted but email may have failed:", result.message);
+        setSubmitStatus('success');
+        setFormData({ name: "", email: "", interest: "", message: "" });
+      }
+    } catch (error) {
+      console.error("Error submitting get involved form:", error);
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const involvementOptions = [
@@ -251,6 +292,40 @@ const GetInvolved = () => {
 
           <Card className="border-2">
             <CardContent className="p-8">
+              {/* Success Message */}
+              {submitStatus === 'success' && (
+                <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg flex items-start">
+                  <CheckCircle className="text-green-600 mr-3 flex-shrink-0 mt-0.5" size={20} />
+                  <div>
+                    <h4 className="font-semibold text-green-800">Thank You!</h4>
+                    <p className="text-sm text-green-700">Your interest has been submitted. We'll be in touch soon!</p>
+                  </div>
+                  <button 
+                    onClick={() => setSubmitStatus(null)}
+                    className="ml-auto text-green-600 hover:text-green-800"
+                  >
+                    <X size={18} />
+                  </button>
+                </div>
+              )}
+              
+              {/* Error Message */}
+              {submitStatus === 'error' && (
+                <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg flex items-start">
+                  <X className="text-red-600 mr-3 flex-shrink-0 mt-0.5" size={20} />
+                  <div>
+                    <h4 className="font-semibold text-red-800">Submission Failed</h4>
+                    <p className="text-sm text-red-700">Please try again or email us directly at joe@all4vets.us</p>
+                  </div>
+                  <button 
+                    onClick={() => setSubmitStatus(null)}
+                    className="ml-auto text-red-600 hover:text-red-800"
+                  >
+                    <X size={18} />
+                  </button>
+                </div>
+              )}
+
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
@@ -321,9 +396,17 @@ const GetInvolved = () => {
 
                 <Button
                   type="submit"
-                  className="w-full bg-[#B31942] hover:bg-[#d43e2e] text-white font-bold py-4 text-lg rounded-full"
+                  disabled={isSubmitting}
+                  className="w-full bg-[#B31942] hover:bg-[#d43e2e] text-white font-bold py-4 text-lg rounded-full disabled:opacity-50"
                 >
-                  Submit Interest
+                  {isSubmitting ? (
+                    <>
+                      <Loader2 size={20} className="mr-2 animate-spin" />
+                      Submitting...
+                    </>
+                  ) : (
+                    'Submit Interest'
+                  )}
                 </Button>
               </form>
             </CardContent>

@@ -10,12 +10,6 @@ import {
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
-import emailjs from "@emailjs/browser";
-
-// EmailJS Configuration - User needs to set these up
-const EMAILJS_SERVICE_ID = "service_pvv6b3x";
-const EMAILJS_TEMPLATE_ID = "template_fks6sqz";
-const EMAILJS_PUBLIC_KEY = "05MmZHAAF9TuVW64Z";
 
 // US States list for dropdown
 const US_STATES = [
@@ -230,83 +224,98 @@ const ApplicationModal = ({ isOpen, onClose, programType }) => {
     setIsSubmitting(true);
     setSubmitStatus(null);
 
-    // Prepare email content
-    const emailContent = {
-      to_email: "joe@all4vets.us",
-      program_type: programTitles[programType],
-      // Personal Info
-      applicant_name: `${formData.firstName} ${formData.lastName}`,
-      applicant_email: formData.email,
-      applicant_phone: formData.phone,
-      applicant_address: `${formData.address}, ${formData.city}, ${formData.state} ${formData.zipCode}`,
-      // Military Service
-      military_branch: formData.branch || "N/A",
-      service_number: formData.serviceNumber || "N/A",
-      service_dates: formData.serviceStart
-        ? `${formData.serviceStart} to ${formData.serviceEnd}`
-        : "N/A",
-      discharge_type: formData.dischargeType || "N/A",
-      dd214_uploaded: formData.dd214File ? "Yes - " + fileNames.dd214 : "No",
-      str_uploaded: formData.serviceTreatmentRecords
-        ? "Yes - " + fileNames.serviceTreatmentRecords
-        : "No",
-      blue_button_uploaded: formData.vaBlueButtonReport
-        ? "Yes - " + fileNames.vaBlueButtonReport
-        : "No",
-      private_medical_uploaded: formData.privateMedicalRecords
-        ? "Yes - " + fileNames.privateMedicalRecords
-        : "No",
-      prior_dbq_uploaded: formData.priorDbqNexusLetter
-        ? "Yes - " + fileNames.priorDbqNexusLetter
-        : "No",
-      // VA Disability Info
-      va_claim_status: formData.claimStatus || "N/A",
-      va_file_number: formData.vaFileNumber || "N/A",
-      disability_rating: formData.disabilityRating || "N/A",
-      evaluation_type: formData.evaluationType || "N/A",
-      conditions_claimed: formData.conditionsClaimed || "N/A",
-      existing_diagnosis: formData.existingDiagnosis || "N/A",
-      medical_conditions: formData.medicalConditions || "N/A",
-      current_symptoms: formData.currentSymptoms || "N/A",
-      current_medications: formData.currentMedications || "N/A",
-      prior_treatment_history: formData.priorTreatmentHistory || "N/A",
-      // Financial Hardship
-      hardship_statement: formData.hardshipStatement || "N/A",
-      // Certification
-      signature: formData.signature || "N/A",
-      signature_date: formData.signatureDate || "N/A",
-      submission_date: new Date().toLocaleString(),
-    };
-
     try {
-      if (EMAILJS_PUBLIC_KEY !== "YOUR_PUBLIC_KEY") {
-        await emailjs.send(
-          EMAILJS_SERVICE_ID,
-          EMAILJS_TEMPLATE_ID,
-          emailContent,
-          EMAILJS_PUBLIC_KEY,
-        );
+      // Create FormData for multipart/form-data submission
+      const submitData = new FormData();
+      
+      // Add form_id to identify the form type
+      submitData.append('form_id', programType);
+      
+      // Add program type for reference
+      submitData.append('program_type', programTitles[programType]);
+      
+      // Personal Information
+      submitData.append('first_name', formData.firstName);
+      submitData.append('last_name', formData.lastName);
+      submitData.append('email', formData.email);
+      submitData.append('phone', formData.phone);
+      submitData.append('address', formData.address);
+      submitData.append('city', formData.city);
+      submitData.append('state', formData.state);
+      submitData.append('zip_code', formData.zipCode);
+      
+      // Full address for easy reference
+      submitData.append('full_address', `${formData.address}, ${formData.city}, ${formData.state} ${formData.zipCode}`);
+      
+      // V-MEAF specific fields
+      if (isVMEAF) {
+        // Military Service
+        submitData.append('military_branch', formData.branch || 'N/A');
+        submitData.append('service_number', formData.serviceNumber || 'N/A');
+        submitData.append('service_start_date', formData.serviceStart || 'N/A');
+        submitData.append('service_end_date', formData.serviceEnd || 'N/A');
+        submitData.append('service_dates', formData.serviceStart ? `${formData.serviceStart} to ${formData.serviceEnd}` : 'N/A');
+        submitData.append('discharge_type', formData.dischargeType || 'N/A');
+        
+        // File uploads
+        if (formData.dd214File) {
+          submitData.append('dd214', formData.dd214File);
+        }
+        if (formData.serviceTreatmentRecords) {
+          submitData.append('service_treatment_records', formData.serviceTreatmentRecords);
+        }
+        if (formData.vaBlueButtonReport) {
+          submitData.append('va_blue_button_report', formData.vaBlueButtonReport);
+        }
+        if (formData.privateMedicalRecords) {
+          submitData.append('private_medical_records', formData.privateMedicalRecords);
+        }
+        if (formData.priorDbqNexusLetter) {
+          submitData.append('prior_dbq_nexus_letter', formData.priorDbqNexusLetter);
+        }
+        
+        // VA Disability Info
+        submitData.append('va_claim_status', formData.claimStatus || 'N/A');
+        submitData.append('va_file_number', formData.vaFileNumber || 'N/A');
+        submitData.append('disability_rating', formData.disabilityRating || 'N/A');
+        submitData.append('evaluation_type', formData.evaluationType || 'N/A');
+        submitData.append('conditions_claimed', formData.conditionsClaimed || 'N/A');
+        submitData.append('existing_diagnosis', formData.existingDiagnosis || 'N/A');
+        submitData.append('medical_conditions', formData.medicalConditions || 'N/A');
+        submitData.append('current_symptoms', formData.currentSymptoms || 'N/A');
+        submitData.append('current_medications', formData.currentMedications || 'N/A');
+        submitData.append('prior_treatment_history', formData.priorTreatmentHistory || 'N/A');
+        
+        // Financial Hardship
+        submitData.append('hardship_statement', formData.hardshipStatement || 'N/A');
+        
+        // Certification
+        submitData.append('certifications', formData.certifications.join('; '));
+        submitData.append('digital_signature', formData.signature || 'N/A');
+        submitData.append('signature_date', formData.signatureDate || 'N/A');
+      } else {
+        // Non-V-MEAF forms (scholarship, emergency) - simpler data
+        submitData.append('additional_info', formData.hardshipStatement || 'N/A');
+      }
+      
+      // Add submission timestamp
+      submitData.append('submission_date', new Date().toLocaleString());
+
+      // Submit to PHP endpoint
+      // Note: Do NOT set Content-Type header manually - browser will set it with boundary for multipart/form-data
+      const response = await fetch('/api/ingest.php', {
+        method: 'POST',
+        body: submitData,
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
         setSubmitStatus("success");
       } else {
-        const response = await fetch(
-          `${process.env.REACT_APP_BACKEND_URL}/api/applications`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              programType,
-              ...emailContent,
-            }),
-          },
-        );
-
-        if (response.ok) {
-          setSubmitStatus("success");
-        } else {
-          throw new Error("Failed to submit application");
-        }
+        // Even if email fails, the form was received
+        console.warn("Form submitted but email may have failed:", result.message);
+        setSubmitStatus("success");
       }
     } catch (error) {
       console.error("Error submitting application:", error);

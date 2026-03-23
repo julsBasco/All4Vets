@@ -1,0 +1,13 @@
+# Deny direct access to uploaded files
+# This provides an additional layer of security
+# The Directory Privacy in cPanel is the primary protection
+
+# Deny all direct access
+Order Deny,Allow
+Deny from all
+
+# Optionally allow specific file types to be viewed (uncomment if needed)
+# <FilesMatch "\.(pdf|jpg|jpeg|png|gif)$">
+#     Order Allow,Deny
+#     Allow from all
+# </FilesMatch>
