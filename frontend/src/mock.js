@@ -330,6 +330,7 @@ export const navLinks = [
   { title: "Home", url: "/" },
   { title: "About Us", url: "/about" },
   { title: "Programs", url: "/programs" },
+  { title: "Sponsorship", url: "/sponsorship" },
   { title: "Donate", url: "/donate" },
   { title: "Get Involved", url: "/get-involved" },
   { title: "Contact", url: "/contact" },

@@ -8,6 +8,7 @@ import GetInvolved from "./pages/GetInvolved";
 import Contact from "./pages/Contact";
 import Blog from "./pages/Blog";
 import Reviews from "./pages/Reviews";
+import Sponsorship from "./pages/Sponsorship";
 import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/reviews" element={<Reviews />} />
+          <Route path="/sponsorship" element={<Sponsorship />} />
         </Routes>
       </HashRouter>
     </div>
