@@ -227,84 +227,131 @@ const ApplicationModal = ({ isOpen, onClose, programType }) => {
     try {
       // Create FormData for multipart/form-data submission
       const submitData = new FormData();
-      
+
       // Add form_id to identify the form type
-      submitData.append('form_id', programType);
-      
+      submitData.append("form_id", programType);
+
       // Add program type for reference
-      submitData.append('program_type', programTitles[programType]);
-      
+      submitData.append("program_type", programTitles[programType]);
+
       // Personal Information
-      submitData.append('first_name', formData.firstName);
-      submitData.append('last_name', formData.lastName);
-      submitData.append('email', formData.email);
-      submitData.append('phone', formData.phone);
-      submitData.append('address', formData.address);
-      submitData.append('city', formData.city);
-      submitData.append('state', formData.state);
-      submitData.append('zip_code', formData.zipCode);
-      
+      submitData.append("first_name", formData.firstName);
+      submitData.append("last_name", formData.lastName);
+      submitData.append("email", formData.email);
+      submitData.append("phone", formData.phone);
+      submitData.append("address", formData.address);
+      submitData.append("city", formData.city);
+      submitData.append("state", formData.state);
+      submitData.append("zip_code", formData.zipCode);
+
       // Full address for easy reference
-      submitData.append('full_address', `${formData.address}, ${formData.city}, ${formData.state} ${formData.zipCode}`);
-      
+      submitData.append(
+        "full_address",
+        `${formData.address}, ${formData.city}, ${formData.state} ${formData.zipCode}`,
+      );
+
       // V-MEAF specific fields
       if (isVMEAF) {
         // Military Service
-        submitData.append('military_branch', formData.branch || 'N/A');
-        submitData.append('service_number', formData.serviceNumber || 'N/A');
-        submitData.append('service_start_date', formData.serviceStart || 'N/A');
-        submitData.append('service_end_date', formData.serviceEnd || 'N/A');
-        submitData.append('service_dates', formData.serviceStart ? `${formData.serviceStart} to ${formData.serviceEnd}` : 'N/A');
-        submitData.append('discharge_type', formData.dischargeType || 'N/A');
-        
+        submitData.append("military_branch", formData.branch || "N/A");
+        submitData.append("service_number", formData.serviceNumber || "N/A");
+        submitData.append("service_start_date", formData.serviceStart || "N/A");
+        submitData.append("service_end_date", formData.serviceEnd || "N/A");
+        submitData.append(
+          "service_dates",
+          formData.serviceStart
+            ? `${formData.serviceStart} to ${formData.serviceEnd}`
+            : "N/A",
+        );
+        submitData.append("discharge_type", formData.dischargeType || "N/A");
+
         // File uploads
         if (formData.dd214File) {
-          submitData.append('dd214', formData.dd214File);
+          submitData.append("dd214", formData.dd214File);
         }
         if (formData.serviceTreatmentRecords) {
-          submitData.append('service_treatment_records', formData.serviceTreatmentRecords);
+          submitData.append(
+            "service_treatment_records",
+            formData.serviceTreatmentRecords,
+          );
         }
         if (formData.vaBlueButtonReport) {
-          submitData.append('va_blue_button_report', formData.vaBlueButtonReport);
+          submitData.append(
+            "va_blue_button_report",
+            formData.vaBlueButtonReport,
+          );
         }
         if (formData.privateMedicalRecords) {
-          submitData.append('private_medical_records', formData.privateMedicalRecords);
+          submitData.append(
+            "private_medical_records",
+            formData.privateMedicalRecords,
+          );
         }
         if (formData.priorDbqNexusLetter) {
-          submitData.append('prior_dbq_nexus_letter', formData.priorDbqNexusLetter);
+          submitData.append(
+            "prior_dbq_nexus_letter",
+            formData.priorDbqNexusLetter,
+          );
         }
-        
+
         // VA Disability Info
-        submitData.append('va_claim_status', formData.claimStatus || 'N/A');
-        submitData.append('va_file_number', formData.vaFileNumber || 'N/A');
-        submitData.append('disability_rating', formData.disabilityRating || 'N/A');
-        submitData.append('evaluation_type', formData.evaluationType || 'N/A');
-        submitData.append('conditions_claimed', formData.conditionsClaimed || 'N/A');
-        submitData.append('existing_diagnosis', formData.existingDiagnosis || 'N/A');
-        submitData.append('medical_conditions', formData.medicalConditions || 'N/A');
-        submitData.append('current_symptoms', formData.currentSymptoms || 'N/A');
-        submitData.append('current_medications', formData.currentMedications || 'N/A');
-        submitData.append('prior_treatment_history', formData.priorTreatmentHistory || 'N/A');
-        
+        submitData.append("va_claim_status", formData.claimStatus || "N/A");
+        submitData.append("va_file_number", formData.vaFileNumber || "N/A");
+        submitData.append(
+          "disability_rating",
+          formData.disabilityRating || "N/A",
+        );
+        submitData.append("evaluation_type", formData.evaluationType || "N/A");
+        submitData.append(
+          "conditions_claimed",
+          formData.conditionsClaimed || "N/A",
+        );
+        submitData.append(
+          "existing_diagnosis",
+          formData.existingDiagnosis || "N/A",
+        );
+        submitData.append(
+          "medical_conditions",
+          formData.medicalConditions || "N/A",
+        );
+        submitData.append(
+          "current_symptoms",
+          formData.currentSymptoms || "N/A",
+        );
+        submitData.append(
+          "current_medications",
+          formData.currentMedications || "N/A",
+        );
+        submitData.append(
+          "prior_treatment_history",
+          formData.priorTreatmentHistory || "N/A",
+        );
+
         // Financial Hardship
-        submitData.append('hardship_statement', formData.hardshipStatement || 'N/A');
-        
+        submitData.append(
+          "hardship_statement",
+          formData.hardshipStatement || "N/A",
+        );
+
         // Certification
-        submitData.append('certifications', formData.certifications.join('; '));
-        submitData.append('digital_signature', formData.signature || 'N/A');
-        submitData.append('signature_date', formData.signatureDate || 'N/A');
+        submitData.append("certifications", formData.certifications.join("; "));
+        submitData.append("digital_signature", formData.signature || "N/A");
+        submitData.append("signature_date", formData.signatureDate || "N/A");
       } else {
         // Non-V-MEAF forms (scholarship, emergency) - simpler data
-        submitData.append('additional_info', formData.hardshipStatement || 'N/A');
+        submitData.append(
+          "additional_info",
+          formData.hardshipStatement || "N/A",
+        );
       }
-      
+
       // Add submission timestamp
-      submitData.append('submission_date', new Date().toLocaleString());
+      submitData.append("submission_date", new Date().toLocaleString());
 
       // Submit to PHP endpoint
       // Note: Do NOT set Content-Type header manually - browser will set it with boundary for multipart/form-data
-      const response = await fetch('/api/ingest.php', {
-        method: 'POST',
+      const response = await fetch("/api/ingest.php", {
+        method: "POST",
         body: submitData,
       });
 
@@ -314,7 +361,10 @@ const ApplicationModal = ({ isOpen, onClose, programType }) => {
         setSubmitStatus("success");
       } else {
         // Even if email fails, the form was received
-        console.warn("Form submitted but email may have failed:", result.message);
+        console.warn(
+          "Form submitted but email may have failed:",
+          result.message,
+        );
         setSubmitStatus("success");
       }
     } catch (error) {
@@ -390,7 +440,6 @@ const ApplicationModal = ({ isOpen, onClose, programType }) => {
           type="file"
           accept=".pdf,.jpg,.jpeg,.png"
           onChange={(e) => handleFileChange(e, fieldName, fileNameKey)}
-          required={required}
           className="hidden"
         />
         <div
