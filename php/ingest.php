@@ -46,11 +46,19 @@ $RECIPIENT_EMAIL = 'joe@all4vets.us';
 $FROM_EMAIL = 'noreply@all4vets.us';
 $SITE_NAME = 'All4Vets';
 $UPLOAD_DIR = __DIR__ . '/uploads/';
+$DATA_DIR = __DIR__ . '/data/';
+$SUBMISSIONS_FILE = $DATA_DIR . 'submissions.jsonl';
 
-// Ensure uploads directory exists
+// Ensure directories exist
 if (!is_dir($UPLOAD_DIR)) {
     mkdir($UPLOAD_DIR, 0755, true);
 }
+if (!is_dir($DATA_DIR)) {
+    mkdir($DATA_DIR, 0755, true);
+}
+
+// Generate unique submission ID
+$submission_id = uniqid('sub_', true);
 
 // Get form_id
 $form_id = isset($_POST['form_id']) ? sanitize($_POST['form_id']) : 'unknown';
@@ -59,6 +67,7 @@ $form_id = isset($_POST['form_id']) ? sanitize($_POST['form_id']) : 'unknown';
 $visitor_ip = $_SERVER['REMOTE_ADDR'] ?? 'Unknown';
 $user_agent = $_SERVER['HTTP_USER_AGENT'] ?? 'Unknown';
 $timestamp = date('Y-m-d H:i:s T');
+$timestamp_iso = date('c'); // ISO 8601 format for JSON
 
 // Collect all POST fields (sanitized)
 $fields = [];
@@ -91,7 +100,7 @@ if (!empty($_FILES)) {
                         'tmp_name' => $fileData['tmp_name'][$i],
                         'error' => $fileData['error'][$i],
                         'size' => $fileData['size'][$i]
-                    ], $fieldName, $UPLOAD_DIR);
+                    ], $fieldName, $UPLOAD_DIR, $submission_id);
                     
                     if ($result['success']) {
                         $savedFiles[] = [
@@ -108,7 +117,7 @@ if (!empty($_FILES)) {
         } else {
             // Single file
             if ($fileData['error'] === UPLOAD_ERR_OK) {
-                $result = handleFileUpload($fileData, $fieldName, $UPLOAD_DIR);
+                $result = handleFileUpload($fileData, $fieldName, $UPLOAD_DIR, $submission_id);
                 
                 if ($result['success']) {
                     $savedFiles[] = [
@@ -127,7 +136,7 @@ if (!empty($_FILES)) {
 
 // Build email content
 $emailSubject = getEmailSubject($form_id);
-$emailBody = buildEmailBody($form_id, $fields, $savedFiles, $visitor_ip, $user_agent, $timestamp);
+$emailBody = buildEmailBody($form_id, $fields, $savedFiles, $visitor_ip, $user_agent, $timestamp, $submission_id);
 
 // Get reply-to email if provided
 $replyTo = null;
@@ -140,9 +149,25 @@ if (isset($fields['email']) && filter_var($fields['email'], FILTER_VALIDATE_EMAI
 // Send email
 $emailSent = sendEmail($RECIPIENT_EMAIL, $emailSubject, $emailBody, $FROM_EMAIL, $replyTo);
 
+// Save submission to JSONL file
+$submissionRecord = [
+    'id' => $submission_id,
+    'form_id' => $form_id,
+    'timestamp' => $timestamp_iso,
+    'ip' => $visitor_ip,
+    'user_agent' => $user_agent,
+    'fields' => $fields,
+    'files' => $savedFiles,
+    'email_sent' => $emailSent,
+    'status' => 'new'
+];
+
+$saved = saveSubmission($SUBMISSIONS_FILE, $submissionRecord);
+
 // Return response
 $response = [
-    'success' => $emailSent,
+    'success' => true,
+    'submission_id' => $submission_id,
     'form_id' => $form_id,
     'filesSaved' => array_map(function($f) { return $f['saved_name']; }, $savedFiles),
     'message' => $emailSent 
@@ -173,9 +198,17 @@ function sanitize($input) {
 }
 
 /**
+ * Save submission to JSONL file
+ */
+function saveSubmission($file, $data) {
+    $jsonLine = json_encode($data, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . "\n";
+    return file_put_contents($file, $jsonLine, FILE_APPEND | LOCK_EX) !== false;
+}
+
+/**
  * Handle individual file upload
  */
-function handleFileUpload($file, $fieldName, $uploadDir) {
+function handleFileUpload($file, $fieldName, $uploadDir, $submissionId) {
     // Allowed file types
     $allowedTypes = [
         'application/pdf',
@@ -223,13 +256,13 @@ function handleFileUpload($file, $fieldName, $uploadDir) {
         ];
     }
     
-    // Generate safe filename
+    // Generate safe filename with submission ID for traceability
     $timestamp = date('Ymd_His');
     $randomSuffix = bin2hex(random_bytes(4));
     $safeOriginalName = preg_replace('/[^a-zA-Z0-9_\-\.]/', '_', $originalName);
     $safeOriginalName = substr($safeOriginalName, 0, 50); // Limit length
     
-    $newFilename = "{$fieldName}_{$timestamp}_{$randomSuffix}_{$safeOriginalName}";
+    $newFilename = "{$submissionId}_{$fieldName}_{$timestamp}_{$randomSuffix}_{$safeOriginalName}";
     $destination = $uploadDir . $newFilename;
     
     // Move uploaded file
@@ -266,7 +299,7 @@ function getEmailSubject($form_id) {
 /**
  * Build email body
  */
-function buildEmailBody($form_id, $fields, $savedFiles, $ip, $userAgent, $timestamp) {
+function buildEmailBody($form_id, $fields, $savedFiles, $ip, $userAgent, $timestamp, $submissionId) {
     $formNames = [
         'vmeaf' => 'Veterans Medical Evidence Assistance Fund (V-MEAF) Application',
         'scholarship' => 'Scholarship & Education Grant Application',
@@ -282,11 +315,14 @@ function buildEmailBody($form_id, $fields, $savedFiles, $ip, $userAgent, $timest
     $body .= "NEW FORM SUBMISSION - ALL4VETS\n";
     $body .= "============================================\n\n";
     
+    $body .= "SUBMISSION ID: {$submissionId}\n";
     $body .= "FORM TYPE: {$formName}\n";
     $body .= "FORM ID: {$form_id}\n";
     $body .= "SUBMITTED: {$timestamp}\n";
     $body .= "VISITOR IP: {$ip}\n";
     $body .= "USER AGENT: {$userAgent}\n\n";
+    
+    $body .= "VIEW IN DASHBOARD: /api/admin/submissions.php\n\n";
     
     $body .= "--------------------------------------------\n";
     $body .= "SUBMITTED DATA\n";

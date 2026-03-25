@@ -1,0 +1,2 @@
+# This file ensures the data directory is tracked by git
+# The submissions.jsonl file will be created automatically when forms are submitted

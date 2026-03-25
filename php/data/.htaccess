@@ -1,0 +1,8 @@
+# Deny all direct access to the data directory
+# This prevents anyone from downloading the submissions.jsonl file directly
+
+Order Deny,Allow
+Deny from all
+
+# Disable directory listing
+Options -Indexes
